@@ -1,0 +1,87 @@
+#{extends 'internalMain.html' /}
+#{set title:'Home' /}
+
+
+
+#{get 'moreStyles' /}
+        <script src="@{'/public/javascripts/consultor.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/jquery.maskedinput.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        
+#{get 'moreScripts' /}
+
+<a href="#myModal" role="button" class="addButton btn btn-primary" data-toggle="modal">Novo Cliente</a>
+<div class= "tableDiv ">
+
+ <div class= "clear">
+ <table class= "table table-hover table-bordered ">
+      <thead>
+                 <tr>
+                   <th>Nome</th>
+                   <th>CPF</th>
+                   <th>E-mail</th>
+                   <th>Telefone</th>
+                   <th>Processo</th>
+                   <th>Editar</th>
+                   <th>Excluir</th>
+                 </tr>
+         </thead>
+             <tbody>
+
+             #{list items:clientes, as:'cliente'}
+                <tr>
+                   <td>${cliente.usuario.nome}</td>
+                   <td>${cliente.usuario.cpf}</td>
+                   <td>${cliente.usuario.email}</td>
+                   <td>${cliente.usuario.telefone}</td>
+                   <td><a href="@{Processo.carrega(cliente.id)}">Processo</a></td>
+                   <td><a href="#myModal" data-toggle="modal">Editar</a></td>
+                   <td><a href="">Excluir</a></td>
+                 </tr>
+              #{/list}
+
+ </table>
+ </div>
+ <div class= "tablePagination pagination ">
+  <ul>
+    <li><a href= "# ">Prev</a></li>
+    <li><a href= "# ">1</a></li>
+    <li><a href= "# ">2</a></li>
+    <li><a href= "# ">3</a></li>
+    <li><a href= "# ">Next</a></li>
+  </ul>
+ </div>
+ </div>
+
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Novo Cliente</h3>
+  </div>
+  <div class="modal-body">
+   #{form @Cliente.incluir() }
+  <fieldset>
+    <input type="text" id="nome" name="nome" placeholder="Nome" value="${nome}">
+	<br/>
+    <input type="text" id="cpf" name="cpf" placeholder="CPF" value="${cpf}">
+	<br/>
+    <input type="text" placeholder="E-mail" id="email" name="email" value="${email}">
+	<br/>
+    <input type="text" placeholder="Telefone" id="telefone" name="telefone">
+	<br/>
+  </fieldset>
+ 
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </div>
+#{/form}
+
+</div>
+
+
+

@@ -1,0 +1,67 @@
+
+
+.content{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.tableDiv 
+{
+	
+	margin-top: 5%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.clear
+{
+	margin-top: 1em;
+	margin-botton: 1em;
+}
+
+.addButton
+{
+	float: right;
+}
+
+.tablePagination
+{
+	
+	float: right;
+}
+
+#salvarProcessoBtn{
+	float: right;
+}
+
+#textAreaInput{
+	height: 10em;
+	width: 99%;
+}
+
+#topHero{
+	height: 4em;
+}
+
+.cardapioTable
+{
+	float:right;	
+}
+
+.cardapioForm
+{
+	float: left;
+}
+
+.groupForm
+{
+	border: solid red 1;
+	height: 100px;
+	float: right;	
+}
+
+.dadosClientes
+{
+	
+}
