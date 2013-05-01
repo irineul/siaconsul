@@ -1,0 +1,135 @@
+#{extends 'internalMain.html' /}
+#{set title:'Simulação de revisional' /}
+
+
+<div class= "tableDiv ">
+
+	<p> <strong> Tipo de Cliente </strong </p>
+ 	<div class="btn-group" i" data-toggle-name="tipo_pessoa" data-toggle="buttons-radio" >
+  		<button type="radio" name="tpPessoa" value="F" class="btn" data-toggle="button">Físico</button>
+  		<button type="radio" name="tpPessoa" value="J" class="btn" data-toggle="button">Jurídico</button>
+	</div>
+	
+ 	<div class= "clear"/>
+ 	<div id="tipoFinanciamentoFisica">
+		<p> <strong> Tipo de Financiamento </strong </p>
+	 	<div class="btn-group" data-toggle-name="tipo_financiamento" data-toggle="buttons-radio" >
+	  		<button type="button" value="V" class="btn" data-toggle="button">Veículo</button>
+	  		<button type="button" value="C" class="btn" data-toggle="button">Cheque Especial</button>
+	  		<button type="button" value="P" class="btn" data-toggle="button">Crédito Pessoal</button>
+	  		<button type="button" value="O" class="btn" data-toggle="button">Outros</button>
+		</div>	
+	</div>
+	
+	<div class= "clear"/>
+	
+	<p> <strong> Valor Financiado </strong </p>
+	<br />
+    <input type="text" id="vlrFinanciado" name="vlrFinanciado" >
+	<br/>
+	
+	<p> <strong> Valor atual da parcela </strong </p>
+	<br />	 
+    <input type="text" id="vlrParcelaAtual" name="vlrParcelaAtual">
+	<br/>
+	
+	<p> <strong> Quantidade de parcelas - TOTAL</strong </p>
+	<br />
+    <input type="text" id="qtdParcelas" name="qtdParcelas" data-mask="999999">
+	<br/>
+
+	<p> <strong> Quantidade de parcelas - PAGAS</strong </p>
+	<br />
+    <input type="text" id="qtdParcelasPagas" name="qtdParcelasPagas" data-mask="999999">
+	<br/>	 
+	
+	<div class= "clear"/>
+	<label class="checkbox">
+      <input type="checkbox" onClick="apresentaDivMes();"> Cliente sabe o mês do financiamento
+    </label>	 	 
+    
+    <div class= "clear"/>
+	<div id="mesFinanciamento">
+		  <div class="input-append date" id="dpMonths" data-date="102/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+			<input class="span2" size="16" type="text" value="02/2012" readonly="">
+			<span class="add-on"><i class="icon-calendar"></i></span>
+		  </div>
+    </div>
+         
+    <div class= "clear"/>
+	<div id="divCalculos">
+	
+		<span class="label label-important">Taxa de Juros Atual</span>
+		<br />
+		<input type="text" id="txtCalcVlrJurosAtual" name="calcVlrJurosAtual" disabled="disabled">
+		
+		<div class= "clear"/>
+		
+		<span class="label label-success">Nova Taxas de Juros</span>
+		<br />
+		<input type="text" id="txtCalcVlrJurosNovo" name="calcVlrJurosNovo" disabled="disabled">
+		<div class= "clear"/>
+				
+		<span class="label label-important">Valor Pago Indevido</span>
+		<br />
+		<input type="text" id="txtCalcVlrPagoIndevido" name="txtCalcVlrPagoIndevido" disabled="disabled">
+		<div class= "clear"/>
+		
+		<span class="label label-success">Valor de Nova Parcela</span>
+		<br />
+		<input type="text" id="txtCalcVlrNovaParcela" name="txtCalcVlrNovaParcela" disabled="disabled">
+		<div class= "clear"/>	
+		
+    </div>    
+    
+    <div class= "clear"/>
+    <role="button" class="addButton btn btn-primary" data-toggle="modal" onClick="calcular()">Calcular</a>    
+</div>
+
+<script type="text/javascript">
+
+$(function(){
+	$('#dpMonths').datepicker()
+	.on('changeDate', function(ev){
+		dataFinanciamento = ev.date;
+  });
+});
+
+$(document).ready(function(){
+	
+	var dataFinanciamento = new Date();
+	$("#mesFinanciamento").hide();
+	//$("#divCalculos").hide();
+	
+	// Configuração para campos de Real.
+	$("#vlrFinanciado").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	$("#vlrParcelaAtual").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	
+});
+
+function calcular(){
+	var listAction = #{jsRoute @Simulador.calcular(':vlrFinanciado', ':vlrParcelaAtual', ':qtdParcelas', ':qtdParcelasPagas', ':dataFinanciamento', ':tpPessoa', ':tpFinanciamento') /} 
+  	$.ajax({
+      url: listAction.url({vlrFinanciado: $("#vlrFinanciado").val().replace(".","").replace(",","."), vlrParcelaAtual: $("#vlrParcelaAtual").val().replace(".","").replace(",","."), qtdParcelas: $("#qtdParcelas").val(), qtdParcelasPagas: $("#qtdParcelasPagas").val(), dataFinanciamento: dataFinanciamento, tpPessoa: "F", tpFinanciamento: "V"}),
+      type: listAction.method,
+      dataType: 'json',
+      success : function(data) {
+                $("#txtCalcVlrNovaParcela").val(data.vlrNovaParcela);
+                $("#txtCalcVlrJurosNovo").val(data.vlrJurosNovo);
+                $("#txtCalcVlrPagoIndevido").val(data.vlrPagoIndevido);
+                $("#txtCalcVlrJurosAtual").val(data.vlrJurosAntigo);
+          }
+    });
+}
+
+function apresentaDivMes(){
+	if($("#mesFinanciamento").is(':visible'))
+	{
+		$("#mesFinanciamento").hide();
+	}
+	else
+	{
+		$("#mesFinanciamento").show();
+	}
+}
+</script>

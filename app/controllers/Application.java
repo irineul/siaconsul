@@ -96,6 +96,13 @@ public class Application extends Controller {
     	cli.salvaCliente(u, c);
     	u.save();
     	
-    	
     }
+    
+    public static void criaTaxaFisicaModelTeste() {
+    	TaxaFisicaModel t = new TaxaFisicaModel();
+    	t.setAno(2011);
+    	t.setMes(2);
+    	t.setVlrVeiculo(2.28);
+    	t.save();
+    }    
 }
