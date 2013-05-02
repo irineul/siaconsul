@@ -6,22 +6,35 @@
 
 	<p> <strong> Tipo de Cliente </strong </p>
  	<div class="btn-group" i" data-toggle-name="tipo_pessoa" data-toggle="buttons-radio" >
-  		<button type="radio" name="tpPessoa" value="F" class="btn" data-toggle="button">Físico</button>
-  		<button type="radio" name="tpPessoa" value="J" class="btn" data-toggle="button">Jurídico</button>
+  		<button type="radio" name="tpPessoa" value="F" onClick="apresentaDivTipoFincto(this.value);" class="btn active" data-toggle="button">Físico</button>
+  		<button type="radio" name="tpPessoa" value="J" onClick="apresentaDivTipoFincto(this.value);" class="btn" data-toggle="button">Jurídico</button>
 	</div>
 	
- 	<div class= "clear"/>
+ 	<div class= "clear"> </div>
+ 	<p> <strong> Tipo de Financiamento </strong </p>
  	<div id="tipoFinanciamentoFisica">
-		<p> <strong> Tipo de Financiamento </strong </p>
-	 	<div class="btn-group" data-toggle-name="tipo_financiamento" data-toggle="buttons-radio" >
-	  		<button type="button" value="V" class="btn" data-toggle="button">Veículo</button>
+	 	<div class="btn-group" data-toggle-name="tipo_financiamento_fisica" data-toggle="buttons-radio" >
+	  		<button type="button" value="V" class="btn active" data-toggle="button">Veículo</button>
 	  		<button type="button" value="C" class="btn" data-toggle="button">Cheque Especial</button>
 	  		<button type="button" value="P" class="btn" data-toggle="button">Crédito Pessoal</button>
+	  		<button type="button" value="I" class="btn" data-toggle="button">Crédito Imobiliário</button>
 	  		<button type="button" value="O" class="btn" data-toggle="button">Outros</button>
 		</div>	
 	</div>
 	
-	<div class= "clear"/>
+ 	<div id="tipoFinanciamentoJuridica">
+	 	<div class="btn-group" data-toggle-name="tipo_financiamento_juridica" data-toggle="buttons-radio" >
+	  		<button type="button" value="G" class="btn active" data-toggle="button">Capital de Giro</button>
+	  		<button type="button" value="T" class="btn" data-toggle="button">Conta Garantida</button>
+	  		<button type="button" value="A" class="btn" data-toggle="button">Aquisição de Bens</button>
+	  		<button type="button" value="D" class="btn" data-toggle="button">Vendor</button>
+	  		<button type="button" value="H" class="btn" data-toggle="button">Hot Money</button>
+	  		<button type="button" value="L" class="btn" data-toggle="button">Desconto Duplic.</button>
+	  		<button type="button" value="S" class="btn" data-toggle="button">Desc. Promis.</button>
+		</div>	
+	</div>	
+	
+	<div class= "clear"> </div>
 	
 	<p> <strong> Valor Financiado </strong </p>
 	<br />
@@ -43,12 +56,12 @@
     <input type="text" id="qtdParcelasPagas" name="qtdParcelasPagas" data-mask="999999">
 	<br/>	 
 	
-	<div class= "clear"/>
+	<div class= "clear"> </div>
 	<label class="checkbox">
       <input type="checkbox" onClick="apresentaDivMes();"> Cliente sabe o mês do financiamento
     </label>	 	 
     
-    <div class= "clear"/>
+    <div class= "clear"> </div>
 	<div id="mesFinanciamento">
 		  <div class="input-append date" id="dpMonths" data-date="102/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
 			<input class="span2" size="16" type="text" value="02/2012" readonly="">
@@ -56,7 +69,13 @@
 		  </div>
     </div>
          
-    <div class= "clear"/>
+    
+    <div class= "clear"> </div>
+    <div>
+    	<role="button" class="addButton btn btn-primary" data-toggle="modal" onClick="calcular()">Calcular</a>
+    </div>
+             
+    <div class= "clear"> </div>
 	<div id="divCalculos">
 	
 		<span class="label label-important">Taxa de Juros Atual</span>
@@ -81,9 +100,7 @@
 		<div class= "clear"/>	
 		
     </div>    
-    
-    <div class= "clear"/>
-    <role="button" class="addButton btn btn-primary" data-toggle="modal" onClick="calcular()">Calcular</a>    
+        
 </div>
 
 <script type="text/javascript">
@@ -99,7 +116,12 @@ $(document).ready(function(){
 	
 	var dataFinanciamento = new Date();
 	$("#mesFinanciamento").hide();
-	//$("#divCalculos").hide();
+	
+	//Default = PF
+	$("#tipoFinanciamentoFisica").show();
+	$("#tipoFinanciamentoJuridica").hide();
+	
+	$("#divCalculos").hide();
 	
 	// Configuração para campos de Real.
 	$("#vlrFinanciado").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
@@ -118,6 +140,8 @@ function calcular(){
                 $("#txtCalcVlrJurosNovo").val(data.vlrJurosNovo);
                 $("#txtCalcVlrPagoIndevido").val(data.vlrPagoIndevido);
                 $("#txtCalcVlrJurosAtual").val(data.vlrJurosAntigo);
+           
+           		$("#divCalculos").show();     
           }
     });
 }
@@ -130,6 +154,19 @@ function apresentaDivMes(){
 	else
 	{
 		$("#mesFinanciamento").show();
+	}
+}
+
+function apresentaDivTipoFincto(tipoPessoa){
+	if(tipoPessoa != ""){
+		if(tipoPessoa == "F"){
+			$("#tipoFinanciamentoFisica").show();
+			$("#tipoFinanciamentoJuridica").hide();
+		}
+		else{
+			$("#tipoFinanciamentoJuridica").show();
+			$("#tipoFinanciamentoFisica").hide();
+		}
 	}
 }
 </script>
