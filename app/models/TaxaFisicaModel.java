@@ -13,9 +13,6 @@ import play.db.jpa.Model;
 @Table(name = "TAXA_FISICA")
 public class TaxaFisicaModel extends Model{
 	
-	@Column(name="ID")
-	private long id;
-	
 	@Column(name="ANO")
 	private int ano;
 	
@@ -36,11 +33,7 @@ public class TaxaFisicaModel extends Model{
 	
 	@Column(name="VLR_TOTAL")
 	private double vlrTotal;
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
+	
 	public static TaxaFisicaModel getTaxaByMesAno (int ano, int mes) {
 		List<TaxaFisicaModel> list = TaxaFisicaModel.find("ano = ? AND mes = ?",ano, mes).fetch();
 		if(list.size() > 0)
