@@ -32,18 +32,8 @@ public class Simulador extends Controller {
     	double vlrJuros=0;
     	
     	/* Converte a data passada por parâmetro */
-    	/*String dataFormatada = dataFinanciamento.replace(" 00:00:00 GMT-0300 (BRT)", "");
-        DateFormat df = new SimpleDateFormat("EEE MMM dd yyyy");
-        Date d1=null;
-        try {
-            d1 = df.parse(dataFormatada);
-        } catch (ParseException e) {    			
-            System.out.println(e.getMessage());
-        } */
-    	
-    	//DateTime dataFinanc = DateTime.parse(dataFinanciamento);
-    	int mes = 2;
-    	int ano = 2011;
+    	int mes = getMes(dataFinanciamento.substring(4, 7));
+    	int ano = Integer.parseInt(dataFinanciamento.substring(11,15));
     	
     	/* Busco a taxa para o mês e ano informados */
     	/* Pessoa Física */
@@ -92,8 +82,7 @@ public class Simulador extends Controller {
     	c.setVlrJurosNovo(twoDForm.format(vlrJuros*100) + " %");
     	
     	//TODO buscar valor de juros antigos
-    	//c.setVlrJurosAntigo(String.valueOf(mes));
-    	c.setVlrJurosAntigo("5,40 %");
+    	c.setVlrJurosAntigo("4,48 %");
     	//c.setVlrJurosAntigo(dataFormatada);
     	c.setVlrPagoIndevido("R$ " + twoDForm.format(vlrIndevidoTotal));
     	
@@ -125,6 +114,47 @@ public class Simulador extends Controller {
 	public static double abateValorParcelas(double vlrIndevido, double vlrNovaParcela, int qtdParcelasVicendas){
 		return vlrNovaParcela - (vlrIndevido/qtdParcelasVicendas);
 		
+	}
+	
+	/* Busca o inteiro equivalente ao mês passado por parâmetro */
+	private static int getMes(String mes){
+		if(mes.toUpperCase().equals("JAN")){
+			return 1;
+		}
+		else if(mes.toUpperCase().equals("FEB")){
+			return 2;
+		}		
+		else if(mes.toUpperCase().equals("MAR")){
+			return 3;
+		}		
+		else if(mes.toUpperCase().equals("APR")){
+			return 4;
+		}		
+		else if(mes.toUpperCase().equals("MAY")){
+			return 5;
+		}		
+		else if(mes.toUpperCase().equals("JUN")){
+			return 6;
+		}		
+		else if(mes.toUpperCase().equals("JUL")){
+			return 7;
+		}		
+		else if(mes.toUpperCase().equals("AUG")){
+			return 8;
+		}		
+		else if(mes.toUpperCase().equals("SEP")){
+			return 9;
+		}		
+		else if(mes.toUpperCase().equals("OCT")){
+			return 10;
+		}		
+		else if(mes.toUpperCase().equals("NOV")){
+			return 11;
+		}		
+		else if(mes.toUpperCase().equals("DEC")){
+			return 12;
+		}
+		return 0;
 	}
     
 }
