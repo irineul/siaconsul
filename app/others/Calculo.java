@@ -1,4 +1,4 @@
-package objects;
+package others;
 
 public class Calculo{
 

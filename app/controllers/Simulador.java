@@ -1,28 +1,34 @@
 package controllers;
 
-import play.*;
 import play.data.validation.Required;
 import play.mvc.*;
 
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.*;
 
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.DateTimeParser;
+import others.Calculo;
+import others.Util;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
-import objects.Calculo;
 
 import models.*;
 
 
 public class Simulador extends Controller {
 
+    /** 
+     * Locale Brasileiro 
+     */  
+    private static final Locale BRAZIL = new Locale("pt","BR");  
+    /** 
+     * Símbolos especificos do Real Brasileiro 
+     */  
+    private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);  
+    /** 
+     * Mascara de dinheiro para Real Brasileiro 
+     */  
+    public static final DecimalFormat DINHEIRO_REAL = new DecimalFormat("¤ ###,###,##0.00",REAL);
+	
 	public static void index(){
 		render();
 	}
@@ -34,7 +40,7 @@ public class Simulador extends Controller {
 		/* Converte a data passada por parâmetro */
 		int mes = 0, ano =0;
 		if(dataFinanciamento != null && !dataFinanciamento.isEmpty()){
-			mes = getMes(dataFinanciamento.substring(4, 7));
+			mes = Util.getMesInt(dataFinanciamento.substring(4, 7));
 			ano = Integer.parseInt(dataFinanciamento.substring(11,15));
 		}
 
@@ -92,13 +98,13 @@ public class Simulador extends Controller {
 
 		/* Seto os valores para apresentação na tela */
 		/* ***************************************** */
-		Calculo c = new Calculo();
+		Calculo c = new Calculo(); 
 		DecimalFormat twoDForm = new DecimalFormat("#########.##");
 
-		c.setVlrNovaParcela("R$ " + twoDForm.format(vlrFinalParcela));
+		c.setVlrNovaParcela(mascaraDinheiro(vlrFinalParcela, DINHEIRO_REAL));
 		c.setVlrJurosNovo(twoDForm.format(vlrNovoJuros) + "%");
 		c.setVlrJurosAntigo(twoDForm.format(vlrOldJuros) + "%");
-		c.setVlrPagoIndevido("R$ " + twoDForm.format(vlrIndevidoTotal));
+		c.setVlrPagoIndevido(mascaraDinheiro(vlrIndevidoTotal, DINHEIRO_REAL));
 		/* ***************************************** */
 
 		renderJSON(c);
@@ -131,47 +137,6 @@ public class Simulador extends Controller {
 
 	}
 
-	/* Busca o inteiro equivalente ao mês passado por parâmetro */
-	private static int getMes(String mes){
-		if(mes.toUpperCase().equals("JAN")){
-			return 1;
-		}
-		else if(mes.toUpperCase().equals("FEB")){
-			return 2;
-		}		
-		else if(mes.toUpperCase().equals("MAR")){
-			return 3;
-		}		
-		else if(mes.toUpperCase().equals("APR")){
-			return 4;
-		}		
-		else if(mes.toUpperCase().equals("MAY")){
-			return 5;
-		}		
-		else if(mes.toUpperCase().equals("JUN")){
-			return 6;
-		}		
-		else if(mes.toUpperCase().equals("JUL")){
-			return 7;
-		}		
-		else if(mes.toUpperCase().equals("AUG")){
-			return 8;
-		}		
-		else if(mes.toUpperCase().equals("SEP")){
-			return 9;
-		}		
-		else if(mes.toUpperCase().equals("OCT")){
-			return 10;
-		}		
-		else if(mes.toUpperCase().equals("NOV")){
-			return 11;
-		}		
-		else if(mes.toUpperCase().equals("DEC")){
-			return 12;
-		}
-		return 0;
-	}
-
 	/* Cálculo de % juros total */
 	private static double calculaJurosTotal(double vlrParcela, int qtdVezes, double vlrFinanciado){
 		double vlrTotalNovo = vlrParcela * qtdVezes;
@@ -179,5 +144,10 @@ public class Simulador extends Controller {
 		/* Aplico regra de três */
 		return ((vlrTotalNovo*100)/vlrFinanciado) - 100;
 	}
+	
+	/* Mascara o dinheiro passado por parâmetro */
+    private static String mascaraDinheiro(double valor, DecimalFormat moeda){  
+        return moeda.format(valor);  
+    }  	
 
 }

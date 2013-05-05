@@ -1,12 +1,10 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 @Entity
@@ -26,7 +24,7 @@ public class TaxaModel extends Model{
 	private int idValorRevisional;
 	
 	public ValorRevisionalModel getRevisional() {
-		return ValorRevisionalModel.findById(this.idValorRevisional);
+		return GenericModel.findById(this.idValorRevisional);
 	}
 
 	public long getValor() {

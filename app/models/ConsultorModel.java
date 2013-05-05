@@ -2,15 +2,11 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 @Entity
@@ -25,7 +21,7 @@ public class ConsultorModel extends Model{
     private Long idUsuario;
 	
 	public AdvogadoModel getAdvogado() {
-		return AdvogadoModel.findById(this.idAdvogado);
+		return GenericModel.findById(this.idAdvogado);
 	}
 	
 	public void salvaConsultor(UsuarioModel u, AdvogadoModel adv) {
@@ -36,12 +32,12 @@ public class ConsultorModel extends Model{
 	}
 	
 	public ArrayList<ClienteModel> getClientes () {
-		List<ClienteModel> list = ClienteModel.find("idConsultor = ?",this.id).fetch();
+		List<ClienteModel> list = GenericModel.find("idConsultor = ?",this.id).fetch();
 		return (ArrayList<ClienteModel>) list;
 	}
 	
 	public ArrayList<UsuarioModel> getUsuario () {
-		List<UsuarioModel> list = UsuarioModel.find("idUsuario = ?",this.id).fetch();
+		List<UsuarioModel> list = GenericModel.find("idUsuario = ?",this.id).fetch();
 		return (ArrayList<UsuarioModel>) list;
 	}
 

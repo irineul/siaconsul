@@ -1,12 +1,12 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 @Entity
@@ -26,17 +26,17 @@ public class ValorRevisionalModel extends Model{
 	private int idProcesso;
 	
 	public List<ValorRevisionalParcelaModel> getParcelas () {
-		List<ValorRevisionalParcelaModel> result =  ValorRevisionalParcelaModel.find("idValorRevisional=?", this.id).fetch();
+		List<ValorRevisionalParcelaModel> result =  GenericModel.find("idValorRevisional=?", this.id).fetch();
 		return result;
 	}
 	
 	public List<TaxaModel> getTaxaUtilizada () {
-		List<TaxaModel> result =  TaxaModel.find("idValorRevisional=?", this.id).fetch();
+		List<TaxaModel> result =  GenericModel.find("idValorRevisional=?", this.id).fetch();
 		return result;
 	}
 	
 	public ProcessoModel getProcesso() {
-		return ProcessoModel.findById(this.idProcesso);
+		return GenericModel.findById(this.idProcesso);
 	}
 
 	public long getValorFinal() {

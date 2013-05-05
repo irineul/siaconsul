@@ -19,7 +19,8 @@
                    <th>Nome</th>
                    <th>CPF</th>
                    <th>E-mail</th>
-                   <th>Telefone</th>
+                   <th>Tel. Residencial</th>
+                   <th>Celular</th>
                    <th>Processo</th>
                    <th>Editar</th>
                    <th>Excluir</th>
@@ -30,9 +31,10 @@
              #{list items:clientes, as:'cliente'}
                 <tr>
                    <td>${cliente.usuario.nome}</td>
-                   <td>${cliente.usuario.cpf}</td>
+                   <td>${cliente.usuario.cpfCnpj}</td>
                    <td>${cliente.usuario.email}</td>
-                   <td>${cliente.usuario.telefone}</td>
+                   <td>${cliente.usuario.telResidencial}</td>
+                   <td>${cliente.usuario.celular}</td>
                    <td><a href="@{Processo.carrega(cliente.id)}">Processo</a></td>
                    <td><a href="#myModal" data-toggle="modal">Editar</a></td>
                    <td><a href="">Excluir</a></td>
@@ -64,14 +66,29 @@
   <div class="modal-body">
    #{form @Cliente.incluir() }
   <fieldset>
+  
+	<p> <strong> Tipo de Cliente </strong </p>
+ 	<div class="btn-group" id="tipo_pessoa" data-toggle-name="tipo_pessoa" data-toggle="buttons-radio" >
+  		<button type="radio" name="tpPessoa" value="F" onClick="modificaMascara(this.value)" class="btn active" data-toggle="button">Físico</button>
+  		<button type="radio" name="tpPessoa" value="J" onClick="modificaMascara(this.value)" class="btn" data-toggle="button">Jurídico</button>
+	</div>
+	<div class= "clear"> </div>
+		  
     <input type="text" id="nome" name="nome" placeholder="Nome" value="${nome}">
 	<br/>
-    <input type="text" id="cpf" name="cpf" placeholder="CPF" value="${cpf}">
-	<br/>
+    <input type="text" placeholder="Endereço" id="endereco" name="endereco" value="${endereco}">
+	<br/>	
     <input type="text" placeholder="E-mail" id="email" name="email" value="${email}">
 	<br/>
-    <input type="text" placeholder="Telefone" id="telefone" name="telefone">
+    <input type="text" placeholder="Telefone Residencial" id="telResidencial" name="telResidencial" value="${telResidencial}">
 	<br/>
+    <input type="text" placeholder="Celular" id="celular" name="celular" value="${celular}">
+	<br/>			
+	<input type="text" id="rg" name="rg" placeholder="RG" value="${rg}">
+	<br/>	
+    <input type="text" id="cpfCnpj" name="cpfCnpj" placeholder="CPF/CNPJ" value="${cpfCnpj}">
+	<br/>
+
   </fieldset>
  
   </div>

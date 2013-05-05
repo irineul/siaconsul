@@ -7,20 +7,19 @@ import java.util.List;
 import models.ClienteModel;
 import models.DocumentoModel;
 import models.ProcessoModel;
-import models.UsuarioModel;
-
+import play.db.jpa.GenericModel;
 import play.mvc.Controller;
 
 public class Processo extends Controller {
 
     
     public static void carrega(Long idCliente) {
-    	ClienteModel cliente =ClienteModel.findById(idCliente);
+    	ClienteModel cliente =GenericModel.findById(idCliente);
     	render(cliente);
     }
     
     public static void ver(Long idProcesso) {
-    	ProcessoModel processo = ProcessoModel.findById(idProcesso);
+    	ProcessoModel processo = GenericModel.findById(idProcesso);
     	processo.getDocumentosDoProcesso();
     	System.out.println(processo.getDescricao());
     	render(processo) ;

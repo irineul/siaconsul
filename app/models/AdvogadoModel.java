@@ -2,15 +2,11 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 @Entity
@@ -27,7 +23,7 @@ public class AdvogadoModel extends Model{
 	}
 
 	public ArrayList<UsuarioModel> getUsuario () {
-		List<UsuarioModel> list = UsuarioModel.find("idUsuario = ?",this.id).fetch();
+		List<UsuarioModel> list = GenericModel.find("idUsuario = ?",this.id).fetch();
 		return (ArrayList<UsuarioModel>) list;
 	}
 

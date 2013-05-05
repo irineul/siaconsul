@@ -5,7 +5,7 @@
 <div class= "tableDiv ">
 
 	<p> <strong> Tipo de Cliente </strong </p>
- 	<div class="btn-group" i" data-toggle-name="tipo_pessoa" data-toggle="buttons-radio" >
+ 	<div class="btn-group" id="tipo_pessoa" data-toggle-name="tipo_pessoa" data-toggle="buttons-radio" >
   		<button type="radio" name="tpPessoa" value="F" onClick="apresentaDivTipoFincto(this.value);" class="btn active" data-toggle="button">Físico</button>
   		<button type="radio" name="tpPessoa" value="J" onClick="apresentaDivTipoFincto(this.value);" class="btn" data-toggle="button">Jurídico</button>
 	</div>
@@ -13,7 +13,7 @@
  	<div class= "clear"> </div>
  	<p> <strong> Tipo de Financiamento </strong </p>
  	<div id="tipoFinanciamentoFisica">
-	 	<div class="btn-group" data-toggle-name="tipo_financiamento_fisica" data-toggle="buttons-radio" >
+	 	<div class="btn-group" id="tipo_financiamento_fisica" data-toggle-name="tipo_financiamento_fisica" data-toggle="buttons-radio" >
 	  		<button type="button" value="V" class="btn active" data-toggle="button">Veículo</button>
 	  		<button type="button" value="C" class="btn" data-toggle="button">Cheque Especial</button>
 	  		<button type="button" value="P" class="btn" data-toggle="button">Crédito Pessoal</button>
@@ -130,9 +130,22 @@ $(document).ready(function(){
 });
 
 function calcular(){
+	// Busco o tipo de pessoa selecionado
+	var tpPessoa = $('#tipo_pessoa > button.active').val();
+	var tpFinanciamento;
+	if(tpPessoa == "F"){
+		tpFinanciamento = $('#tipo_financiamento_fisica > button.active').val();
+	}
+	else{
+		tpFinanciamento = $('#tipo_financiamento_juridica > button.active').val();
+	}
+	
+	calcularAjax(tpPessoa, tpFinanciamento);
+}
+function calcularAjax(tpPessoa, tpFinanciamento){
 	var listAction = #{jsRoute @Simulador.calcular(':vlrFinanciado', ':vlrParcelaAtual', ':qtdParcelas', ':qtdParcelasPagas', ':dataFinanciamento', ':tpPessoa', ':tpFinanciamento') /} 
   	$.ajax({
-      url: listAction.url({vlrFinanciado: $("#vlrFinanciado").val().replace(".","").replace(",","."), vlrParcelaAtual: $("#vlrParcelaAtual").val().replace(".","").replace(",","."), qtdParcelas: $("#qtdParcelas").val(), qtdParcelasPagas: $("#qtdParcelasPagas").val(), dataFinanciamento: dataFinanciamento, tpPessoa: "F", tpFinanciamento: "V"}),
+      url: listAction.url({vlrFinanciado: $("#vlrFinanciado").val().replace(".","").replace(",","."), vlrParcelaAtual: $("#vlrParcelaAtual").val().replace(".","").replace(",","."), qtdParcelas: $("#qtdParcelas").val(), qtdParcelasPagas: $("#qtdParcelasPagas").val(), dataFinanciamento: dataFinanciamento, tpPessoa: tpPessoa, tpFinanciamento: tpFinanciamento}),
       type: listAction.method,
       dataType: 'json',
       success : function(data) {

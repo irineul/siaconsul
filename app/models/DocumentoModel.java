@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 @Entity
@@ -24,7 +25,7 @@ public class DocumentoModel extends Model{
 	private File file;
 	
 	public ClienteModel getProcesso() {
-		return ProcessoModel.findById(this.idProcesso);
+		return GenericModel.findById(this.idProcesso);
 	}
 
 	public GregorianCalendar getData() {

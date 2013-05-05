@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
 
 @Entity
@@ -31,19 +32,19 @@ public class ProcessoModel extends Model{
 	
 	public ClienteModel getCliente () {
 		if (this.cliente == null) {
-			this.cliente = ClienteModel.findById(this.idCliente);
+			this.cliente = GenericModel.findById(this.idCliente);
 		}
 		return this.cliente;
 	}
 	
 	public List<DocumentoModel> getDocumentosDoProcesso () {
-		List<DocumentoModel> list = DocumentoModel.find("idProcesso = ?",this.id).fetch();
+		List<DocumentoModel> list = GenericModel.find("idProcesso = ?",this.id).fetch();
 		documentos = list;
 		return documentos;
 	}
 	
 	public ArrayList<ValorRevisionalModel> getRevisionais () {
-		List<ValorRevisionalModel> list = DocumentoModel.find("idProcesso = ?",this.id).fetch();
+		List<ValorRevisionalModel> list = GenericModel.find("idProcesso = ?",this.id).fetch();
 		return (ArrayList<ValorRevisionalModel>) list;
 	}
 

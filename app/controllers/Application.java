@@ -1,13 +1,14 @@
 package controllers;
 
-import play.*;
+import play.db.jpa.GenericModel;
 import play.mvc.*;
 
 import java.util.*;
 
-import javax.mail.Session;
+import others.Util;
 
 import models.*;
+
 
 public class Application extends Controller {
 
@@ -19,6 +20,9 @@ public class Application extends Controller {
     	ConsultorModel consultor = Consultor.getConsultorLogado();
     	List<ClienteModel> clientes = new ArrayList<ClienteModel>();
     	for(ClienteModel cm : consultor.getClientes()) {
+    		if(cm.usuario.getCpfCnpj() != null && !cm.usuario.getCpfCnpj().isEmpty()){
+    			cm.usuario.setCpfCnpj(Util.formataCpfCnpj(cm.usuario.getCpfCnpj()));
+    		}
     		clientes.add(cm);
     	}
         render(clientes);
@@ -44,17 +48,17 @@ public class Application extends Controller {
 
     public static void login(String email, String senha) {
     	
-    	List<UsuarioModel> result = UsuarioModel.find("email = ? And senha = ?", email, senha).fetch();
+    	List<UsuarioModel> result = GenericModel.find("email = ? And senha = ?", email, senha).fetch();
 
     	if (result != null && result.size() > 0) {
     		UsuarioModel usuario = result.get(0);
-    		List<AdvogadoModel> advogado = AdvogadoModel.find("idUsuario=?", usuario.id).fetch();
+    		List<AdvogadoModel> advogado = GenericModel.find("idUsuario=?", usuario.id).fetch();
     		if (advogado != null && advogado.size() > 0) {
     			play.mvc.Scope.Session.current().put("idUsuario",advogado.get(0).id);
     			advogado();
     		}
     		
-    		List<ConsultorModel> consultor = ConsultorModel.find("idUsuario=?", usuario.id).fetch();
+    		List<ConsultorModel> consultor = GenericModel.find("idUsuario=?", usuario.id).fetch();
     		if (consultor != null && consultor.size() > 0) {
     			play.mvc.Scope.Session.current().put("idUsuario",consultor.get(0).id);
     			consultor();
@@ -67,11 +71,13 @@ public class Application extends Controller {
     
     public static void criaUsuarioTeste() {
     	UsuarioModel u = new UsuarioModel();
-    	u.setEmail("douglas@gmail.com");
-    	u.setNome("Douglas");
+    	u.setEmail("uauhahua@gmail.com");
+    	u.setNome("auhuahuaa");
     	u.setSenha("teste");
-    	u.setCpf("01942750005");
-    	u.setTelefone("82551557");
+    	u.setCpfCnpj("01942750005");
+    	u.setEndereco("Rua blalablabla, viamão, rs");
+    	u.setTelResidencial("33331212");
+    	u.setCelular("12345678");
     	AdvogadoModel adv = new AdvogadoModel();
     	adv.salvaAdvogado(u);
     	u.save();
@@ -80,20 +86,11 @@ public class Application extends Controller {
     	u.setNome("Irineu");
     	u.setEmail("irineu@gmail.com");
     	u.setSenha("teste");
-    	u.setCpf("01942750006");
-    	u.setTelefone("82551557");
+    	u.setCpfCnpj("01942750006");
+    	u.setTelResidencial("33463412");
+    	u.setCelular("85491491");
     	ConsultorModel c = new ConsultorModel();
     	c.salvaConsultor(u, adv);
-    	u.save();
-    	
-    	u = new UsuarioModel();
-    	u.setNome("Mana Chele (Vida Loca)");
-    	u.setEmail("manaChele@gmail.com");
-    	u.setSenha("teste");
-    	u.setCpf("01942750009");
-    	u.setTelefone("82551557");
-    	ClienteModel cli = new ClienteModel();
-    	cli.salvaCliente(u, c);
     	u.save();
     	
     }
