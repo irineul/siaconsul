@@ -5,9 +5,11 @@
 # Home page
 GET     /                                       Application.index
 
-#S imulador
+# Simulador
 GET     /simulador                              Simulador.index
 
+# Clientes
+GET		/cliente								Cliente.index
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

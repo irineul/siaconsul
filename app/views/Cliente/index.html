@@ -1,0 +1,54 @@
+#{extends 'internalMain.html' /}
+#{set title:'Clientes/Incluir' /}
+
+
+
+#{get 'moreStyles' /}
+        <script src="@{'/public/javascripts/cliente.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/jquery.maskedinput.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        
+#{get 'moreScripts' /}
+
+	
+	#{ifErrors}
+	   <div class="alert alert-error">#{error 'nome' /}</div>
+	#{/ifErrors}
+
+   #{form @Cliente.incluir() }
+  <fieldset>
+  
+	<p> <strong> Tipo de Cliente </strong </p>
+ 	<div class="btn-group" id="tipo_pessoa" data-toggle="buttons-radio" >
+  		<button type="button" name="tpPessoa" value="F" onClick="modificaMascara(this.value)" class="btn active" >Físico</button>
+  		<button type="button" name="tpPessoa" value="J" onClick="modificaMascara(this.value)" class="btn">Jurídico</button>
+	</div>
+	<div class= "clear"> </div>
+		 
+	<div> 
+    <input type="text" id="nome" name="nome" placeholder="Nome" value="${nome}">
+    </div>
+    <input type="text" placeholder="Endereço" id="endereco" name="endereco" value="${endereco}">
+	<br/>	
+    <input type="text" placeholder="E-mail" id="email" name="email" value="${email}">
+	<br/>
+    <input type="text" placeholder="Telefone Residencial" id="telResidencial" name="telResidencial" value="${telResidencial}">
+	<br/>
+    <input type="text" placeholder="Celular" id="celular" name="celular" value="${celular}">
+	<br/>			
+	<input type="text" id="rg" name="rg" placeholder="RG" value="${rg}">
+	<br/>	
+    <input type="text" id="cpfCnpj" name="cpfCnpj" placeholder="CPF/CNPJ" value="${cpfCnpj}">
+	<br/>
+
+  </fieldset>
+ 
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </div>
+#{/form}
+
+
+
+
