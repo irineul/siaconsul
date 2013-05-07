@@ -1,0 +1,11 @@
+package Enums;
+
+
+public enum ProcessoTipos {
+    VEICULO,
+    CHEQUE_ESPECIAL_CREDITO_IMOBILIARIO,
+    CREDITO_ESPECIAL,
+    CREDITO_IMOBILIARIO,
+    OUTROS
+}
+

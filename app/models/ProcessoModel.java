@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,7 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import play.db.jpa.GenericModel;
+import Enums.ProcessoTipos;
+
+import play.data.validation.Required;
 import play.db.jpa.Model;
 
 @Entity
@@ -21,30 +24,57 @@ public class ProcessoModel extends Model{
 	@Column(name="ID_CLIENTE")
 	private Long idCliente;
 	
+	@Column(name="BANCO")
+	private String banco;
+	
+	@Column(name="DT_ABERTURA_PROCESSO")
+	private GregorianCalendar dataAberturaProcesso;
+
+	@Column(name="TIPO_PROCESSO")
+	private ProcessoTipos tipoProcesso;
+	
+	@Transient
+	private DocumentoModel declaracaoDeHipos;
+
+	@Transient
+	private DocumentoModel procuracao;
+	
+	@Transient
+	private DocumentoModel docCarro;
+
+	@Transient
+	private DocumentoModel comprovanteCarro;
+
+	@Transient
+	private DocumentoModel comprovanteResidencia;
+
+	@Transient
+	private DocumentoModel identidadeOuCpf;
+
 	@Transient
 	private ClienteModel cliente;
 	
 	@Transient
-	List<DocumentoModel> documentos = null;
+	List<DocumentoModel> documentosExtras = null;
 	
 	@Column(name="DESCRICAO", length=1000)
 	private String descricao;
 	
 	public ClienteModel getCliente () {
 		if (this.cliente == null) {
-			this.cliente = GenericModel.findById(this.idCliente);
+			this.cliente = ClienteModel.findById(this.idCliente);
 		}
 		return this.cliente;
 	}
 	
-	public List<DocumentoModel> getDocumentosDoProcesso () {
-		List<DocumentoModel> list = GenericModel.find("idProcesso = ?",this.id).fetch();
-		documentos = list;
-		return documentos;
+	public List<DocumentoModel> getDocumentosExtra () {
+		List<DocumentoModel> list = DocumentoModel.find("idProcesso = ?",this.id).fetch();
+		documentosExtras = list;
+		return documentosExtras;
 	}
 	
 	public ArrayList<ValorRevisionalModel> getRevisionais () {
-		List<ValorRevisionalModel> list = GenericModel.find("idProcesso = ?",this.id).fetch();
+		List<ValorRevisionalModel> list = DocumentoModel.find("idProcesso = ?",this.id).fetch();
 		return (ArrayList<ValorRevisionalModel>) list;
 	}
 
@@ -76,6 +106,76 @@ public class ProcessoModel extends Model{
 	public void setCliente(ClienteModel cliente) {
 		this.cliente = cliente;
 	}
-	
-	
+
+	public String getBanco() {
+		return banco;
+	}
+
+	public void setBanco(String banco) {
+		this.banco = banco;
+	}
+
+	public GregorianCalendar getDataAberturaProcesso() {
+		return dataAberturaProcesso;
+	}
+
+	public void setDataAberturaProcesso(GregorianCalendar dataAberturaProcesso) {
+		this.dataAberturaProcesso = dataAberturaProcesso;
+	}
+
+	public ProcessoTipos getTipoProcesso() {
+		return tipoProcesso;
+	}
+
+	public void setTipoProcesso(ProcessoTipos tipoProcesso) {
+		this.tipoProcesso = tipoProcesso;
+	}
+
+	public DocumentoModel getDeclaracaoDeHipos() {
+		return declaracaoDeHipos;
+	}
+
+	public void setDeclaracaoDeHipos(DocumentoModel declaracaoDeHipos) {
+		this.declaracaoDeHipos = declaracaoDeHipos;
+	}
+
+	public DocumentoModel getProcuracao() {
+		return procuracao;
+	}
+
+	public void setProcuracao(DocumentoModel procuracao) {
+		this.procuracao = procuracao;
+	}
+
+	public DocumentoModel getDocCarro() {
+		return docCarro;
+	}
+
+	public void setDocCarro(DocumentoModel docCarro) {
+		this.docCarro = docCarro;
+	}
+
+	public DocumentoModel getComprovanteCarro() {
+		return comprovanteCarro;
+	}
+
+	public void setComprovanteCarro(DocumentoModel comprovanteCarro) {
+		this.comprovanteCarro = comprovanteCarro;
+	}
+
+	public DocumentoModel getComprovanteResidencia() {
+		return comprovanteResidencia;
+	}
+
+	public void setComprovanteResidencia(DocumentoModel comprovanteResidencia) {
+		this.comprovanteResidencia = comprovanteResidencia;
+	}
+
+	public DocumentoModel getIdentidadeOuCpf() {
+		return identidadeOuCpf;
+	}
+
+	public void setIdentidadeOuCpf(DocumentoModel identidadeOuCpf) {
+		this.identidadeOuCpf = identidadeOuCpf;
+	}
 }
