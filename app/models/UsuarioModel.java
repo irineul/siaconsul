@@ -31,7 +31,7 @@ public class UsuarioModel extends Model{
 	@Column(name="EMAIL", unique = true)
     private String email;
 	
-	@Column(name="CPF_CNPJ", unique = true)
+	@Column(name="CPF_CNPJ")
     private String cpfCnpj;
 	
 	@Column(name="ENDERECO")
@@ -102,7 +102,7 @@ public class UsuarioModel extends Model{
 	}
 	
 	public ArrayList<ConsultorModel> getConsultores () {
-		List<ConsultorModel> list = GenericModel.find("idAdvogado = ?",this.id).fetch();
+		List<ConsultorModel> list = ConsultorModel.find("idAdvogado = ?",this.id).fetch();
 		return (ArrayList<ConsultorModel>) list;
 	}
 

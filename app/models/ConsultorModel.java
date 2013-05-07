@@ -21,7 +21,7 @@ public class ConsultorModel extends Model{
     private Long idUsuario;
 	
 	public AdvogadoModel getAdvogado() {
-		return GenericModel.findById(this.idAdvogado);
+		return AdvogadoModel.findById(this.idAdvogado);
 	}
 	
 	public void salvaConsultor(UsuarioModel u, AdvogadoModel adv) {
@@ -32,12 +32,12 @@ public class ConsultorModel extends Model{
 	}
 	
 	public ArrayList<ClienteModel> getClientes () {
-		List<ClienteModel> list = GenericModel.find("idConsultor = ?",this.id).fetch();
+		List<ClienteModel> list = ClienteModel.find("idConsultor = ?",this.id).fetch();
 		return (ArrayList<ClienteModel>) list;
 	}
 	
 	public ArrayList<UsuarioModel> getUsuario () {
-		List<UsuarioModel> list = GenericModel.find("idUsuario = ?",this.id).fetch();
+		List<UsuarioModel> list = ClienteModel.find("idUsuario = ?",this.id).fetch();
 		return (ArrayList<UsuarioModel>) list;
 	}
 

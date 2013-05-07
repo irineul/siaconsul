@@ -24,25 +24,25 @@ public class ClienteModel extends Model{
 	public UsuarioModel usuario = null;
 	
 	public ConsultorModel getConsultor() {
-		return GenericModel.findById(this.idConsultor);
+		return UsuarioModel.findById(this.idConsultor);
 	}
 	
 	public void salvaCliente(UsuarioModel u, ConsultorModel c) {
 		UsuarioModel usuario = u.save();
 		idUsuario = usuario.id;
-		this.usuario = GenericModel.findById(idUsuario);
+		this.usuario = UsuarioModel.findById(idUsuario);
 		idConsultor = c.id;
 		this.save();
 	}
 	
 	public ArrayList<ProcessoModel> getProcessos () {
-		List<ProcessoModel> list = GenericModel.find("idCliente = ?",this.id).fetch();
+		List<ProcessoModel> list = ProcessoModel.find("idCliente = ?",this.id).fetch();
 		return (ArrayList<ProcessoModel>) list;
 	}
 	
 	public UsuarioModel getUsuario () {
 		if (this.usuario ==null) {
-			this.usuario = GenericModel.findById(idUsuario);
+			this.usuario = UsuarioModel.findById(idUsuario);
 		}
 		return this.usuario;
 	}

@@ -48,17 +48,17 @@ public class Application extends Controller {
 
     public static void login(String email, String senha) {
     	
-    	List<UsuarioModel> result = GenericModel.find("email = ? And senha = ?", email, senha).fetch();
+    	List<UsuarioModel> result = UsuarioModel.find("email = ? And senha = ?", email, senha).fetch();
 
     	if (result != null && result.size() > 0) {
     		UsuarioModel usuario = result.get(0);
-    		List<AdvogadoModel> advogado = GenericModel.find("idUsuario=?", usuario.id).fetch();
+    		List<AdvogadoModel> advogado = AdvogadoModel.find("idUsuario=?", usuario.id).fetch();
     		if (advogado != null && advogado.size() > 0) {
     			play.mvc.Scope.Session.current().put("idUsuario",advogado.get(0).id);
     			advogado();
     		}
     		
-    		List<ConsultorModel> consultor = GenericModel.find("idUsuario=?", usuario.id).fetch();
+    		List<ConsultorModel> consultor = ConsultorModel.find("idUsuario=?", usuario.id).fetch();
     		if (consultor != null && consultor.size() > 0) {
     			play.mvc.Scope.Session.current().put("idUsuario",consultor.get(0).id);
     			consultor();
