@@ -10,6 +10,10 @@ GET     /simulador                              Simulador.index
 
 # Clientes
 GET		/cliente								Cliente.index
+
+# Clientes - Incluir
+GET		/cliente/incluir						Cliente.index
+
 # Ignore favicon requests
 GET     /favicon.ico                            404
 

@@ -35,8 +35,8 @@
                    <td>${cliente.usuario.telResidencial}</td>
                    <td>${cliente.usuario.celular}</td>
                    <td><a href="@{Processo.carrega(cliente.id)}">Processo</a></td>
-                   <td><a href="#myModal" data-toggle="modal">Editar</a></td>
-                   <td><a href="">Excluir</a></td>
+                   <td><a href="@{Cliente.editar(cliente.id)}" data-toggle="modal">Editar</a></td>
+                   <td><a href="@{Cliente.excluir(cliente.id)}">Excluir</a></td>
                  </tr>
               #{/list}
 
