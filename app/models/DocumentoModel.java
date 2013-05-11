@@ -1,6 +1,7 @@
 package models;
 
 import java.io.File;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.persistence.Column;
@@ -19,29 +20,30 @@ public class DocumentoModel extends Model{
 	private Long idProcesso;
 	
 	@Column(name="DATA")
-	private GregorianCalendar data;
+	private Date data;
 	
 	@Column(name="ARQUIVO")
-	private File file;
+	private File arquivo;
 	
 	public ClienteModel getProcesso() {
 		return GenericModel.findById(this.idProcesso);
 	}
 
-	public GregorianCalendar getData() {
+	public Date getData() {
 		return data;
 	}
 
-	public void setData(GregorianCalendar data) {
+	public void setData(Date data) {
 		this.data = data;
 	}
 
 	public File getFile() {
-		return file;
+		return arquivo;
 	}
 
 	public void setFile(File file) {
-		this.file = file;
+		this.arquivo = file;
+		System.out.println("Arquivo adicionado:"+ file.getName());
 	}
 
 	public void setIdProcesso(Long idProcesso) {

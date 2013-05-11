@@ -83,6 +83,8 @@ public class Util {
 	public static String removerCaracter(String texto, String caracter){
 		return texto.replaceAll(".","");
 	}
+	
+	
 
 }
 

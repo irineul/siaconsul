@@ -1,7 +1,7 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -9,10 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import Enums.ProcessoTipos;
-
-import play.data.validation.Required;
 import play.db.jpa.Model;
+import Enums.ProcessoTipos;
 
 @Entity
 @Table(name = "PROCESSO")
@@ -28,7 +26,7 @@ public class ProcessoModel extends Model{
 	private String banco;
 	
 	@Column(name="DT_ABERTURA_PROCESSO")
-	private GregorianCalendar dataAberturaProcesso;
+	private Date dataAberturaProcesso;
 
 	@Column(name="TIPO_PROCESSO")
 	private ProcessoTipos tipoProcesso;
@@ -115,11 +113,11 @@ public class ProcessoModel extends Model{
 		this.banco = banco;
 	}
 
-	public GregorianCalendar getDataAberturaProcesso() {
+	public Date getDataAberturaProcesso() {
 		return dataAberturaProcesso;
 	}
 
-	public void setDataAberturaProcesso(GregorianCalendar dataAberturaProcesso) {
+	public void setDataAberturaProcesso(Date dataAberturaProcesso) {
 		this.dataAberturaProcesso = dataAberturaProcesso;
 	}
 
