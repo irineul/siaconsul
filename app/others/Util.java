@@ -1,9 +1,13 @@
 package others;
 
 import java.text.ParseException;
+import java.util.List;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.text.MaskFormatter;
+
+import models.AdvogadoModel;
+import models.ConsultorModel;
 
 public class Util {
 
@@ -82,6 +86,20 @@ public class Util {
 	/* Removo caracter */
 	public static String removerCaracter(String texto, String caracter){
 		return texto.replaceAll(".","");
+	}
+	
+	
+	public static ConsultorModel getConsultorLogado(){
+		Long id = Long.parseLong(play.mvc.Scope.Session.current().get("idUsuario"));
+		return ConsultorModel.findById(id);
+	}
+	
+	public static AdvogadoModel getAdvogadoLogado(){
+		Long id = Long.parseLong(play.mvc.Scope.Session.current().get("idUsuario"));
+		List<AdvogadoModel> cm = AdvogadoModel.find("idUsuario=?", id).fetch();
+		if (cm == null)
+			return null;
+		return cm.get(0);
 	}
 	
 	

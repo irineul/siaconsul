@@ -22,6 +22,9 @@ public class ProcessoModel extends Model{
 	@Column(name="ID_CLIENTE")
 	private Long idCliente;
 	
+	@Column(name="ID_CONSULTOR")
+	private Long idConsultor;
+	
 	@Column(name="BANCO")
 	private String banco;
 	
@@ -59,9 +62,7 @@ public class ProcessoModel extends Model{
 	private String descricao;
 	
 	public ClienteModel getCliente () {
-		if (this.cliente == null) {
-			this.cliente = ClienteModel.findById(this.idCliente);
-		}
+		this.cliente = ClienteModel.findById(this.idCliente);
 		return this.cliente;
 	}
 	
@@ -176,4 +177,21 @@ public class ProcessoModel extends Model{
 	public void setIdentidadeOuCpf(DocumentoModel identidadeOuCpf) {
 		this.identidadeOuCpf = identidadeOuCpf;
 	}
+
+	public Long getIdConsultor() {
+		return idConsultor;
+	}
+
+	public void setIdConsultor(Long idConsultor) {
+		this.idConsultor = idConsultor;
+	}
+
+	public List<DocumentoModel> getDocumentosExtras() {
+		return documentosExtras;
+	}
+
+	public void setDocumentosExtras(List<DocumentoModel> documentosExtras) {
+		this.documentosExtras = documentosExtras;
+	}
+	
 }

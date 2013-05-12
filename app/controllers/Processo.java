@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.mysql.jdbc.Util;
+
+import models.AdvogadoModel;
 import models.ClienteModel;
+import models.ConsultorModel;
 import models.DocumentoModel;
 import models.ProcessoModel;
 import play.mvc.Controller;
@@ -14,7 +18,13 @@ import Enums.ProcessoTipos;
 
 public class Processo extends Controller {
 	
-    
+
+	public static void lista() {
+    	ConsultorModel consultor = others.Util.getConsultorLogado();
+    	List<ProcessoModel> processos = ProcessoDao.getInstance().ListarByIdConsultor(consultor.getId());
+    	render(processos);
+    }
+	
 	/**
 	 * 
 	 * @param idCliente
@@ -58,6 +68,10 @@ public class Processo extends Controller {
 	private static ProcessoModel montaProcessoFromRequest() {
 		
 		ProcessoModel processo = new ProcessoModel();
+		
+		ConsultorModel cm = others.Util.getConsultorLogado();
+    	processo.setIdConsultor(cm.getId());
+		
     	processo.setIdCliente(params.get("idCliente", Long.class));
     	processo.setDescricao(params.get("descricao", String.class));
     	processo.setBanco(params.get("banco", String.class));

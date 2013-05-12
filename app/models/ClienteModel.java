@@ -41,9 +41,7 @@ public class ClienteModel extends Model{
 	}
 	
 	public UsuarioModel getUsuario () {
-		if (this.usuario ==null) {
-			this.usuario = UsuarioModel.findById(idUsuario);
-		}
+		this.usuario = UsuarioModel.findById(idUsuario);
 		return this.usuario;
 	}
 
