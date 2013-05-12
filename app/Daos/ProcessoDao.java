@@ -22,10 +22,12 @@ public class ProcessoDao {
 	}
 	
 	public ProcessoModel salvar(ProcessoModel processo){
-		
-		
+		processo.save();
+		processo.getProcuracao().setIdProcesso(processo.getId());
+		processo.getProcuracao().save();
+		processo.getDeclaracaoDeHipos().setIdProcesso(processo.getId());
+		processo.getDeclaracaoDeHipos().save();
 		return processo;
-		
 	}
 
 }

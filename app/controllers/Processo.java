@@ -26,8 +26,12 @@ public class Processo extends Controller {
     	String operacao = params.get("operacao", String.class);
     	if ("INCLUIR".equals(operacao)) {
 	    	processo = montaProcessoFromRequest();
+	    	
+	    	//TODO: Pegar esse parametro da simulacao
+	    	processo.setTipoProcesso(ProcessoTipos.VEICULO);
+	    	
 	    	erros = verificaInconsistencias(processo);
-	    	if (erros == null) {
+	    	if (erros == null || erros.size() == 0) {
 	    		ProcessoDao.getInstance().salvar(processo);
 	    	}
     	}
@@ -41,46 +45,9 @@ public class Processo extends Controller {
 
     	}
     	
-    	
-    	//processo = incluir(erros);
-    	
     	render(cliente, erros, processo, proc);
     }
     
-    /**
-     * 
-     * @param idProcesso
-     */
-    public static void ver(Long idProcesso) {
-    	ProcessoModel processo = ProcessoModel.findById(idProcesso);
-    	processo.getDocumentosExtra();
-    	render(processo) ;
-    }
-    
-    /**
-     * 
-     * @param processo
-     * @param erros
-     */
-    public static void mostraErros(ProcessoModel processo, List<String> erros) {
-    	renderTemplate("carrega",processo, erros) ;
-    }
-    
-    /**
-     * 
-     * @param idCliente
-     * @param descricao
-     * @param title
-     * @param files
-     */
-	private static ProcessoModel incluir(List<String> erros) {
-		ProcessoModel processo = montaProcessoFromRequest();
-    	erros = verificaInconsistencias(processo);
-    	if (erros == null) {
-    		ProcessoDao.getInstance().salvar(processo);
-    	}
-    	return processo;
-    }
 
 	/**
 	 * Pega todos os parametros da tela e seta no 
@@ -96,43 +63,39 @@ public class Processo extends Controller {
     	processo.setBanco(params.get("banco", String.class));
     	processo.setDataAberturaProcesso(params.get("dataAberturaProcesso", Date.class));
     	
-    	/*Set Procuracao*/
-    	Long idProcuracao = params.get("idDocumentoProcuracao", Long.class);
-    	File arq = params.get("procuracaoDoc", File.class);
-    	if ( (idProcuracao == null || idProcuracao == 0) && arq != null ){
-	    	DocumentoModel dm = new DocumentoModel();
-	    	dm.setData(new Date());
-	    	dm.setFile(arq);
-	    	dm.save();
-	    	processo.setProcuracao(dm);
-    	} else if (idProcuracao != null) {
-    		DocumentoModel procuracao = DocumentoModel.findById(idProcuracao);
-    		processo.setProcuracao(procuracao);
-    	}
+    	DocumentoModel procuracao = getDocumentoFromRequest("idDocumentoProcuracao","procuracaoDoc");
+    	processo.setProcuracao(procuracao);
     	
-    	/*Set Declaracao*/
-    	Long idDeclaracao = params.get("idDocumentoDeclaracao", Long.class);
-    	File declaracaoArq = params.get("declaracaoDoc", File.class);
-    	if ( (idDeclaracao == null || idDeclaracao == 0) && declaracaoArq != null){
-	    	DocumentoModel declaracao = new DocumentoModel();
-	    	declaracao.setData(new Date());
-	    	declaracao.setFile(declaracaoArq);
-	    	declaracao.save();
-	    	processo.setDeclaracaoDeHipos(declaracao);
-    	} else if (idDeclaracao != null) {
-    		DocumentoModel declaracao = DocumentoModel.findById(idDeclaracao);
-    		processo.setDeclaracaoDeHipos(declaracao);
-    	}
-
+    	DocumentoModel declaracao = getDocumentoFromRequest("idDocumentoDeclaracao", "declaracaoDoc");
+    	processo.setDeclaracaoDeHipos(declaracao);
     	
-    	
-    	
-    	
+    	DocumentoModel docCarro = getDocumentoFromRequest("idDocumentoCarro", "docCarro");
+    	processo.setDocCarro(docCarro);
     	
 		return processo;
 	}
-    
-    
+
+
+	/**
+	 * 
+	 * @param id
+	 * @param fieldName
+	 * @return
+	 */
+	private static DocumentoModel getDocumentoFromRequest(String id, String fieldName) {
+		DocumentoModel dm = null;
+		Long idProcuracao = params.get(id, Long.class);
+    	File arq = params.get(fieldName, File.class);
+    	if ( (idProcuracao == null || idProcuracao == 0) && arq != null ){
+	    	dm = new DocumentoModel();
+	    	dm.setData(new Date());
+	    	dm.setFile(arq);
+	    	dm.save();
+    	} else if (idProcuracao != null) {
+    		dm = DocumentoModel.findById(idProcuracao);
+    	}
+    	return dm;
+	}
     
 	/**
 	 * 

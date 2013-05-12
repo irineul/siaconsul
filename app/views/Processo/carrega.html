@@ -119,19 +119,44 @@
 		#{/else}
 		
 		
+		
+		
+		
+		#{if (processo.docCarro == null) }
+			   <lable class="active">Documento do carro(*)</lable>
+				<div class="fileupload fileupload-new" data-provides="fileupload">
+			  		<div class="input-append">
+				    	<div class="uneditable-input span3">
+				    	<i class="icon-file fileupload-exists"></i> 
+				    	<span class="fileupload-preview"></span>
+				    	</div>
+				    	<span class="btn btn-file">
+				    	<span class="fileupload-new">Selecione o Arquivo</span>
+				    	<span class="fileupload-exists">Alterar</span>
+				    	<input id="docCarro" name="docCarro" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+			        </div>
+				</div>
+		#{/if}
+		#{else}
+			<input type="hidden" id="idDocumentoCarro" name="idDocumentoCarro" value="${processo.docCarro.id}">
 			<lable class="active">Documento do carro(*)</lable>
 			<div class="fileupload fileupload-new" data-provides="fileupload">
 		  		<div class="input-append">
-			    	<div class="uneditable-input span3">
-			    	<i class="icon-file fileupload-exists"></i> 
-			    	<span class="fileupload-preview"></span>
-			    	</div>
-			    	<span class="btn btn-file">
-			    	<span class="fileupload-new">Selecione o Arquivo</span>
-			    	<span class="fileupload-exists">Alterar</span>
-			    	<input id="docCarro" name="docCarro" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
-		        </div>
+                        <div class="uneditable-input span3">
+                        <i class="icon-file fileupload-exists"></i>
+                        <span class="fileupload-preview">${processo.docCarro.arquivo.name}</span>
+                        </div>
+                        <span class="btn btn-file">
+                                <a href="${processo.docCarro.arquivo.name}" >Vizualisar</a>
+                                <input id="docCarro" name="docCarro" value="${processo.docCarro.arquivo}" type="file"/>
+                        </span>
+                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+             </div>
 			</div>
+			
+		#{/else}
+		
+			
 			
 			<lable class="active">Comprovante de Residencia(*)</lable>
 			<div class="fileupload fileupload-new" data-provides="fileupload">
