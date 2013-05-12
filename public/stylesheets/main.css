@@ -41,7 +41,7 @@
 }
 
 #topHero{
-	height: 4em;
+	height: 1em;
 }
 
 .cardapioTable
@@ -61,7 +61,11 @@
 	float: right;	
 }
 
+.myhero{
+	height: 5em;
+}
 .dadosClientes
 {
-	
+	/*Gamba to be fixed*/
+	margin-top: -52px;
 }
