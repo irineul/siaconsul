@@ -16,7 +16,7 @@ import play.mvc.Controller;
 import Daos.ProcessoDao;
 import Enums.ProcessoTipos;
 
-public class Processo extends Controller {
+public class Processo extends BaseController {
 	
 
 	public static void lista() {

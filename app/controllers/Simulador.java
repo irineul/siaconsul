@@ -14,7 +14,7 @@ import others.Util;
 import models.*;
 
 
-public class Simulador extends Controller {
+public class Simulador extends BaseController {
 
     /** 
      * Locale Brasileiro 

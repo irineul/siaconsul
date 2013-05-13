@@ -10,11 +10,16 @@ import others.Util;
 import models.*;
 
 
-public class Application extends Controller {
+public class Application extends BaseController {
 
     public static void index() {
         render();
     }
+    
+//    public static void logout() {
+//    	play.mvc.Scope.Session.current().put("idUsuario",null);
+//    	index();
+//    }
     
     public static void consultor() {
     	ConsultorModel consultor = Consultor.getConsultorLogado();

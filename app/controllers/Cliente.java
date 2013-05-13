@@ -10,7 +10,7 @@ import models.*;
 import play.data.validation.Validation;
 import Daos.ClienteDao;
 
-public class Cliente extends Controller {
+public class Cliente extends BaseController {
 	
 	
 	/**

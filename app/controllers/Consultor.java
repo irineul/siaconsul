@@ -5,7 +5,7 @@ import play.mvc.*;
 
 import models.*;
 
-public class Consultor extends Controller {
+public class Consultor extends BaseController {
 
   
 	public static ConsultorModel getConsultorLogado() {
