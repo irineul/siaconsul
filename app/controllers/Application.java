@@ -16,10 +16,10 @@ public class Application extends BaseController {
         render();
     }
     
-//    public static void logout() {
-//    	play.mvc.Scope.Session.current().put("idUsuario",null);
-//    	index();
-//    }
+    public static void logout() {
+    	play.mvc.Scope.Session.current().put("idUsuario",null);
+    	index();
+    }
     
     public static void consultor() {
     	ConsultorModel consultor = Consultor.getConsultorLogado();

@@ -1,18 +1,17 @@
 package controllers;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.mysql.jdbc.Util;
-
-import models.AdvogadoModel;
 import models.ClienteModel;
 import models.ConsultorModel;
 import models.DocumentoModel;
 import models.ProcessoModel;
-import play.mvc.Controller;
+import play.libs.MimeTypes;
 import Daos.ProcessoDao;
 import Enums.ProcessoTipos;
 
@@ -145,6 +144,16 @@ public class Processo extends BaseController {
 		}
 		return erros;
 	}
+
+	
+	public static void downloadDocFile(Long idDocumento) { 
+		   DocumentoModel dm = DocumentoModel.findById(idDocumento);
+		   String mimeType = MimeTypes.getContentType(dm.getFile().getName()); 
+		   response.setContentTypeIfNotSet(mimeType);
+		   java.io.File binaryData = dm.getFile();
+		   
+		   renderBinary(binaryData);
+	} 
 
     
 }
