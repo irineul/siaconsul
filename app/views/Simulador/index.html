@@ -2,106 +2,124 @@
 #{set title:'Simulação de revisional' /}
 
 
-<div class= "tableDiv ">
-
-	<p> <strong> Tipo de Cliente </strong </p>
- 	<div class="btn-group" id="tipo_pessoa" data-toggle-name="tipo_pessoa" data-toggle="buttons-radio" >
-  		<button type="radio" name="tpPessoa" value="F" onClick="apresentaDivTipoFincto(this.value);" class="btn active" data-toggle="button">Físico</button>
-  		<button type="radio" name="tpPessoa" value="J" onClick="apresentaDivTipoFincto(this.value);" class="btn" data-toggle="button">Jurídico</button>
-	</div>
-	
- 	<div class= "clear"> </div>
- 	<p> <strong> Tipo de Financiamento </strong </p>
- 	<div id="tipoFinanciamentoFisica">
-	 	<div class="btn-group" id="tipo_financiamento_fisica" data-toggle-name="tipo_financiamento_fisica" data-toggle="buttons-radio" >
-	  		<button type="button" value="V" class="btn active" data-toggle="button">Veículo</button>
-	  		<button type="button" value="C" class="btn" data-toggle="button">Cheque Especial</button>
-	  		<button type="button" value="P" class="btn" data-toggle="button">Crédito Pessoal</button>
-	  		<button type="button" value="I" class="btn" data-toggle="button">Crédito Imobiliário</button>
-	  		<button type="button" value="O" class="btn" data-toggle="button">Outros</button>
-		</div>	
-	</div>
-	
- 	<div id="tipoFinanciamentoJuridica">
-	 	<div class="btn-group" data-toggle-name="tipo_financiamento_juridica" data-toggle="buttons-radio" >
-	  		<button type="button" value="G" class="btn active" data-toggle="button">Capital de Giro</button>
-	  		<button type="button" value="T" class="btn" data-toggle="button">Conta Garantida</button>
-	  		<button type="button" value="A" class="btn" data-toggle="button">Aquisição de Bens</button>
-	  		<button type="button" value="D" class="btn" data-toggle="button">Vendor</button>
-	  		<button type="button" value="H" class="btn" data-toggle="button">Hot Money</button>
-	  		<button type="button" value="L" class="btn" data-toggle="button">Desconto Duplic.</button>
-	  		<button type="button" value="S" class="btn" data-toggle="button">Desc. Promis.</button>
-		</div>	
-	</div>	
-	
-	<div class= "clear"> </div>
-	
-	<p> <strong> Valor Financiado </strong </p>
-	<br />
-    <input type="text" id="vlrFinanciado" name="vlrFinanciado" >
-	<br/>
-	
-	<p> <strong> Valor atual da parcela </strong </p>
-	<br />	 
-    <input type="text" id="vlrParcelaAtual" name="vlrParcelaAtual">
-	<br/>
-	
-	<p> <strong> Quantidade de parcelas - TOTAL</strong </p>
-	<br />
-    <input type="text" id="qtdParcelas" name="qtdParcelas" data-mask="999999">
-	<br/>
-
-	<p> <strong> Quantidade de parcelas - PAGAS</strong </p>
-	<br />
-    <input type="text" id="qtdParcelasPagas" name="qtdParcelasPagas" data-mask="999999">
-	<br/>	 
-	
-	<div class= "clear"> </div>
-	<label class="checkbox">
-      <input type="checkbox" onClick="apresentaDivMes();"> Cliente sabe o mês do financiamento
-    </label>	 	 
-    
-    <div class= "clear"> </div>
-	<div id="mesFinanciamento">
-		  <div class="input-append date" id="dpMonths" data-date="102/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
-			<input class="span2" size="16" type="text" value="02/2012" readonly="">
-			<span class="add-on"><i class="icon-calendar"></i></span>
-		  </div>
-    </div>
-         
-    
-    <div class= "clear"> </div>
-    <div>
-    	<role="button" class="addButton btn btn-primary" data-toggle="modal" onClick="calcular()">Calcular</a>
-    </div>
-             
-    <div class= "clear"> </div>
-	<div id="divCalculos">
-	
-		<span class="label label-important">Taxa de Juros Atual</span>
-		<br />
-		<input type="text" id="txtCalcVlrJurosAtual" name="calcVlrJurosAtual" disabled="disabled">
+<form id="formSimulador" class="form-horizontal" onsubmit="calcular();">
+	<fieldset>
+		<div class= "tableDiv ">
 		
-		<div class= "clear"/>
+			<div class="control-group"> 
+				<label class="control-label" for="tipo_pessoa">Tipo de Cliente</label>
+				<div class="controls">
+				 	<div class="btn-group" name="tipo_pessoa" id="tipo_pessoa" data-toggle="buttons-radio" >
+				  		<button type="button" name="tpPessoa" value="F" onClick="apresentaDivTipoFincto(this.value);" class="btn active" data-toggle="button">Físico</button>
+				  		<button type="button" name="tpPessoa" value="J" onClick="apresentaDivTipoFincto(this.value);" class="btn" data-toggle="button">Jurídico</button>
+					</div>
+			    </div>
+		    </div>  
 		
-		<span class="label label-success">Nova Taxas de Juros</span>
-		<br />
-		<input type="text" id="txtCalcVlrJurosNovo" name="calcVlrJurosNovo" disabled="disabled">
-		<div class= "clear"/>
+		 	<div class="control-group" id="tpF"> 
+			 	<label class="control-label" for="tipoFinanciamento">Tipo de Financiamento</label>
+			 	<div id="tipoFinanciamentoFisica" class="controls">
+				 	<div class="btn-group" id="tipo_financiamento_fisica"  data-toggle="buttons-radio" >
+				  		<button type="button" value="V" class="btn active" data-toggle="button">Veículo</button>
+				  		<button type="button" value="C" class="btn" data-toggle="button">Cheque Especial</button>
+				  		<button type="button" value="P" class="btn" data-toggle="button">Crédito Pessoal</button>
+				  		<button type="button" value="I" class="btn" data-toggle="button">Crédito Imobiliário</button>
+				  		<button type="button" value="O" class="btn" data-toggle="button">Outros</button>
+					</div>	
+				</div>
+			</div>
+			
+			<div class="control-group" id="tpJ">
+			<label class="control-label" for="tipoFinanciamento">Tipo de Financiamento</label>
+			 	<div id="tipoFinanciamentoJuridica"  class="controls">
+				 	<div class="btn-group" data-toggle-name="tipo_financiamento_juridica" data-toggle="buttons-radio" >
+				  		<button type="button" value="G" class="btn active" data-toggle="button">Capital de Giro</button>
+				  		<button type="button" value="T" class="btn" data-toggle="button">Conta Garantida</button>
+				  		<button type="button" value="A" class="btn" data-toggle="button">Aquisição de Bens</button>
+				  		<button type="button" value="D" class="btn" data-toggle="button">Vendor</button>
+				  		<button type="button" value="H" class="btn" data-toggle="button">Hot Money</button>
+				  		<button type="button" value="L" class="btn" data-toggle="button">Desconto Duplic.</button>
+				  		<button type="button" value="S" class="btn" data-toggle="button">Desc. Promis.</button>
+					</div>	
+				</div>	
+			</div>
+			
+			<div class="control-group"> 
+				<label class="control-label" for="vlrFinanciado">Valor Financiado</label>
+				<div class="controls">
+				    <input type="text" class="input-medium" id="vlrFinanciado" name="vlrFinanciado">
+			    </div>
+			</div>
+			
+			<div class="control-group"> 
+				<label class="control-label" for="vlrParcelaAtual">Valor atual da parcela</label>
+				<div class="controls">
+				    <input type="text" class="input-medium" id="vlrParcelaAtual" name="vlrParcelaAtual">
+			    </div>
+			</div>
+			
+			<div class="control-group"> 
+				<label class="control-label" for="qtdParcelas">Quantidade de parcelas</label>
+				<div class="controls">
+				    <input type="text" class="input-medium" id="qtdParcelas" name="qtdParcelas">
+			    </div>
+			</div>			
+
+			<div class="control-group"> 
+				<label class="control-label" for="qtdParcelas">Quantidade de parcelas pagas</label>
+				<div class="controls">
+				    <input type="text" class="input-medium" id="qtdParcelasPagas" name="qtdParcelasPagas" data-mask="999999">
+			    </div>
+			</div>	
+			
+			<div class= "clear"> </div>
+			<label class="checkbox">
+		      <input type="checkbox" onClick="apresentaDivMes();"> Cliente sabe o mês do financiamento
+		    </label>	 	 
+		    
+		    <div class= "clear"> </div>
+			<div id="mesFinanciamento">
+				  <div class="input-append date" id="dpMonths" data-date="102/2012" data-date-format="mm/yyyy" data-date-viewmode="years" data-date-minviewmode="months">
+					<input class="span2" size="16" type="text" value="02/2012" readonly="">
+					<span class="add-on"><i class="icon-calendar"></i></span>
+				  </div>
+		    </div>
+		         
+		    
+		    <div class= "clear"> </div>
+		    <div>
+		    	<role="button" class="addButton btn btn-primary" data-toggle="modal" onClick="calcular()">Calcular</a>
+		    </div>
+		             
+		    <div class= "clear"> </div>
+			<div id="divCalculos">
+			
+				<span class="label label-important">Taxa de Juros Atual</span>
+				<br />
+				<input type="text" id="txtCalcVlrJurosAtual" name="calcVlrJurosAtual" disabled="disabled">
 				
-		<span class="label label-important">Valor Pago Indevido</span>
-		<br />
-		<input type="text" id="txtCalcVlrPagoIndevido" name="txtCalcVlrPagoIndevido" disabled="disabled">
-		<div class= "clear"/>
-		
-		<span class="label label-success">Valor de Nova Parcela</span>
-		<br />
-		<input type="text" id="txtCalcVlrNovaParcela" name="txtCalcVlrNovaParcela" disabled="disabled">
-		<div class= "clear"/>	
-		
-    </div>    
-        
-</div>
+				<div class= "clear"/>
+				
+				<span class="label label-success">Nova Taxas de Juros</span>
+				<br />
+				<input type="text" id="txtCalcVlrJurosNovo" name="calcVlrJurosNovo" disabled="disabled">
+				<div class= "clear"/>
+						
+				<span class="label label-important">Valor Pago Indevido</span>
+				<br />
+				<input type="text" id="txtCalcVlrPagoIndevido" name="txtCalcVlrPagoIndevido" disabled="disabled">
+				<div class= "clear"/>
+				
+				<span class="label label-success">Valor de Nova Parcela</span>
+				<br />
+				<input type="text" id="txtCalcVlrNovaParcela" name="txtCalcVlrNovaParcela" disabled="disabled">
+				<div class= "clear"/>	
+				
+		    </div>    
+		        
+		</div>
+	</fieldset>
+</form>
 
 <script type="text/javascript">
 
@@ -119,13 +137,40 @@ $(document).ready(function(){
 	
 	//Default = PF
 	$("#tipoFinanciamentoFisica").show();
+	$("#tpF").show();
 	$("#tipoFinanciamentoJuridica").hide();
+	$("#tpJ").hide();
 	
 	$("#divCalculos").hide();
 	
 	// Configuração para campos de Real.
 	$("#vlrFinanciado").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
 	$("#vlrParcelaAtual").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	
+	$('#formSimulador').validate({
+    rules: {
+      vlrFinanciado: {
+        required: true
+      },
+      vlrParcelaAtual: {
+        required: true
+      },
+      qtdParcelas: {
+        email: true
+      },
+      qtdParcelasPagas: {
+        required: true
+      }
+    },
+		highlight: function(element) {
+			$(element).closest('.control-group').removeClass('success').addClass('error');
+		},
+		success: function(element) {
+			element
+			.text('OK!').addClass('valid')
+			.closest('.control-group').removeClass('error').addClass('success');
+		}
+  });	
 	
 });
 
@@ -138,6 +183,10 @@ function calcular(){
 	}
 	else{
 		tpFinanciamento = $('#tipo_financiamento_juridica > button.active').val();
+	}
+	
+	if(typeof dataFinanciamento === 'undefined'){
+		dataFinanciamento = new Date();
 	}
 	
 	calcularAjax(tpPessoa, tpFinanciamento);
@@ -174,11 +223,15 @@ function apresentaDivTipoFincto(tipoPessoa){
 	if(tipoPessoa != ""){
 		if(tipoPessoa == "F"){
 			$("#tipoFinanciamentoFisica").show();
+			$("#tpF").show();
 			$("#tipoFinanciamentoJuridica").hide();
+			$("#tpJ").hide();
 		}
 		else{
 			$("#tipoFinanciamentoJuridica").show();
+			$("#tpJ").show();
 			$("#tipoFinanciamentoFisica").hide();
+			$("#tpF").hide();
 		}
 	}
 }

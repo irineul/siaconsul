@@ -3,4 +3,11 @@
 #
 
 # Para mensagens de erro genéricas
-validation.required = O campo %s é obrigatório 
+# Campo obrigatório
+validation.required = ** O campo %s é obrigatório
+
+# Campo inválido 
+validation.invalid = ** %s inválido. 
+
+validation.duplicated.cpfCnpj = Já existe um cliente com o CPF/CNPJ informado.
+validation.duplicated.email = Já existe um cliente com o e-mail informado. 

@@ -8,11 +8,13 @@
         
 #{get 'moreScripts' /}
 
-<a href="@{Cliente.index()}" role="button" class="addButton btn btn-primary" data-toggle="modal">Novo Cliente</a>
-<div class= "tableDiv ">
 
- <div class= "clear">
- <table class= "table table-hover table-bordered ">
+
+<div class= "tableDiv ">
+	<input type="text" placeholder="Procure pelo nome do cliente" id="searchNome" name="searchNome" >
+	<a href="@{Cliente.index()}" role="button" class="addButton btn btn-primary" data-toggle="modal">Novo Cliente</a>
+ 	<div class= "clear">
+ 	<table class= "table table-hover table-bordered ">
       <thead>
                  <tr>
                    <th>Nome</th>
@@ -35,7 +37,7 @@
                    <td>${cliente.usuario.telResidencial}</td>
                    <td>${cliente.usuario.celular}</td>
                    <td><a href="@{Processo.carrega(cliente.id)}">Processo</a></td>
-                   <td><a href="@{Cliente.editar(cliente.id)}" data-toggle="modal">Editar</a></td>
+                   <td><a href="@{Cliente.editarCliente(cliente.id)}" data-toggle="modal">Editar</a></td>
                    <td><a href="@{Cliente.excluir(cliente.id)}">Excluir</a></td>
                  </tr>
               #{/list}

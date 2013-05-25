@@ -26,7 +26,9 @@ public class ClienteDao {
 	}
 	
 	public int excluir(long idCliente){
-    	return ClienteModel.delete("id=?", idCliente);
+		ClienteModel c =ClienteModel.findById(idCliente);
+		c.delete();
+    	return 1; 
 	}
 
 }

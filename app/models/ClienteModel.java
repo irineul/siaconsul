@@ -42,7 +42,13 @@ public class ClienteModel extends Model{
 	
 	public UsuarioModel getUsuario () {
 		this.usuario = UsuarioModel.findById(idUsuario);
+
+		this.usuario.id = idUsuario;
 		return this.usuario;
+	}
+	
+	public long getIsuario(){
+		return idUsuario;
 	}
 
 }

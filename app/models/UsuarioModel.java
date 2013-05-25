@@ -31,13 +31,13 @@ public class UsuarioModel extends Model{
 	@Column(name="EMAIL", unique = true)
     private String email;
 	
-	@Column(name="CPF_CNPJ")
+	@Column(name="CPF_CNPJ", unique = true)
     private String cpfCnpj;
 	
 	@Column(name="ENDERECO")
 	private String endereco;
 
-	@Column(name="RG", unique = true)
+	@Column(name="RG")
 	private String rg;	
 
 
