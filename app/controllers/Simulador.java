@@ -16,19 +16,19 @@ import models.*;
 
 public class Simulador extends BaseController {
 
-    /** 
-     * Locale Brasileiro 
-     */  
-    private static final Locale BRAZIL = new Locale("pt","BR");  
-    /** 
-     * Símbolos especificos do Real Brasileiro 
-     */  
-    private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);  
-    /** 
-     * Mascara de dinheiro para Real Brasileiro 
-     */  
-    public static final DecimalFormat DINHEIRO_REAL = new DecimalFormat("¤ ###,###,##0.00",REAL);
-	
+	/** 
+	 * Locale Brasileiro 
+	 */  
+	private static final Locale BRAZIL = new Locale("pt","BR");  
+	/** 
+	 * Símbolos especificos do Real Brasileiro 
+	 */  
+	private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);  
+	/** 
+	 * Mascara de dinheiro para Real Brasileiro 
+	 */  
+	public static final DecimalFormat DINHEIRO_REAL = new DecimalFormat("¤ ###,###,##0.00",REAL);
+
 	public static void index(){
 		render();
 	}
@@ -36,6 +36,7 @@ public class Simulador extends BaseController {
 	public static void calcular(@Required String vlrFinanciado, @Required String vlrParcelaAtual, @Required String qtdParcelas, @Required String qtdParcelasPagas, String dataFinanciamento, @Required String tpPessoa, @Required String tpFinanciamento) throws java.text.ParseException{
 
 		double vlrJuros=0;
+		double vlrTaxaBanco=0;
 
 		/* Converte a data passada por parâmetro */
 		int mes = 0, ano =0;
@@ -47,33 +48,52 @@ public class Simulador extends BaseController {
 		/* Busco a taxa para o mês e ano informados, se houver */
 		/* Pessoa Física */
 		if(mes != 0 && ano != 0){
-			if(tpPessoa.equals("F")){
+			/* Se foi informado a data de financiamento */
+			if(ano != 1800)
+			{
+				if(tpPessoa.equals("F")){
 
-				/* Veículo */
-				if(tpFinanciamento.equals("V")){
-					vlrJuros = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrVeiculo() / 100;
+					/* Veículo */
+					if(tpFinanciamento.equals("V")){
+						vlrTaxaBanco = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrVeiculo();
+					}
+
+					/* Cheque Especial */
+					else if(tpFinanciamento.equals("C")){
+						vlrTaxaBanco = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrChequeEspecial();
+					}
+
+					/* Crédito Pessoal */
+					else if(tpFinanciamento.equals("P")){
+						vlrTaxaBanco = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrCreditoPessoal();
+					}
+
+					/* Outros */
+					else{
+						vlrTaxaBanco = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrOutros();		
+					}
+
+					if(vlrTaxaBanco != 0)
+					{
+						vlrJuros = vlrTaxaBanco / 100;
+					}
+					else
+					{
+						/* Default */
+						vlrJuros = 0.01;
+					}
 				}
-
-				/* Cheque Especial */
-				else if(tpFinanciamento.equals("C")){
-					vlrJuros = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrChequeEspecial() / 100;
-				}
-
-				/* Crédito Pessoal */
-				else if(tpFinanciamento.equals("P")){
-					vlrJuros = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrCreditoPessoal() / 100;
-				}
-
-				/* Outros */
+				/* Pessoa Jurídica */
 				else{
-					vlrJuros = TaxaFisicaModel.getTaxaByMesAno(ano, mes).getVlrOutros() / 100;    		
-				}
+
+				}				
+			}
+			else
+			{
+				/* Default */
+				vlrJuros = 0.01;
 			}
 
-			/* Pessoa Jurídica */
-			else{
-
-			}
 		}
 		/* Se não, uso taxa default de 1%*/
 		else{
@@ -144,10 +164,10 @@ public class Simulador extends BaseController {
 		/* Aplico regra de três */
 		return ((vlrTotalNovo*100)/vlrFinanciado) - 100;
 	}
-	
+
 	/* Mascara o dinheiro passado por parâmetro */
-    private static String mascaraDinheiro(double valor, DecimalFormat moeda){  
-        return moeda.format(valor);  
-    }  	
+	private static String mascaraDinheiro(double valor, DecimalFormat moeda){  
+		return moeda.format(valor);  
+	}  	
 
 }

@@ -85,3 +85,13 @@ jQuery.validator.addMethod("cnpj", function(cnpj, element) {
       return this.optional(element) || false;
    }
 }, "Informe um CNPJ válido."); // Mensagem padrão 
+
+
+
+jQuery.validator.addMethod("money", function(value, element) {
+	if(value == "R$0,00")
+	{
+		return false;
+	}
+	return true;
+	}, "Informe um valor."); // Mensagem padrão 

@@ -1,5 +1,5 @@
 #{extends 'internalMain.html' /}
-#{set title:'Simulação de revisional' /}
+#{set title:'Simulador de revisional' /}
 
 
 <form id="formSimulador" class="form-horizontal" onsubmit="calcular();">
@@ -143,20 +143,16 @@ $(document).ready(function(){
 	
 	$("#divCalculos").hide();
 	
-	// Configuração para campos de Real.
-	$("#vlrFinanciado").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
-	$("#vlrParcelaAtual").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
-	
 	$('#formSimulador').validate({
     rules: {
       vlrFinanciado: {
-        required: true
+        money: true
       },
       vlrParcelaAtual: {
-        required: true
+        money: true
       },
       qtdParcelas: {
-        email: true
+        required: true
       },
       qtdParcelasPagas: {
         required: true
@@ -172,6 +168,10 @@ $(document).ready(function(){
 		}
   });	
 	
+	// Configuração para campos de Real.
+	$("#vlrFinanciado").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	$("#vlrParcelaAtual").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	
 });
 
 function calcular(){
@@ -186,7 +186,7 @@ function calcular(){
 	}
 	
 	if(typeof dataFinanciamento === 'undefined'){
-		dataFinanciamento = new Date();
+		dataFinanciamento = new Date("October 13, 1910 11:13:00");
 	}
 	
 	calcularAjax(tpPessoa, tpFinanciamento);
