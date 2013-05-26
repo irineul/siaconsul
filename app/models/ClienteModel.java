@@ -23,6 +23,10 @@ public class ClienteModel extends Model{
 	@Transient
 	public UsuarioModel usuario = null;
 	
+	@Transient
+	public ConsultorModel consultor = null;
+	
+	
 	public ConsultorModel getConsultor() {
 		return UsuarioModel.findById(this.idConsultor);
 	}
@@ -49,6 +53,11 @@ public class ClienteModel extends Model{
 	
 	public long getIsuario(){
 		return idUsuario;
+	}
+	
+	public void setIdUsuario(long idUsuario)
+	{
+		this.idUsuario = idUsuario;
 	}
 
 }

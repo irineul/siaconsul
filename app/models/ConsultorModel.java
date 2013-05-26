@@ -33,12 +33,20 @@ public class ConsultorModel extends Model{
 	
 	public ArrayList<ClienteModel> getClientes () {
 		List<ClienteModel> list = ClienteModel.find("idConsultor = ?",this.id).fetch();
+		/*for(ClienteModel cm : list)
+		{
+			cm.usuario = UsuarioModel.findById(idUsuario);
+		}*/
 		return (ArrayList<ClienteModel>) list;
 	}
 	
 	public ArrayList<UsuarioModel> getUsuario () {
 		List<UsuarioModel> list = ClienteModel.find("idUsuario = ?",this.id).fetch();
 		return (ArrayList<UsuarioModel>) list;
+	}
+	
+	public long getIsuario(){
+		return idUsuario;
 	}
 
 }

@@ -12,7 +12,8 @@ import models.ConsultorModel;
 public class Util {
 
 	/* Busca o inteiro equivalente ao mês passado por parâmetro */
-	public static int getMesInt(String mes){
+	public static int getMesInt(String mes)
+	{
 		if(mes.toUpperCase().equals("JAN")){
 			return 1;
 		}
@@ -84,22 +85,30 @@ public class Util {
 	}
 
 	/* Removo caracter */
-	public static String removerCaracter(String texto, String caracter){
+	public static String removerCaracter(String texto, String caracter)
+	{
 		return texto.replaceAll(".","");
 	}
 	
 	
-	public static ConsultorModel getConsultorLogado(){
-		Long id = Long.parseLong(play.mvc.Scope.Session.current().get("idUsuario"));
+	public static ConsultorModel getConsultorLogado()
+	{
+		Long id = Long.parseLong(play.mvc.Scope.Session.current().get("idConsultor"));
 		return ConsultorModel.findById(id);
 	}
 	
-	public static AdvogadoModel getAdvogadoLogado(){
+	public static AdvogadoModel getAdvogadoLogado()
+	{
 		Long id = Long.parseLong(play.mvc.Scope.Session.current().get("idUsuario"));
 		List<AdvogadoModel> cm = AdvogadoModel.find("idUsuario=?", id).fetch();
 		if (cm == null)
 			return null;
 		return cm.get(0);
+	}
+	
+	public static String getTipousuarioLogado()
+	{
+		return play.mvc.Scope.Session.current().get("tpUsuario");
 	}
 	
 	

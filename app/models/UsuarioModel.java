@@ -28,10 +28,10 @@ public class UsuarioModel extends Model{
 	@Column(name="IND_TIPO_PESSOA")
     private String tipoPessoa;
 	
-	@Column(name="EMAIL", unique = true)
+	@Column(name="EMAIL")
     private String email;
 	
-	@Column(name="CPF_CNPJ", unique = true)
+	@Column(name="CPF_CNPJ")
     private String cpfCnpj;
 	
 	@Column(name="ENDERECO")

@@ -9,7 +9,7 @@ public class Consultor extends BaseController {
 
   
 	public static ConsultorModel getConsultorLogado() {
-		String id = play.mvc.Scope.Session.current().get("idUsuario");
+		String id = play.mvc.Scope.Session.current().get("idConsultor");
     	ConsultorModel consultor = ConsultorModel.findById(Long.parseLong(id));
     	return consultor;
 	}

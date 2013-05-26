@@ -9,7 +9,7 @@ import play.mvc.*;
 import models.*;
 import play.data.validation.Validation;
 import Daos.ClienteDao;
-import Daos.UsuarioDao;;
+import Daos.UsuarioDao;
 
 public class Cliente extends BaseController {
 
@@ -37,47 +37,32 @@ public class Cliente extends BaseController {
 
 	public static void salvar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {
 
-		/* Valido unique */
-		int unique = verificaUnique(cpfCnpj, email);
-		if(unique == 1)
-		{
-			validation.addError("cpfCnpj", "validation.duplicated.cpfCnpj");
-			params.flash(); // add http parameters to the flash scope
-			validation.keep(); // keep the errors for the next request		
-			if(id==0)
+		if(id == 0){
+			/* Valido unique se for inserção*/
+			int unique = verificaUnique(cpfCnpj, email);
+			if(unique == 1)
 			{
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);
+				validation.addError("cpfCnpj", "validation.duplicated.cpfCnpj");
+				params.flash(); // add http parameters to the flash scope
+				validation.keep(); // keep the errors for the next request
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);		
 			}
+			else if(unique == 2)
+			{
+				validation.addError("email", "validation.duplicated.email");
+				params.flash(); // add http parameters to the flash scope
+				validation.keep(); // keep the errors for the next request
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);				
+			}		
 			else
 			{
-				editar(id, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);
-			}				
-		}
-		else if(unique == 2)
-		{
-			validation.addError("email", "validation.duplicated.email");
-			params.flash(); // add http parameters to the flash scope
-			validation.keep(); // keep the errors for the next request		
-			if(id==0)
-			{
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);
-			}
-			else
-			{
-				editar(id, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);
-			}				
-		}
-		else
-		{
-			if(id == 0){
 				inserir(tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj);
 			}
-			else{
-				ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
-				salvarEdit(cliente.getUsuario().id, tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj);
-			}
 		}
-
+		else{
+			ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
+			salvarEdit(cliente.getUsuario().id, tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj);
+		}
 
 	}
 
@@ -112,14 +97,16 @@ public class Cliente extends BaseController {
 		editar(cliente.getId(), cliente.usuario.getTipoPessoa(), cliente.usuario.getNome(), cliente.usuario.getEndereco(), cliente.usuario.getEmail(), cliente.usuario.getTelResidencial(), cliente.usuario.getCelular(), cliente.usuario.getRg(), cliente.usuario.getCpfCnpj());
 	}
 
-	public static void excluir(long idCliente){
+	public static void excluir(long idCliente, long idUsuario){
 		ClienteDao.getInstance().excluir(idCliente);
+		UsuarioDao.getInstance().excluir(idUsuario);
 		Application a = new Application();
 		a.consultor();
 
 	}
 
-	public static void salvarEdit(long idUsuario, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {
+	public static void salvarEdit(long idUsuario, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) 
+	{
 		validation.required(nome);
 		validation.required(endereco);
 		validation.required(email);
@@ -135,17 +122,43 @@ public class Cliente extends BaseController {
 		}
 		else{		
 			UsuarioModel u = UsuarioDao.getInstance().buscarUsuario(idUsuario);
-			u.setNome(nome);
-			u.setEmail(email);
-			String newCpf = cpfCnpj.replace(".", "");
-			newCpf = newCpf.replaceAll("-", "");
-			newCpf = newCpf.replaceAll("/", "");
-			u.setCpfCnpj(newCpf);
-			u.setTelResidencial(telResidencial);
-			u.setRg(rg);
-			u.setCelular(celular);
-			u.setEndereco(endereco);
-			u.save();
+
+			int unique = 0;
+			/* Valido chave unica se for diferente do que está no banco */
+			if(!u.getCpfCnpj().equals(cpfCnpj))
+			{
+				unique = verificaUnique(cpfCnpj, "");
+			}
+			else if(!u.getEmail().equals(email))
+			{
+				unique = verificaUnique("", email);
+			}
+
+			if(unique == 1)
+			{
+				validation.addError("cpfCnpj", "validation.duplicated.cpfCnpj");
+				params.flash(); // add http parameters to the flash scope
+				validation.keep(); // keep the errors for the next request
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);		
+			}
+			else if(unique == 2)
+			{
+				validation.addError("email", "validation.duplicated.email");
+				params.flash(); // add http parameters to the flash scope
+				validation.keep(); // keep the errors for the next request
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);				
+			}	
+			else
+			{
+				u.setNome(nome);
+				u.setEmail(email);
+				u.setCpfCnpj(cpfCnpj);
+				u.setTelResidencial(telResidencial);
+				u.setRg(rg);
+				u.setCelular(celular);
+				u.setEndereco(endereco);
+				u.save();
+			}
 			Application.consultor();
 		}
 	}
@@ -155,10 +168,7 @@ public class Cliente extends BaseController {
 		u.setTipoPessoa(tpPessoa);
 		u.setNome(nome);
 		u.setEmail(email);
-		String newCpf = cpfCnpj.replace(".", "");
-		newCpf = newCpf.replaceAll("-", "");
-		newCpf = newCpf.replaceAll("/", "");
-		u.setCpfCnpj(newCpf);
+		u.setCpfCnpj(cpfCnpj);
 		u.setTelResidencial(telResidencial);
 		u.setRg(rg);
 		u.setCelular(celular);
@@ -175,12 +185,17 @@ public class Cliente extends BaseController {
 	/* 1 = cpfCnpj repetido, 2 = Email repetido */
 	private static int verificaUnique(String cpfCnpj, String email)
 	{
-		List<UsuarioModel> usuarios = UsuarioDao.getInstance().ListarUsuarioByCpfCnpj(cpfCnpj);
-		if(usuarios.size() > 0)
+		List<UsuarioModel> usuarios;
+		if(!cpfCnpj.isEmpty())
 		{
-			return 1;
+			usuarios = UsuarioDao.getInstance().ListarUsuarioByCpfCnpj(cpfCnpj);
+			if(usuarios.size() > 0)
+			{
+				return 1;
+			}
 		}
-		else
+
+		if(!email.isEmpty())
 		{
 			usuarios = UsuarioDao.getInstance().ListarUsuarioByEmail(email);
 			if(usuarios.size() > 0)
