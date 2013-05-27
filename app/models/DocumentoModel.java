@@ -10,24 +10,22 @@ import javax.persistence.Table;
 
 import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
+import play.modules.s3blobs.S3Blob;
 
 @Entity
 @Table(name = "DOCUMENTO")
 public class DocumentoModel extends Model{
 	
 	
-	@Column(name="ID_PROCESSO")
-	private Long idProcesso;
-	
 	@Column(name="DATA")
 	private Date data;
 	
-	@Column(name="ARQUIVO")
-	private File arquivo;
+	@Column(name="ARQUIVO_NOME")
+	private String arquivoNome;
 	
-	public ClienteModel getProcesso() {
-		return GenericModel.findById(this.idProcesso);
-	}
+	@Column(name="ARQUIVO")
+	private S3Blob arquivo;
+	
 
 	public Date getData() {
 		return data;
@@ -37,17 +35,29 @@ public class DocumentoModel extends Model{
 		this.data = data;
 	}
 
-	public File getFile() {
+	public S3Blob getFile() {
 		return arquivo;
 	}
 
-	public void setFile(File file) {
+	public void setFile(S3Blob file) {
 		this.arquivo = file;
-		System.out.println("Arquivo adicionado:"+ file.getName());
 	}
 
-	public void setIdProcesso(Long idProcesso) {
-		this.idProcesso = idProcesso;
+	public String getArquivoNome() {
+		return arquivoNome;
 	}
+
+	public void setArquivoNome(String arquivoNome) {
+		this.arquivoNome = arquivoNome;
+	}
+
+	public S3Blob getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(S3Blob arquivo) {
+		this.arquivo = arquivo;
+	}
+
 	
 }

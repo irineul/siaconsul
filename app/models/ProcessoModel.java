@@ -34,23 +34,35 @@ public class ProcessoModel extends Model{
 	@Column(name="TIPO_PROCESSO")
 	private ProcessoTipos tipoProcesso;
 	
+	@Column(name="ID_DECLARACAO")
+	private Long idDeclaracao;
+
 	@Transient
 	private DocumentoModel declaracaoDeHipos;
 
+	@Column(name="ID_PROCURACAO")
+	private Long idProcuracao;
+	
 	@Transient
 	private DocumentoModel procuracao;
+	
+	@Column(name="ID_DOC_CARRO")
+	private Long idDocCarro;
 	
 	@Transient
 	private DocumentoModel docCarro;
 
-	@Transient
-	private DocumentoModel comprovanteCarro;
-
+	@Column(name="ID_COMPROVANTE_RESIDENCIA")
+	private Long idComprovanteResidencia;
+	
 	@Transient
 	private DocumentoModel comprovanteResidencia;
 
+	@Column(name="ID_RG_CPF")
+	private Long idRgCpf;
+	
 	@Transient
-	private DocumentoModel identidadeOuCpf;
+	private DocumentoModel rgOuCpf;
 
 	@Transient
 	private ClienteModel cliente;
@@ -154,14 +166,6 @@ public class ProcessoModel extends Model{
 		this.docCarro = docCarro;
 	}
 
-	public DocumentoModel getComprovanteCarro() {
-		return comprovanteCarro;
-	}
-
-	public void setComprovanteCarro(DocumentoModel comprovanteCarro) {
-		this.comprovanteCarro = comprovanteCarro;
-	}
-
 	public DocumentoModel getComprovanteResidencia() {
 		return comprovanteResidencia;
 	}
@@ -171,11 +175,11 @@ public class ProcessoModel extends Model{
 	}
 
 	public DocumentoModel getIdentidadeOuCpf() {
-		return identidadeOuCpf;
+		return rgOuCpf;
 	}
 
 	public void setIdentidadeOuCpf(DocumentoModel identidadeOuCpf) {
-		this.identidadeOuCpf = identidadeOuCpf;
+		this.rgOuCpf = identidadeOuCpf;
 	}
 
 	public Long getIdConsultor() {
@@ -194,4 +198,51 @@ public class ProcessoModel extends Model{
 		this.documentosExtras = documentosExtras;
 	}
 	
+	public Long getIdDeclaracao() {
+		return idDeclaracao;
+	}
+
+	public void setIdDeclaracao(Long idDeclaracao) {
+		this.idDeclaracao = idDeclaracao;
+	}
+
+	public Long getIdProcuracao() {
+		return idProcuracao;
+	}
+
+	public void setIdProcuracao(Long idProcuracao) {
+		this.idProcuracao = idProcuracao;
+	}
+
+	public Long getIdDocCarro() {
+		return idDocCarro;
+	}
+
+	public void setIdDocCarro(Long idDocCarro) {
+		this.idDocCarro = idDocCarro;
+	}
+
+	public Long getIdComprovanteResidencia() {
+		return idComprovanteResidencia;
+	}
+
+	public void setIdComprovanteResidencia(Long idComprovanteResidencia) {
+		this.idComprovanteResidencia = idComprovanteResidencia;
+	}
+
+	public Long getIdRgCpf() {
+		return idRgCpf;
+	}
+
+	public void setIdRgCpf(Long idRgCpf) {
+		this.idRgCpf = idRgCpf;
+	}
+
+	public DocumentoModel getRgOuCpf() {
+		return rgOuCpf;
+	}
+
+	public void setRgOuCpf(DocumentoModel rgOuCpf) {
+		this.rgOuCpf = rgOuCpf;
+	}
 }

@@ -4,6 +4,7 @@
 
 #{get 'moreStyles' /}
         <script src="@{'/public/javascripts/fileUpload.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/processo.js'}" type="text/javascript" charset="${_response_encoding}"></script>
 #{get 'moreScripts' /}
  <div class="clear"></div>
 
@@ -22,11 +23,11 @@
      </div>
 </div>
 
- 
 #{form @Processo.carrega(), enctype:'multipart/form-data'}
 
 <input type="hidden" id="idCliente" name="idCliente" value="${cliente.id}"/>
 <input type="hidden" id="operacao" name="operacao" value="INCLUIR"/>
+<input type="hidden" id="processo.id" name="processo.id" value="${idProcesso}"/>
 
 <lable class="active">Data(*)</lable>
 <div id="descricao">
@@ -69,21 +70,10 @@
 			</div>
 		#{/if}
 		#{else}
-			<input type="hidden" id="idDocumentoProcuracao" name="idDocumentoProcuracao" value="${processo.procuracao.id}">
-			<lable class="active">Procuracao EDITADO(*)</lable>
-			<div class="fileupload fileupload-new" data-provides="fileupload">
-		  		<div class="input-append">
-                        <div class="uneditable-input span3">
-                        <i class="icon-file fileupload-exists"></i>
-                        <span class="fileupload-preview">${processo.procuracao.arquivo.name}</span>
-                        </div>
-                        <span class="btn btn-file">
-                                <a href="${processo.procuracao.arquivo.name}" >Vizualisar</a>
-                                <input id="procuracaoDoc" name="procuracaoDoc" value="${processo.procuracao.arquivo}" type="file"/>
-                        </span>
-                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
-             </div>
-			</div>
+			<input  type="hidden" id="processo.idProcuracao" name="processo.idProcuracao" value="${processo.idProcuracao}"></input>
+			<input disabled="disabled" type="text" id="processo.arquivoNome" name="processo.arquivoNome" value="${processo.procuracao.arquivoNome}"></input>
+		     <a class="icon-download" href="downloadFile?id=${processo.idProcuracao}"></a>
+		     <a class="icon-remove" onclick="deleteFile(${processo.idProcuracao})" href="#"></a> </br>
 			
 		#{/else}
 		
@@ -104,22 +94,11 @@
 			</div>
 		#{/if}
 		#{else}
-		
-			<input type="hidden" id="idDocumentoDeclaracao" name="idDocumentoDeclaracao" value="${processo.declaracaoDeHipos.id}">
-			<lable class="active">Declaracao de hipos(*)</lable>
-			<div class="input-append">
-			    	<div class="uneditable-input span3">
-			    	<i class="icon-file fileupload-exists"></i> 
-			    	<span class="fileupload-preview">${processo.declaracaoDeHipos.arquivo.name}</span>
-			    	</div>
-			    	<span class="btn btn-file">
-			    	<span class="fileupload-exists">Alterar</span>
-			    	<input id="comprovanteResidencia" name="comprovanteResidencia" type="file"></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
-		        </div>
+		     <input  type="hidden" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.idDeclaracao}"></input>
+			 <input disabled="disabled" type="text" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.declaracaoDeHipos.arquivoNome}"></input>
+		     <a class="icon-download" href="downloadFile?id=${processo.idDeclaracao}"></a>
+		     <a class="icon-remove" href="downloadFile?id=${processo.idDeclaracao}"></a> </br>
 		#{/else}
-		
-		
-		
 		
 		
 		#{if (processo.docCarro == null) }
@@ -138,25 +117,14 @@
 				</div>
 		#{/if}
 		#{else}
-			<input type="hidden" id="idDocumentoCarro" name="idDocumentoCarro" value="${processo.docCarro.id}">
-			<lable class="active">Documento do carro(*)</lable>
-			<div class="fileupload fileupload-new" data-provides="fileupload">
-		  		<div class="input-append">
-                        <div class="uneditable-input span3">
-                        <i class="icon-file fileupload-exists"></i>
-                        <span class="fileupload-preview">${processo.docCarro.arquivo.name}</span>
-                        </div>
-                        <span class="btn btn-file">
-                                <a href="${processo.docCarro.arquivo.name}" >Vizualisar</a>
-                                <input id="docCarro" name="docCarro" value="${processo.docCarro.arquivo}" type="file"/>
-                        </span>
-                        <a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
-             </div>
-			</div>
+			<input type="hidden" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.idRgCpf}"></input>
+			<input disabled="disabled" type="text" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.docCarro.arquivoNome}"></input>
+		     <a class="icon-download" href="downloadFile?id=${processo.idDocCarro}"></a>
+		     <a class="icon-remove" href="downloadFile?id=${processo.idDocCarro}"></a> </br>
 			
 		#{/else}
 		
-			
+		#{if (processo.comprovanteResidencia == null) } 
 			
 			<lable class="active">Comprovante de Residencia(*)</lable>
 			<div class="fileupload fileupload-new" data-provides="fileupload">
@@ -168,10 +136,20 @@
 			    	<span class="btn btn-file">
 			    	<span class="fileupload-new">Selecione o Arquivo</span>
 			    	<span class="fileupload-exists">Alterar</span>
-			    	<input id="comprovanteResidencia" name="comprovanteResidencia" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+			    	<input id="idComprovanteResidencia" name="idComprovanteResidencia" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 		        </div>
 			</div>
+		#{/if}
+		#{else}
+		    <input type="hidden" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.idComprovanteResidencia}"></input>
+			<input disabled="disabled" type="text" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.comprovanteResidencia.arquivoNome}"></input>
+		     <a class="icon-download" href="downloadFile?id=${processo.idComprovanteResidencia}"></a>
+		     <a class="icon-remove" href="downloadFile?id=${processo.idComprovanteResidencia}"></a> </br>
 			
+		#{/else}
+			
+			
+		#{if (processo.rgOuCpf == null) }
 			<lable class="active">Identidade/CPF(*)</lable>
 			<div class="fileupload fileupload-new" data-provides="fileupload">
 		  		<div class="input-append">
@@ -182,13 +160,21 @@
 			    	<span class="btn btn-file">
 			    	<span class="fileupload-new">Selecione o Arquivo</span>
 			    	<span class="fileupload-exists">Alterar</span>
-			    	<input id="rgCpf" name="rgCpf" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+			    	<input id="idRgCpf" name="idRgCpf" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 		        </div>
 			</div>
+		#{/if}
+		#{else}
+			<input  type="hidden" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.idRgCpf}"></input>
+			<input disabled="disabled" type="text" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.rgOuCpf.arquivoNome}"></input>
+		     <a class="icon-download" href="downloadFile?id=${processo.idRgCpf}"></a>
+		     <a class="icon-remove" href="downloadFile?id=${processo.idRgCpf}"></a> </br>
+			
+		#{/else}
 			
 		</div>
 		    
-		<input id="novoArquivo" class="btn btn-primary" type="button" value="Adicionar Novos Documentos">
+		<!-- <input id="novoArquivo" class="btn btn-primary" type="button" value="Adicionar Novos Documentos"> -->
 	</div>
 
 </div>
