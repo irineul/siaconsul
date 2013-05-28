@@ -1,61 +1,42 @@
-#{extends 'internalMain.html' /}
-#{set title:'Home' /}
+#{extends 'internalMain.html' /} #{set title:'Home' /} #{get
+'moreStyles' /}
 
 
-
-#{get 'moreStyles' /}
-        <script src="@{'/public/javascripts/jquery.maskedinput.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        
+<script src="@{'/public/javascripts/dataTables.bootstrap.js'}" type="text/javascript" ></script
+<script src="@{'/public/javascripts/TableTools.js'}" type="text/javascript" ></script>
+		
 #{get 'moreScripts' /}
+		        
+<div class="container" style="margin-top: 10px">
+<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="clientesConsultor">
+	<thead>
+		<tr>
+			<th>Nome</th>
+			<th>CPF</th>
+			<th>E-mail</th>
+			<th>Tel. Residencial</th>
+			<th>Celular</th>
+			<th>Processo</th>
+			<th>Editar</th>
+			<th>Excluir</th>
+		</tr>
+	</thead>
+	<tbody>
 
-
-
-<div class= "tableDiv ">
-	<input type="text" placeholder="Procure pelo nome do cliente" id="searchNome" name="searchNome" >
-	<a href="@{Cliente.index()}" role="button" class="addButton btn btn-primary" data-toggle="modal">Novo Cliente</a>
- 	<div class= "clear">
- 	<table class= "table table-hover table-bordered ">
-      <thead>
-                 <tr>
-                   <th>Nome</th>
-                   <th>CPF</th>
-                   <th>E-mail</th>
-                   <th>Tel. Residencial</th>
-                   <th>Celular</th>
-                   <th>Processo</th>
-                   <th>Editar</th>
-                   <th>Excluir</th>
-                 </tr>
-         </thead>
-             <tbody>
-
-             #{list items:clientes, as:'cliente'}
-                <tr>
-                   <td>${cliente.usuario.nome}</td>
-                   <td>${cliente.usuario.cpfCnpj}</td>
-                   <td>${cliente.usuario.email}</td>
-                   <td>${cliente.usuario.telResidencial}</td>
-                   <td>${cliente.usuario.celular}</td>
-                   <td><a href="@{Processo.carrega(cliente.id)}">Processo</a></td>
-                   <td><a href="@{Cliente.editarCliente(cliente.id)}" data-toggle="modal">Editar</a></td>
-                   <td><a href="@{Cliente.excluir(cliente.id, cliente.idUsuario)}">Excluir</a></td>
-                 </tr>
-              #{/list}
-
- </table>
- </div>
- <div class= "tablePagination pagination ">
-  <ul>
-    <li><a href= "# ">Prev</a></li>
-    <li><a href= "# ">1</a></li>
-    <li><a href= "# ">2</a></li>
-    <li><a href= "# ">3</a></li>
-    <li><a href= "# ">Next</a></li>
-  </ul>
- </div>
- </div>
+		#{list items:clientes, as:'cliente'}
+		<tr>
+			<td>${cliente.usuario.nome}</td>
+			<td>${cliente.usuario.cpfCnpj}</td>
+			<td>${cliente.usuario.email}</td>
+			<td>${cliente.usuario.telResidencial}</td>
+			<td>${cliente.usuario.celular}</td>
+			<td><a href="@{Processo.carrega(cliente.id)}">Processo</a></td>
+			<td><a href="@{Cliente.editarCliente(cliente.id)}"
+				data-toggle="modal">Editar</a></td>
+			<td><a href="@{Cliente.excluir(cliente.id, cliente.idUsuario)}">Excluir</a></td>
+		</tr>
+		#{/list}
+	</tbody>
+</table>
 
 </div>
-
-
-
