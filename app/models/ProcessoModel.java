@@ -73,6 +73,43 @@ public class ProcessoModel extends Model{
 	@Column(name="DESCRICAO", length=1000)
 	private String descricao;
 	
+	@Column(name="VALOR_NOVA_PARCELA")
+	public String vlrNovaParcela;
+	
+	@Column(name="VALOR_NOVO_JUROS")
+	public String vlrJurosNovo;
+	
+	@Column(name="VALOR_JUROS_ANTIGO")
+	public String vlrJurosAntigo;
+	
+	@Column(name="VALOR_PAGO_INDEVIDO")
+	public String vlrPagoIndevido;
+	
+	public String getVlrNovaParcela() {
+		return vlrNovaParcela;
+	}
+	public void setVlrNovaParcela(String vlrNovaParcela) {
+		this.vlrNovaParcela = vlrNovaParcela;
+	}
+	public String getVlrJurosNovo() {
+		return vlrJurosNovo;
+	}
+	public void setVlrJurosNovo(String vlrJurosNovo) {
+		this.vlrJurosNovo = vlrJurosNovo;
+	}
+	public String getVlrJurosAntigo() {
+		return vlrJurosAntigo;
+	}
+	public void setVlrJurosAntigo(String vlrJurosAntigo) {
+		this.vlrJurosAntigo = vlrJurosAntigo;
+	}
+	public String getVlrPagoIndevido() {
+		return vlrPagoIndevido;
+	}
+	public void setVlrPagoIndevido(String vlrPagoIndevido) {
+		this.vlrPagoIndevido = vlrPagoIndevido;
+	}
+	
 	public ClienteModel getCliente () {
 		this.cliente = ClienteModel.findById(this.idCliente);
 		return this.cliente;

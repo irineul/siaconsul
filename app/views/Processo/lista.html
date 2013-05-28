@@ -1,18 +1,18 @@
 #{extends 'internalMain.html' /}
-#{set title:'Home' /}
+#{set title:'Processos' /}
 
 
 
 #{get 'moreStyles' /}
         <script src="@{'/public/javascripts/jquery.maskedinput.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        
+        <script src="@{'/public/javascripts/dataTables.bootstrap.js'}" type="text/javascript" ></script>
+        <script src="@{'/public/javascripts/TableTools.js'}" type="text/javascript" ></script>
 #{get 'moreScripts' /}
 
-<a href="@{Simulador.index()}" role="button" class="addButton btn btn-primary" >Novo Processo</a>
-<div class= "tableDiv ">
 
- <div class= "clear">
- <table class= "table table-hover table-bordered ">
+ 
+ <div class="container" style="margin-top: 10px">
+ <table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="clientesConsultor">
       <thead>
                  <tr>
                    <th>Cliente</th>
@@ -36,18 +36,6 @@
 
  </table>
  </div>
- <div class= "tablePagination pagination ">
-  <ul>
-    <li><a href= "# ">Prev</a></li>
-    <li><a href= "# ">1</a></li>
-    <li><a href= "# ">2</a></li>
-    <li><a href= "# ">3</a></li>
-    <li><a href= "# ">Next</a></li>
-  </ul>
- </div>
- </div>
-
-</div>
-
+ 
 
 

@@ -92,34 +92,41 @@
 		    </div>
 		             
 		    <div class= "clear"> </div>
+		    	</div>
+	</fieldset>
+</form>
+			
+			
 			<div id="divCalculos">
 			
+			#{form @Processo.carrega(), enctype:'multipart/form-data'}
 				<span class="label label-important">Taxa de Juros Atual</span>
 				<br />
-				<input type="text" id="txtCalcVlrJurosAtual" name="calcVlrJurosAtual" disabled="disabled">
+				<input type="hidden" id="idCliente" name="idCliente" value="${idCliente}">
+				<input type="text" id="txtCalcVlrJurosAtual" name="calcVlrJurosAtual" readonly="readonly">
 				
 				<div class= "clear"/>
 				
 				<span class="label label-success">Nova Taxas de Juros</span>
 				<br />
-				<input type="text" id="txtCalcVlrJurosNovo" name="calcVlrJurosNovo" disabled="disabled">
+				<input type="text" id="txtCalcVlrJurosNovo" name="calcVlrJurosNovo" readonly="readonly">
 				<div class= "clear"/>
 						
 				<span class="label label-important">Valor Pago Indevido</span>
 				<br />
-				<input type="text" id="txtCalcVlrPagoIndevido" name="txtCalcVlrPagoIndevido" disabled="disabled">
+				<input type="text" id="txtCalcVlrPagoIndevido" name="txtCalcVlrPagoIndevido" readonly="readonly">
 				<div class= "clear"/>
 				
 				<span class="label label-success">Valor de Nova Parcela</span>
 				<br />
-				<input type="text" id="txtCalcVlrNovaParcela" name="txtCalcVlrNovaParcela" disabled="disabled">
+				<input type="text" id="txtCalcVlrNovaParcela" name="txtCalcVlrNovaParcela" readonly="readonly">
 				<div class= "clear"/>	
 				
-		    </div>    
+		    </div>  
+		    <input id="salvarProcessoBtn" class="btn btn-primary" type="submit" value="Novo Processo">
+			#{/}  
 		        
-		</div>
-	</fieldset>
-</form>
+	
 
 <script type="text/javascript">
 

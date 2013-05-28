@@ -2,7 +2,7 @@
 'moreStyles' /}
 
 
-<script src="@{'/public/javascripts/dataTables.bootstrap.js'}" type="text/javascript" ></script
+<script src="@{'/public/javascripts/dataTables.bootstrap.js'}" type="text/javascript" ></script>
 <script src="@{'/public/javascripts/TableTools.js'}" type="text/javascript" ></script>
 		
 #{get 'moreScripts' /}
@@ -30,7 +30,7 @@
 			<td>${cliente.usuario.email}</td>
 			<td>${cliente.usuario.telResidencial}</td>
 			<td>${cliente.usuario.celular}</td>
-			<td><a href="@{Processo.carrega(cliente.id)}">Processo</a></td>
+			<td><a href="@{Simulador.index(cliente.id)}">Processo</a></td>
 			<td><a href="@{Cliente.editarCliente(cliente.id)}"
 				data-toggle="modal">Editar</a></td>
 			<td><a href="@{Cliente.excluir(cliente.id, cliente.idUsuario)}">Excluir</a></td>
