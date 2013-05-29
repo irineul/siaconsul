@@ -1,6 +1,6 @@
 
 $(document).ready(function() {
-    $('#clientesConsultor').dataTable( {
+    $('#gridBootstrap').dataTable( {
     	"oLanguage": {
 			"sLengthMenu": "Apresentar _MENU_ registros por página",
 			"sZeroRecords": "Nenhum registro encontrado",
