@@ -29,8 +29,8 @@ public class Simulador extends BaseController {
 	 */  
 	public static final DecimalFormat DINHEIRO_REAL = new DecimalFormat("¤ ###,###,##0.00",REAL);
 
-	public static void index(){
-		render();
+	public static void index(Long idCliente){
+		render(idCliente);
 	}
 
 	public static void calcular(@Required String vlrFinanciado, @Required String vlrParcelaAtual, @Required String qtdParcelas, @Required String qtdParcelasPagas, String dataFinanciamento, @Required String tpPessoa, @Required String tpFinanciamento) throws java.text.ParseException{

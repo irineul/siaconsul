@@ -29,6 +29,31 @@
 <input type="hidden" id="operacao" name="operacao" value="INCLUIR"/>
 <input type="hidden" id="processo.id" name="processo.id" value="${idProcesso}"/>
 
+
+<span class="label label-important">Taxa de Juros Atual</span>
+<br />
+<input type="text" id="txtCalcVlrJurosAtual" name="calcVlrJurosAtual" value="${processo.vlrJurosAntigo}" readonly="readonly">
+
+<div class= "clear"/>
+
+<span class="label label-success">Nova Taxas de Juros</span>
+<br />
+<input type="text" id="txtCalcVlrJurosNovo" name="calcVlrJurosNovo"  value="${processo.vlrJurosNovo}" readonly="readonly">
+
+<div class= "clear"/>
+<span class="label label-important">Valor Pago Indevido</span>
+<br />
+<input type="text" id="txtCalcVlrPagoIndevido" name="txtCalcVlrPagoIndevido" value="${processo.vlrPagoIndevido}" readonly="readonly">
+<div class= "clear"/>
+
+<span class="label label-success">Valor de Nova Parcela</span>
+<br />
+<input type="text" id="txtCalcVlrNovaParcela" name="txtCalcVlrNovaParcela" value="${processo.vlrNovaParcela}" readonly="readonly">
+<div class= "clear"/>
+
+
+
+
 <lable class="active">Data(*)</lable>
 <div id="descricao">
 	<input type="text" id=dataAberturaProcesso  name="dataAberturaProcesso" value="${processo.dataAberturaProcesso.format()}"></input>
