@@ -111,7 +111,10 @@ public class Util {
 		return play.mvc.Scope.Session.current().get("tpUsuario");
 	}
 	
-	
+	public static String getIdAdvogado()
+	{
+		return play.mvc.Scope.Session.current().get("idAdvogado");
+	}	
 
 }
 

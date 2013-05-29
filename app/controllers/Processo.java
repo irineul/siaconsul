@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import others.Calculo;
+
 import models.ClienteModel;
 import models.ConsultorModel;
 import models.DocumentoModel;
@@ -49,8 +51,12 @@ public class Processo extends BaseController {
     		processo.setDataAberturaProcesso(new Date());
 
     	}
+    	String txtCalcVlrJurosAtual = params.get("calcVlrJurosAtual", String.class);
+    	String calcVlrJurosNovo = params.get("calcVlrJurosNovo", String.class);
+    	String txtCalcVlrPagoIndevido = params.get("txtCalcVlrPagoIndevido", String.class);
+    	String txtCalcVlrNovaParcela = params.get("txtCalcVlrNovaParcela", String.class);
     	
-    	render(cliente, erros, processo, idProcesso);
+    	render(cliente, erros, processo, idProcesso, txtCalcVlrJurosAtual, calcVlrJurosNovo, txtCalcVlrPagoIndevido, txtCalcVlrNovaParcela);
     }
 
     
@@ -62,7 +68,6 @@ public class Processo extends BaseController {
 	 */
     public static void editar(Long id) throws FileNotFoundException {
     		ProcessoModel processo = ProcessoDao.getInstance().buscaProcessoCompleto(id);
-    		System.out.println("########### antes Processo.id " + processo.getId()  );
     		carrega(processo.getIdCliente(), processo,id);
     }
 
@@ -87,6 +92,18 @@ public class Processo extends BaseController {
     	processo.setDataAberturaProcesso(params.get("dataAberturaProcesso", Date.class));
     	
     	carregaDocumentos(processo);
+    	
+    	String vlrJurosAntigo = params.get("calcVlrJurosAtual", String.class);
+    	processo.setVlrJurosAntigo(vlrJurosAntigo);
+    	
+    	String calcVlrJurosNovo = params.get("calcVlrJurosNovo", String.class);
+    	processo.setVlrJurosNovo(calcVlrJurosNovo);
+    	
+    	String txtCalcVlrPagoIndevido = params.get("txtCalcVlrPagoIndevido", String.class);
+    	processo.setVlrPagoIndevido(txtCalcVlrPagoIndevido);
+    	
+    	String txtCalcVlrNovaParcela = params.get("txtCalcVlrNovaParcela", String.class);
+    	processo.setVlrNovaParcela(txtCalcVlrNovaParcela);
     	
 		return processo;
 	}

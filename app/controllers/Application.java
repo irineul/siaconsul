@@ -43,6 +43,7 @@ public class Application extends BaseController {
 	}
 
 	public static void advogado() {
+		
 		render();
 	}
 
@@ -54,15 +55,20 @@ public class Application extends BaseController {
 			UsuarioModel usuario = result.get(0);
 			List<AdvogadoModel> advogado = AdvogadoModel.find("idUsuario=?", usuario.id).fetch();
 			if (advogado != null && advogado.size() > 0) {
-				play.mvc.Scope.Session.current().put("idUsuario",advogado.get(0).id);
+				play.mvc.Scope.Session.current().put("idAdvogado",advogado.get(0).id);
+				play.mvc.Scope.Session.current().put("tpUsuario","A");
+				play.mvc.Scope.Session.current().put("idUsuario",2);
 				advogado();
 			}
 
-			List<ConsultorModel> consultor = ConsultorModel.find("idUsuario=?", usuario.id).fetch();
-			if (consultor != null && consultor.size() > 0) {
-				play.mvc.Scope.Session.current().put("idConsultor",consultor.get(0).id);
-				play.mvc.Scope.Session.current().put("idUsuario",consultor.get(0).getIsuario());
-				consultor();
+			else
+			{
+				List<ConsultorModel> consultor = ConsultorModel.find("idUsuario=?", usuario.id).fetch();
+				if (consultor != null && consultor.size() > 0) {
+					play.mvc.Scope.Session.current().put("idConsultor",consultor.get(0).id);
+					play.mvc.Scope.Session.current().put("idUsuario",consultor.get(0).getIsuario());
+					consultor();
+				}
 			}
 
 		}

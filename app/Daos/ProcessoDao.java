@@ -152,5 +152,24 @@ public class ProcessoDao {
 		}
 		return lista;
 	}
+	
+	/**
+	 * 
+	 * @param idAdvogado
+	 * @return
+	 */
+	
+	public List<ProcessoModel> ListarByIdAdvogado(long idAdvogado)
+	{
+		/* Busco os consultores do advogado e busco todos os processos de cada consultor */
+		List<ConsultorModel> consultoresAdvogado = ConsultorModel.find("idAdvogado = ? ", idAdvogado).fetch();
+		List<ProcessoModel> processosAdvogado = new ArrayList<ProcessoModel>();
+		for(ConsultorModel consultor : consultoresAdvogado)
+		{
+			processosAdvogado.addAll(ProcessoDao.getInstance().ListarByIdConsultor(consultor.getId()));
+		}
+		
+		return processosAdvogado;
+	}	
 
 }
