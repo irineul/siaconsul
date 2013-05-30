@@ -15,6 +15,7 @@ import models.ClienteModel;
 import models.ConsultorModel;
 import models.DocumentoModel;
 import models.ProcessoModel;
+import models.ProcessoRespostaModel;
 
 public class ProcessoDao {
 
@@ -116,6 +117,12 @@ public class ProcessoDao {
 	public ProcessoModel buscaProcessoCompleto(Long idProcesso){
 		ProcessoModel processo = ProcessoModel.findById(idProcesso);
 		carregaDocumentos(processo);
+		List<ProcessoRespostaModel> respostas =  ProcessoRespostaModel.find("idProcesso=?", idProcesso).fetch();
+		if (respostas != null && respostas.size() > 0) {
+			processo.setResposta(respostas.get(0));
+			DocumentoModel anexo = DocumentoModel.findById(processo.getResposta().getIdDocumentoAnexo());
+			processo.getResposta().setAnexo(anexo);
+		}
 		return processo;
 	}
 

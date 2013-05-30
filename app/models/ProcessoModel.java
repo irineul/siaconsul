@@ -85,6 +85,16 @@ public class ProcessoModel extends Model{
 	@Column(name="VALOR_PAGO_INDEVIDO")
 	public String vlrPagoIndevido;
 	
+	@Transient
+	private ProcessoRespostaModel resposta;
+
+	
+	public ProcessoRespostaModel getResposta() {
+		return resposta;
+	}
+	public void setResposta(ProcessoRespostaModel resposta) {
+		this.resposta = resposta;
+	}
 	public String getVlrNovaParcela() {
 		return vlrNovaParcela;
 	}

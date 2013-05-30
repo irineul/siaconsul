@@ -15,6 +15,7 @@ import models.ClienteModel;
 import models.ConsultorModel;
 import models.DocumentoModel;
 import models.ProcessoModel;
+import models.ProcessoRespostaModel;
 import play.libs.MimeTypes;
 import play.modules.s3blobs.S3Blob;
 import Daos.ProcessoDao;
@@ -23,10 +24,37 @@ import Enums.ProcessoTipos;
 public class Processo extends BaseController {
 	
 
-	public static void lista() {
+	public static void lista(String successMsg) {
     	ConsultorModel consultor = others.Util.getConsultorLogado();
     	List<ProcessoModel> processos = ProcessoDao.getInstance().ListarByIdConsultor(consultor.getId());
-    	render(processos);
+    	render(processos, successMsg);
+    }
+
+	/**
+	 * 
+	 * @param idProcesso
+	 * @throws FileNotFoundException
+	 */
+	public static void resposta(Long idProcesso) throws FileNotFoundException {
+		String operacao = params.get("OPERACAO", String.class);
+		if ( "INCLUIR".equals(operacao)){
+			ProcessoRespostaModel resposta = new ProcessoRespostaModel();
+			idProcesso = params.get("resposta.idProcesso", Long.class);
+			resposta.setIdProcesso(idProcesso);
+			String comentario = params.get("resposta.comentario", String.class);
+			resposta.setComentario(comentario);
+			DocumentoModel anexo = getDocumentoFromRequest("resposta.anexo", "resposta.anexo");
+			anexo.save();
+			resposta.setAnexo(anexo);
+			resposta.setData(new Date());
+			resposta.setIdDocumentoAnexo(anexo.getId());
+			resposta.save();
+	    	lista("Resposta enviada com sucesso");
+		}else{
+			ProcessoRespostaModel resposta = new ProcessoRespostaModel();
+			resposta.setIdProcesso(idProcesso);
+			render(resposta);
+		}
     }
 	
 	/**
@@ -39,24 +67,26 @@ public class Processo extends BaseController {
     	List<String> erros = new ArrayList<String>();
     	String operacao = params.get("operacao", String.class);
     	if ("INCLUIR".equals(operacao)) {
+    		
     		processo = montaProcessoFromRequest();
 	    	processo.setTipoProcesso(ProcessoTipos.VEICULO);
 	    	ProcessoDao.getInstance().saveOrUpdate(processo);
+	    	lista("Processo criado com sucesso!");
+	    	
+    	}else{
+ 
+    		ClienteModel cliente =ClienteModel.findById(idCliente);
+	    	if (processo == null) {
+	    		processo = new ProcessoModel();
+	    	}
+	    	if (processo.getDataAberturaProcesso() == null) {
+	    		processo.setDataAberturaProcesso(new Date());
+	    	}
+	    	if (processo.getVlrJurosNovo()== null) {
+	    		setCalculosToProcesso(processo);
+	    	}
+	    	render(cliente, erros, processo, idProcesso);
     	}
-    	ClienteModel cliente =ClienteModel.findById(idCliente);
-    	if (processo == null) {
-    		processo = new ProcessoModel();
-    	}
-    	if (processo.getDataAberturaProcesso() == null) {
-    		processo.setDataAberturaProcesso(new Date());
-
-    	}
-    	String txtCalcVlrJurosAtual = params.get("calcVlrJurosAtual", String.class);
-    	String calcVlrJurosNovo = params.get("calcVlrJurosNovo", String.class);
-    	String txtCalcVlrPagoIndevido = params.get("txtCalcVlrPagoIndevido", String.class);
-    	String txtCalcVlrNovaParcela = params.get("txtCalcVlrNovaParcela", String.class);
-    	
-    	render(cliente, erros, processo, idProcesso, txtCalcVlrJurosAtual, calcVlrJurosNovo, txtCalcVlrPagoIndevido, txtCalcVlrNovaParcela);
     }
 
     
@@ -69,6 +99,11 @@ public class Processo extends BaseController {
     public static void editar(Long id) throws FileNotFoundException {
     		ProcessoModel processo = ProcessoDao.getInstance().buscaProcessoCompleto(id);
     		carrega(processo.getIdCliente(), processo,id);
+    }
+    
+    public static void excluir(Long id) throws FileNotFoundException {
+		ProcessoModel.delete("id=?", id);
+		lista("Processo Removido com sucesso!");
     }
 
 
@@ -93,7 +128,13 @@ public class Processo extends BaseController {
     	
     	carregaDocumentos(processo);
     	
-    	String vlrJurosAntigo = params.get("calcVlrJurosAtual", String.class);
+    	setCalculosToProcesso(processo);
+    	
+		return processo;
+	}
+
+	private static void setCalculosToProcesso(ProcessoModel processo) {
+		String vlrJurosAntigo = params.get("calcVlrJurosAtual", String.class);
     	processo.setVlrJurosAntigo(vlrJurosAntigo);
     	
     	String calcVlrJurosNovo = params.get("calcVlrJurosNovo", String.class);
@@ -104,8 +145,6 @@ public class Processo extends BaseController {
     	
     	String txtCalcVlrNovaParcela = params.get("txtCalcVlrNovaParcela", String.class);
     	processo.setVlrNovaParcela(txtCalcVlrNovaParcela);
-    	
-		return processo;
 	}
 
 	/**
