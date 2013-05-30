@@ -93,7 +93,7 @@ public class Processo extends BaseController {
     
     /**
 	 * 
-	 * @param idCliente
+	 * @param idProcesso
 	 * @throws FileNotFoundException 
 	 */
     public static void editar(Long id) throws FileNotFoundException {
@@ -105,6 +105,16 @@ public class Processo extends BaseController {
 		ProcessoModel.delete("id=?", id);
 		lista("Processo Removido com sucesso!");
     }
+    
+    /**
+	 * 
+	 * @param idProcesso
+	 * @throws FileNotFoundException 
+	 */
+    public static void detalhar(Long id) throws FileNotFoundException {
+    		ProcessoModel processo = ProcessoDao.getInstance().buscaProcessoCompleto(id);
+    		carrega(processo.getIdCliente(), processo,id);
+    }    
 
 
 	/**

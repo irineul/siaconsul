@@ -30,7 +30,7 @@
 
              #{list items:processos, as:'processo'}
                 <tr>
-                   <td>${processo.cliente.usuario.nome}</td>
+                   <td><a href="@{Processo.detalhar(processo.id)}">${processo.cliente.usuario.nome}</a></td>
                    <td>${processo.banco}</td>
                    <td>${processo.dataAberturaProcesso.format()}</td>
                    <td><a href="@{Processo.editar(processo.id)}" >Editar</a></td>
