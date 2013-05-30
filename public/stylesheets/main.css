@@ -36,8 +36,8 @@
 }
 
 #textAreaInput{
-	height: 10em;
-	width: 99%;
+	height: 6em;
+	width: 61em;
 }
 
 #topHero{
@@ -75,6 +75,44 @@
 	color: #FF6347;
 }
 
+.topMsg{
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+#calculos{
+	display: inline-block;	
+}
+
+.rightBox{
+	margin-left: 3em;
+	float: right;
+}
+
+.leftBox{
+	margin-top: 1em;
+	float: left;
+}
+
+.txtAreaSendMsg{
+	margin-right: auto;
+	margin-left:auto;
+}
+
+/***************************************RESPOSTA PROCESSO CSS************************************************************/
+
+.respostaProcessoButtons{
+	left:0
+	left: 0;
+	width: 160px;
+}
+
+.respostaProcessoButtons input{
+	margin-right: 5px;
+}
+
 
 #gridBootstrap a:link
 {
@@ -94,16 +132,4 @@
 #gridBootstrap a:active
 {
 	{color: #000000; text-decoration: none}
-}
-
-#gridBootstrap tbody tr:hover
-{
-    background-color: #6DA8E3 !important;
-    cursor: pointer !important;
-}
-
-#gridBootstrap a:href
-{
-    background-color: #6DA8E3 !important;
-    cursor: pointer !important;
 }
