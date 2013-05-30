@@ -1,0 +1,45 @@
+#{extends 'internalMain.html' /}
+#{set title:'Resposta do Processo' /}
+
+
+#{get 'moreStyles' /}
+        <script src="@{'/public/javascripts/fileUpload.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/resposta.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+#{get 'moreScripts' /}
+ <div class="clear"></div>
+
+
+
+
+<div class="respostaProcessoForm">
+
+
+	#{form id: 'respostaProcessoForm', class: 'form-horizontal', action:@Processo.resposta(id), enctype:'multipart/form-data' }
+	    	<input type="hidden"  name="OPERACAO" value="INCLUIR"/>
+			<input type="hidden"  name="resposta.idProcesso" value="${resposta.idProcesso}"/>
+			<lable class="active">Comentario</lable>
+			<div class="clear"></div>
+			<textarea type="text" id="textAreaInput"  id="textAreaInput" name="resposta.comentario" ></textarea>
+			<div class="clear"></div>
+			<lable class="active">Anexo</lable>
+			<div class="fileupload fileupload-new" data-provides="fileupload">
+		  		<div class="input-append">
+			    	<div class="uneditable-input span3">
+			    	<i class="icon-file fileupload-exists"></i> 
+			    	<span class="fileupload-preview"></span>
+			    	</div>
+			    	<span class="btn btn-file">
+			    	<span class="fileupload-new">Selecione o Arquivo</span>
+			    	<span class="fileupload-exists">Alterar</span>
+			    	<input id="idComprovanteResidencia" name="resposta.anexo" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+		        </div>
+			</div>
+			<div class="respostaProcessoButtons">
+				<input id="salvarProcessoBtn" class="btn" type="reset" value="Limpar">
+				<input id="salvarProcessoBtn" class="btn btn-primary" type="submit" value="Salvar">
+			</div>
+			#{/}
+</div>
+
+
+

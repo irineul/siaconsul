@@ -1,1 +1,3 @@
 // Javascript com métodos genéricos
+
+
