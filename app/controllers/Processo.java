@@ -113,7 +113,19 @@ public class Processo extends BaseController {
 	 */
     public static void detalhar(Long id) throws FileNotFoundException {
     		ProcessoModel processo = ProcessoDao.getInstance().buscaProcessoCompleto(id);
-    		carrega(processo.getIdCliente(), processo,id);
+    		
+        	List<String> erros = new ArrayList<String>();
+    		ClienteModel cliente =ClienteModel.findById(processo.getId());
+	    	if (processo == null) {
+	    		processo = new ProcessoModel();
+	    	}
+	    	if (processo.getDataAberturaProcesso() == null) {
+	    		processo.setDataAberturaProcesso(new Date());
+	    	}
+	    	if (processo.getVlrJurosNovo()== null) {
+	    		setCalculosToProcesso(processo);
+	    	}
+	    	render(cliente, erros, processo, processo.id);
     }    
 
 

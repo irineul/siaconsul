@@ -23,3 +23,8 @@ function showDadosProc(){
 	$("#histProcessoLi").attr("class","");
 	$("#dadosProcesso").show();
 }
+
+function cancelar(){
+	var url = "/processo/lista"; 
+	$(location).attr('href',url);
+}
