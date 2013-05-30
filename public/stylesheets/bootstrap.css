@@ -6038,6 +6038,6 @@ a.badge:hover {
   position: fixed;
 }
 .table tbody tr:hover td, .table tbody tr:hover th {
-    background-color: #6DA8E3;
+    background-color: #87CEEB;
     cursor: pointer;
 }

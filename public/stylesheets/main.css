@@ -115,20 +115,24 @@
 
 #gridBootstrap a:link
 {
-	{color: #000000; text-decoration: none}
+	color: #000000; 
+	text-decoration: none
 }
 
 #gridBootstrap a:visited
 {
-	{color: #000000; text-decoration: none}
+	color: #000000; 
+	text-decoration: none;
 }
 
 #gridBootstrap a:hover
 {
-	{color: #000000; text-decoration: none}
+	color: #1E90FF;
+	text-decoration: none;
 }
 
 #gridBootstrap a:active
 {
-	{color: #000000; text-decoration: none}
+	color: #000000; 
+	text-decoration: none;
 }
