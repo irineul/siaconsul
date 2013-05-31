@@ -33,6 +33,20 @@ public class Cliente extends BaseController {
 	public static void editar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {
 		render(id, tipoPessoa, nome, endereco, email, telResidencial,celular,rg,cpfCnpj);
 	}	
+	
+	public static void detalhar(long id) {
+		ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
+		UsuarioModel usuario = UsuarioDao.getInstance().buscarUsuario(cliente.getIsuario());
+		if(usuario.getTipoPessoa().equals("F"))
+		{
+			usuario.setTipoPessoa("Físico");
+		}
+		else
+		{
+			usuario.setTipoPessoa("Jurídico");
+		}
+		render(usuario);
+	}		
 
 
 	public static void salvar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {

@@ -121,3 +121,8 @@ function cancelar(){
 	var url = "/application/consultor"; 
 	$(location).attr('href',url);
 }
+
+function voltar(){
+	var url = "/application/consultor"; 
+	$(location).attr('href',url);
+}

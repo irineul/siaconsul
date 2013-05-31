@@ -1,108 +1,115 @@
-#{extends 'internalMain.html' /}
-#{set title:'Clientes/Incluir' /}
+#{extends 'internalMain.html' /} #{set title:'Clientes/Incluir' /} #{get
+'moreStyles' /}
+<script src="@{'/public/javascripts/cliente.js'}" type="text/javascript"
+	charset="${_response_encoding}"></script>
+<script src="@{'/public/javascripts/jquery.maskedinput.min.js'}"
+	type="text/javascript" charset="${_response_encoding}"></script>
 
+#{get 'moreScripts' /} #{form id: 'formCliente', class:
+'form-horizontal', action:@Cliente.salvar(id) }
+<fieldset>
 
-
-#{get 'moreStyles' /}
-        <script src="@{'/public/javascripts/cliente.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        <script src="@{'/public/javascripts/jquery.maskedinput.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
-        
-#{get 'moreScripts' /}
-
-
-   #{form id: 'formCliente', class: 'form-horizontal', action:@Cliente.salvar(id) }
-  <fieldset>
-  
-	<div class="control-group"> 
+	<div class="control-group">
 		<label class="control-label" for="tipo_pessoa">Tipo de Cliente</label>
 		<div class="controls">
-		 	<div class="btn-group" name="tipo_pessoa" id="tipo_pessoa" data-toggle="buttons-radio" >
-		  		<button type="button" name="tpPessoa" value="F" onClick="modificaMascara(this.value)" class="btn active" >Físico</button>
-		  		<button type="button" name="tpPessoa" value="J" onClick="modificaMascara(this.value)" class="btn">Jurídico</button>
+			<div class="btn-group" name="tipo_pessoa" id="tipo_pessoa"
+				data-toggle="buttons-radio">
+				<button type="button" name="tpPessoa" value="F"
+					onClick="modificaMascara(this.value)" class="btn active">Físico</button>
+				<button type="button" name="tpPessoa" value="J"
+					onClick="modificaMascara(this.value)" class="btn">Jurídico</button>
 			</div>
-	    </div>
-    </div>  
+		</div>
+	</div>
 
-	<div class= "clear"> </div>
- 	<input type="hidden" name="id" value="${id}">
- 	
- 	<input type="hidden" id="tipoPessoa" name="tipoPessoa" value="${tipoPessoa}">
+	<div class="clear"></div>
+	<input type="hidden" name="id" value="${id}"> <input
+		type="hidden" id="tipoPessoa" name="tipoPessoa" value="${tipoPessoa}">
 
 
-	<div class="control-group"> 
+	<div class="control-group">
 		<label class="control-label" for="nome">Nome</label>
 		<div class="controls">
-		    <input type="text" class="input-xlarge" id="nome" name="nome" value="${nome}">
-		    <span class="error">#{error 'nome' /}</span>
-	    </div>
-    </div>
+			<input type="text" class="input-xlarge" id="nome" name="nome"
+				value="${nome}"> <span class="error">#{error 'nome'
+				/}</span>
+		</div>
+	</div>
 
-	<div class="control-group"> 
+	<div class="control-group">
 		<label class="control-label" for="endereco">Endereço</label>
 		<div class="controls">
-		    <input type="text" class="input-xlarge" id="endereco" name="endereco" value="${endereco}">
-		    <span class="error">#{error 'endereco' /}</span>
-	    </div>
-    </div>
-	
-	<div class="control-group"> 
+			<input type="text" class="input-xlarge" id="endereco" name="endereco"
+				value="${endereco}"> <span class="error">#{error
+				'endereco' /}</span>
+		</div>
+	</div>
+
+	<div class="control-group">
 		<label class="control-label" for="email">E-mail</label>
 		<div class="controls">
-		    <input type="text" class="input-xlarge" id="email" name="email" value="${email}">
-		    <span class="error">#{error 'email' /}</span>
-	    </div>
-    </div>
-	
-	<div class="control-group" id="rgCliente"> 
+			<input type="text" class="input-xlarge" id="email" name="email"
+				value="${email}"> <span class="error">#{error 'email'
+				/}</span>
+		</div>
+	</div>
+
+	<div class="control-group" id="rgCliente">
 		<label class="control-label" for="rg">RG</label>
 		<div class="controls">
-		    <input type="text" class="input" id="rg" name="rg" value="${rg}">
-		    <span class="error">#{error 'rg' /}</span>
-	    </div>
-    </div>
-    	
-    
-	<div class="control-group"> 
+			<input type="text" class="input" id="rg" name="rg" value="${rg}">
+			<span class="error">#{error 'rg' /}</span>
+		</div>
+	</div>
+
+
+	<div class="control-group">
 		<label class="control-label" for="cpfCnpj">CPF/CNPJ</label>
 		<div class="controls">
-		    <input type="text" class="input" id="cpfCnpj" name="cpfCnpj" value="${cpfCnpj}">
-		    <span class="error">#{error 'cpfCnpj' /}</span>
-	    </div>
-    </div>	    
-    
-	<div class="control-group"> 
-		<label class="control-label" for="telResidencial">Telefone Residencial</label>
+			<input type="text" class="input" id="cpfCnpj" name="cpfCnpj"
+				value="${cpfCnpj}"> <span class="error">#{error
+				'cpfCnpj' /}</span>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label" for="telResidencial">Telefone
+			Residencial</label>
 		<div class="controls">
-		    <input type="text" class="input-medium" id="telResidencial" name="telResidencial" value="${telResidencial}">
-		    <span class="error">#{error 'telResidencial' /}</span>
-	    </div>
-    </div>
-    
-	<div class="control-group"> 
+			<input type="text" class="input-medium" id="telResidencial"
+				name="telResidencial" value="${telResidencial}"> <span
+				class="error">#{error 'telResidencial' /}</span>
+		</div>
+	</div>
+
+	<div class="control-group">
 		<label class="control-label" for="celular">Celular</label>
 		<div class="controls">
-		    <input type="text" class="input-medium" id="celular" name="celular" value="${celular}">
-		    <span class="error">#{error 'celular' /}</span>
-	    </div>
-    </div>        
+			<input type="text" class="input-medium" id="celular" name="celular"
+				value="${celular}"> <span class="error">#{error
+				'celular' /}</span>
+		</div>
+	</div>
 
-  </fieldset>
- 
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn" aria-hidden="true" onClick="cancelar();">Cancelar</button>
-    <button type="submit" class="btn btn-primary">Salvar</button>
-  </div>
+</fieldset>
+
+</div>
+<div class="modal-footer">
+	<button type="button" class="btn" aria-hidden="true"
+		onClick="cancelar();">Cancelar</button>
+	<button type="submit" class="btn btn-primary">Salvar</button>
+</div>
 #{/form}
 
 
 <script type="text/javascript">
-$(document).ready(function() {
-	  	
-	$("#tipoPessoa").val("F");
-	// Máscaras nos campos do form
-	formPessoaFisica();
-});
+	$(document).ready(function() {
+		  	
+		$("#tipoPessoa").val("F");
+		
+		// Máscaras nos campos do form
+		formPessoaFisica();
+	});
 </script>
 
 

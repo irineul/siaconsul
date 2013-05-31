@@ -25,7 +25,7 @@
 
 		#{list items:clientes, as:'cliente'}
 		<tr>
-			<td>${cliente.usuario.nome}</td>
+			<td><a href="@{Cliente.detalhar(cliente.id)}">${cliente.usuario.nome}</a></td>
 			<td>${cliente.usuario.cpfCnpj}</td>
 			<td>${cliente.usuario.email}</td>
 			<td>${cliente.usuario.telResidencial}</td>
