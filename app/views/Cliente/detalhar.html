@@ -9,7 +9,7 @@
 'form-horizontal', action:@Cliente.salvar(id) }
 <fieldset>
 
-	<input type="hidden" id="tipoPessoa" name="tipoPessoa" value="${usuario.tipoPessoa}">
+	<input type="hidden" id="tipoPessoa" name="tipoPessoa" value="${cliente.usuario.tipoPessoa}">
 
 	<div class="control-group">
 		<label class="control-label" for="tipo_pessoa">Tipo de Cliente</label>
@@ -24,15 +24,24 @@
 		<label class="control-label" for="nome">Nome</label>
 		<div class="controls">
 			<input type="text" readOnly="readOnly" class="input-xlarge" id="nome" name="nome"
-				value="${usuario.nome}">
+				value="${cliente.usuario.nome}">
 		</div>
 	</div>
 
 	<div class="control-group">
+		<label class="control-label" for="profissao">Profissao</label>
+		<div class="controls">
+			<input type="text" readOnly="readOnly" class="input-xlarge" id="profissao" name="profissao"
+				value="${cliente.profissao}"> <span class="error">#{error 'profissao'
+				/}</span>
+		</div>
+	</div>
+	
+	<div class="control-group">
 		<label class="control-label" for="endereco">Endereço</label>
 		<div class="controls">
 			<input type="text" readOnly="readOnly"  class="input-xlarge" id="endereco" name="endereco"
-				value="${usuario.endereco}"> 
+				value="${cliente.usuario.endereco}"> 
 		</div>
 	</div>
 
@@ -40,14 +49,14 @@
 		<label class="control-label" for="email">E-mail</label>
 		<div class="controls">
 			<input type="text" readOnly="readOnly" class="input-xlarge" id="email" name="email"
-				value="${usuario.email}">
+				value="${cliente.usuario.email}">
 		</div>
 	</div>
 
 	<div class="control-group" id="rgCliente">
 		<label class="control-label" for="rg">RG</label>
 		<div class="controls">
-			<input type="text" readOnly="readOnly" class="input" id="rg" name="rg" value="${usuario.rg}">
+			<input type="text" readOnly="readOnly" class="input" id="rg" name="rg" value="${cliente.usuario.rg}">
 		</div>
 	</div>
 
@@ -56,7 +65,7 @@
 		<label class="control-label" for="cpfCnpj">CPF/CNPJ</label>
 		<div class="controls">
 			<input type="text" readOnly="readOnly" class="input" id="cpfCnpj" name="cpfCnpj"
-				value="${usuario.cpfCnpj}">
+				value="${cliente.usuario.cpfCnpj}">
 		</div>
 	</div>
 
@@ -65,7 +74,7 @@
 			Residencial</label>
 		<div class="controls">
 			<input type="text" readOnly="readOnly" class="input-medium" id="telResidencial"
-				name="telResidencial" value="${usuario.telResidencial}">
+				name="telResidencial" value="${cliente.usuario.telResidencial}">
 		</div>
 	</div>
 
@@ -73,9 +82,18 @@
 		<label class="control-label" for="celular">Celular</label>
 		<div class="controls">
 			<input type="text" readOnly="readOnly" class="input-medium" id="celular" name="celular"
-				value="${usuario.celular}">
+				value="${cliente.usuario.celular}">
 		</div>
 	</div>
+	
+	<div class="control-group">
+		<label class="control-label" for="renda">Renda Mensal</label>
+		<div class="controls">
+			<input type="text" readOnly="readOnly" class="input-medium" id="rendaMensal" name="rendaMensal"
+				value="${cliente.rendaMensal}"> <span class="error">#{error
+				'rendaMensal' /}</span>
+		</div>
+	</div>    	
 
 </fieldset>
 

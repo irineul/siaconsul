@@ -4,7 +4,9 @@ $(document).ready(function() {
 	// http://bassistance.de/jquery-plugins/jquery-plugin-validation/
 	// http://docs.jquery.com/Plugins/Validation/
 	// http://docs.jquery.com/Plugins/Validation/validate#toptions
-
+	
+	$("#rendaMensal").maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."});
+	
 		$('#formCliente').validate({
 	    rules: {
 	      nome: {

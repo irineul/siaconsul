@@ -36,13 +36,13 @@ public class Cliente extends BaseController {
 	
 	public static void detalhar(long id) {
 		ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
-		UsuarioModel usuario = UsuarioDao.getInstance().buscarUsuario(cliente.getIsuario());
-		render(usuario);
+		render(cliente);
 	}		
 
 
-	public static void salvar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, double rendaMensal, String profissao) {
+	public static void salvar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, String rendaMensal, String profissao) {
 
+		String newRenda = rendaMensal.replace(".", "").replace(",", ".");
 		if(id == 0){
 			/* Valido unique se for inserção*/
 			int unique = verificaUnique(cpfCnpj, email);
@@ -51,23 +51,23 @@ public class Cliente extends BaseController {
 				validation.addError("cpfCnpj", "validation.duplicated.cpfCnpj");
 				params.flash(); // add http parameters to the flash scope
 				validation.keep(); // keep the errors for the next request
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);		
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, Double.parseDouble(newRenda), profissao);		
 			}
 			else if(unique == 2)
 			{
 				validation.addError("email", "validation.duplicated.email");
 				params.flash(); // add http parameters to the flash scope
 				validation.keep(); // keep the errors for the next request
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);				
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, Double.parseDouble(newRenda), profissao);				
 			}		
 			else
 			{
-				inserir(tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj, rendaMensal, profissao);
+				inserir(tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj, Double.parseDouble(newRenda), profissao);
 			}
 		}
 		else{
 			ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
-			salvarEdit(cliente.id, cliente.getUsuario().id, tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj, rendaMensal, profissao);
+			salvarEdit(cliente.id, cliente.getUsuario().id, tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj, Double.parseDouble(newRenda), profissao);
 		}
 
 	}
