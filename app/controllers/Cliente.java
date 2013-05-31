@@ -26,12 +26,12 @@ public class Cliente extends BaseController {
 	 * @param cpfCnpj
 	 * 
 	 */
-	public static void index(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {
-		render(id, tipoPessoa, nome, endereco, email, telResidencial,celular,rg,cpfCnpj);
+	public static void index(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, double rendaMensal, String profissao) {
+		render(id, tipoPessoa, nome, endereco, email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);
 	}
 
-	public static void editar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {
-		render(id, tipoPessoa, nome, endereco, email, telResidencial,celular,rg,cpfCnpj);
+	public static void editar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, double rendaMensal, String profissao) {
+		render(id, tipoPessoa, nome, endereco, email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);
 	}	
 	
 	public static void detalhar(long id) {
@@ -41,7 +41,7 @@ public class Cliente extends BaseController {
 	}		
 
 
-	public static void salvar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {
+	public static void salvar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, double rendaMensal, String profissao) {
 
 		if(id == 0){
 			/* Valido unique se for inserção*/
@@ -51,28 +51,28 @@ public class Cliente extends BaseController {
 				validation.addError("cpfCnpj", "validation.duplicated.cpfCnpj");
 				params.flash(); // add http parameters to the flash scope
 				validation.keep(); // keep the errors for the next request
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);		
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);		
 			}
 			else if(unique == 2)
 			{
 				validation.addError("email", "validation.duplicated.email");
 				params.flash(); // add http parameters to the flash scope
 				validation.keep(); // keep the errors for the next request
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);				
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);				
 			}		
 			else
 			{
-				inserir(tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj);
+				inserir(tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj, rendaMensal, profissao);
 			}
 		}
 		else{
 			ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
-			salvarEdit(cliente.getUsuario().id, tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj);
+			salvarEdit(cliente.id, cliente.getUsuario().id, tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj, rendaMensal, profissao);
 		}
 
 	}
 
-	public static void inserir(String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) {
+	public static void inserir(String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, double rendaMensal, String profissao) {
 
 		validation.required(nome);
 		validation.required(endereco);
@@ -87,11 +87,13 @@ public class Cliente extends BaseController {
 		if(validation.hasErrors()){
 			params.flash(); // add http parameters to the flash scope
 			validation.keep(); // keep the errors for the next request			
-			index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);
+			index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);
 		}
 		else{
 			UsuarioModel u = fresh(tipoPessoa, nome, endereco, email, telResidencial, celular, rg, cpfCnpj);			
 			ClienteModel c = new ClienteModel();
+			c.setProfissao(profissao);
+			c.setRendaMensal(rendaMensal);
 			c.salvaCliente(u, Consultor.getConsultorLogado());
 			Application.consultor();
 		}
@@ -100,7 +102,7 @@ public class Cliente extends BaseController {
 
 	public static void editarCliente(long idCliente){
 		ClienteModel cliente = ClienteDao.getInstance().buscarCliente(idCliente);
-		editar(cliente.getId(), cliente.usuario.getTipoPessoa(), cliente.usuario.getNome(), cliente.usuario.getEndereco(), cliente.usuario.getEmail(), cliente.usuario.getTelResidencial(), cliente.usuario.getCelular(), cliente.usuario.getRg(), cliente.usuario.getCpfCnpj());
+		editar(cliente.getId(), cliente.usuario.getTipoPessoa(), cliente.usuario.getNome(), cliente.usuario.getEndereco(), cliente.usuario.getEmail(), cliente.usuario.getTelResidencial(), cliente.usuario.getCelular(), cliente.usuario.getRg(), cliente.usuario.getCpfCnpj(), cliente.getRendaMensal(), cliente.getProfissao());
 	}
 
 	public static void excluir(long idCliente, long idUsuario){
@@ -111,7 +113,7 @@ public class Cliente extends BaseController {
 
 	}
 
-	public static void salvarEdit(long idUsuario, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj) 
+	public static void salvarEdit(long id, long idUsuario, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, double rendaMensal, String profissao) 
 	{
 		validation.required(nome);
 		validation.required(endereco);
@@ -124,11 +126,12 @@ public class Cliente extends BaseController {
 		if(validation.hasErrors()){
 			params.flash(); // add http parameters to the flash scope
 			validation.keep(); // keep the errors for the next request			
-			editar(idUsuario, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);
+			editar(idUsuario, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);
 		}
 		else{		
+			ClienteModel c = ClienteDao.getInstance().buscarCliente(id);
 			UsuarioModel u = UsuarioDao.getInstance().buscarUsuario(idUsuario);
-
+			
 			int unique = 0;
 			/* Valido chave unica se for diferente do que está no banco */
 			if(!u.getCpfCnpj().equals(cpfCnpj))
@@ -145,17 +148,19 @@ public class Cliente extends BaseController {
 				validation.addError("cpfCnpj", "validation.duplicated.cpfCnpj");
 				params.flash(); // add http parameters to the flash scope
 				validation.keep(); // keep the errors for the next request
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);		
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);		
 			}
 			else if(unique == 2)
 			{
 				validation.addError("email", "validation.duplicated.email");
 				params.flash(); // add http parameters to the flash scope
 				validation.keep(); // keep the errors for the next request
-				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj);				
+				index(0, tipoPessoa, nome,endereco,email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);				
 			}	
 			else
 			{
+				c.setRendaMensal(rendaMensal);
+				c.setProfissao(profissao);
 				u.setNome(nome);
 				u.setEmail(email);
 				u.setCpfCnpj(cpfCnpj);
