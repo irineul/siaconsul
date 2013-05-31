@@ -37,14 +37,6 @@ public class Cliente extends BaseController {
 	public static void detalhar(long id) {
 		ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
 		UsuarioModel usuario = UsuarioDao.getInstance().buscarUsuario(cliente.getIsuario());
-		if(usuario.getTipoPessoa().equals("F"))
-		{
-			usuario.setTipoPessoa("Físico");
-		}
-		else
-		{
-			usuario.setTipoPessoa("Jurídico");
-		}
 		render(usuario);
 	}		
 
