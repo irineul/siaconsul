@@ -61,7 +61,7 @@ public class Application extends BaseController {
 				play.mvc.Scope.Session.current().put("idConsultor",0);
 				play.mvc.Scope.Session.current().put("tpUsuario","A");
 				play.mvc.Scope.Session.current().put("idUsuario",2);
-				home();
+				Processo.lista(null);
 			}
 
 			else
