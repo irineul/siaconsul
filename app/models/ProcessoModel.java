@@ -85,6 +85,9 @@ public class ProcessoModel extends Model{
 	@Column(name="VALOR_PAGO_INDEVIDO")
 	public String vlrPagoIndevido;
 	
+	@Column(name="NUMERO_PROCESSO")
+	public String numeroProcesso;
+	
 	@Transient
 	private ProcessoRespostaModel resposta;
 
@@ -291,5 +294,11 @@ public class ProcessoModel extends Model{
 
 	public void setRgOuCpf(DocumentoModel rgOuCpf) {
 		this.rgOuCpf = rgOuCpf;
+	}
+	public String getNumeroProcesso() {
+		return numeroProcesso;
+	}
+	public void setNumeroProcesso(String numeroProcesso) {
+		this.numeroProcesso = numeroProcesso;
 	}
 }
