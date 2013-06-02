@@ -22,8 +22,10 @@
                    <th>Cliente</th>
                    <th>Banco</th>
                    <th>Data</th>
-                   <th>Editar</th>
-                   <th>Excluir</th>
+                   #{if (tipoUsuarioLogado != "A") }
+	                   <th>Editar</th>
+	                   <th>Excluir</th>
+                   #{/if}
                  </tr>
          </thead>
              <tbody>
@@ -33,8 +35,10 @@
                    <td><a href="@{Processo.detalhar(processo.id)}">${processo.cliente.usuario.nome}</a></td>
                    <td>${processo.banco}</td>
                    <td>${processo.dataAberturaProcesso.format()}</td>
-                   <td><a href="@{Processo.editar(processo.id)}" >Editar</a></td>
-                   <td><a href="@{Processo.excluir(processo.id)}">Excluir</a></td>
+					#{if (tipoUsuarioLogado != "A") }
+                   		<td><a href="@{Processo.editar(processo.id)}" >Editar</a></td>
+                   		<td><a href="@{Processo.excluir(processo.id)}">Excluir</a></td>
+					#{/if}                                      
                  </tr>
               #{/list}
 

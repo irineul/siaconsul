@@ -13,6 +13,9 @@ $(document).ready(function() {
 	        minlength: 5,
 	        required: true
 	      },
+	      profissao: {
+		        required: true
+		  },	      
 	      endereco: {
 	        minlength: 5,
 	        required: true
@@ -36,7 +39,10 @@ $(document).ready(function() {
 	      },
 	      celular: {
 	        required: true
-	      }
+	      },
+	      rendaMensal: {
+	    	  money: true
+		  },
 	    },
 			highlight: function(element) {
 				$(element).closest('.control-group').removeClass('success').addClass('error');
@@ -120,11 +126,11 @@ function formPessoaJuridica(){
 
 function cancelar(){
 	$("#formCliente").validate().cancelSubmit = true;
-	var url = "/application/consultor"; 
+	var url = "/application/home"; 
 	$(location).attr('href',url);
 }
 
 function voltar(){
-	var url = "/application/consultor"; 
+	var url = "/application/home"; 
 	$(location).attr('href',url);
 }

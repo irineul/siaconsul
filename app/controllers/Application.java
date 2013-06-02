@@ -70,6 +70,7 @@ public class Application extends BaseController {
 				if (consultor != null && consultor.size() > 0) {
 					play.mvc.Scope.Session.current().put("idConsultor",consultor.get(0).id);
 					play.mvc.Scope.Session.current().put("idUsuario",consultor.get(0).getIsuario());
+					play.mvc.Scope.Session.current().put("tpUsuario","C");
 					home();
 				}
 			}

@@ -33,7 +33,7 @@ public class Processo extends BaseController {
 			if(idAdvogado != null)
 			{
 				List<ProcessoModel> processos = ProcessoDao.getInstance().ListarByIdAdvogado(Long.parseLong(idAdvogado));
-				render(processos, successMsg); 
+				render(processos, successMsg, tipoUsuarioLogado); 
 			}
 		}
 		/* O usuário logado é consultor, lista seus processos */
@@ -41,7 +41,7 @@ public class Processo extends BaseController {
 		{
 	    	ConsultorModel consultor = others.Util.getConsultorLogado();
 	    	List<ProcessoModel> processos = ProcessoDao.getInstance().ListarByIdConsultor(consultor.getId());
-	    	render(processos, successMsg);			
+	    	render(processos, successMsg, tipoUsuarioLogado);			
 		}
     }
 
@@ -128,6 +128,7 @@ public class Processo extends BaseController {
 	 */
     public static void detalhar(Long id) throws FileNotFoundException {
     		ProcessoModel processo = ProcessoDao.getInstance().buscaProcessoCompleto(id);
+    		String tipoUsuarioLogado = others.Util.getTipousuarioLogado();
     		
         	List<String> erros = new ArrayList<String>();
     		ClienteModel cliente = ClienteModel.findById(processo.getCliente().getId());
@@ -140,7 +141,7 @@ public class Processo extends BaseController {
 	    	if (processo.getVlrJurosNovo()== null) {
 	    		setCalculosToProcesso(processo);
 	    	}
-	    	render(cliente, erros, processo, processo.id);
+	    	render(cliente, erros, processo, processo.id, tipoUsuarioLogado);
     }    
 
 

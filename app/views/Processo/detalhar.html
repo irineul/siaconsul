@@ -255,6 +255,9 @@
 <div>
 
 <div class="modal-footer">
+		#{if (tipoUsuarioLogado == "A") }
+		<button type="button" class="btn" aria-hidden="true" onClick="responderProcesso(${processo.id})">Responder Processo</button>
+		#{/if}
 		<button type="button" class="btn" aria-hidden="true" onClick="cancelar();">Voltar</button>
 </div>
 

@@ -28,3 +28,9 @@ function cancelar(){
 	var url = "/processo/lista"; 
 	$(location).attr('href',url);
 }
+
+function responderProcesso(idProcesso){
+	var url = "/processo/resposta?idProcesso=" + idProcesso; 
+	$(location).attr('href',url);
+}
+
