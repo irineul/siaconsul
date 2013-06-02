@@ -1,6 +1,12 @@
 package controllers;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
+
+import others.Util;
 
 import Daos.ProcessoDao;
 
@@ -13,6 +19,18 @@ import Daos.UsuarioDao;
 
 public class Cliente extends BaseController {
 
+	/** 
+	 * Locale Brasileiro 
+	 */  
+	private static final Locale BRAZIL = new Locale("pt","BR");  
+	/** 
+	 * Símbolos especificos do Real Brasileiro 
+	 */  
+	private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);  
+	/** 
+	 * Mascara de dinheiro para Real Brasileiro 
+	 */  
+	public static final DecimalFormat DINHEIRO_REAL = new DecimalFormat("¤ ###,###,##0.00",REAL);	
 	/**
 	 * 
 	 * Carrega os dados do cliente para a tela
@@ -36,6 +54,11 @@ public class Cliente extends BaseController {
 	
 	public static void detalhar(long id) {
 		ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
+		DecimalFormat twoDForm = new DecimalFormat("#########.##");
+
+		String rendaMensal = Util.mascaraDinheiro(cliente.getRendaMensal(), DINHEIRO_REAL);
+		
+		cliente.setRendaMensalApresentacao(rendaMensal);
 		render(cliente);
 	}		
 

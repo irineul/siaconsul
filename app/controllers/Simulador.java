@@ -121,10 +121,10 @@ public class Simulador extends BaseController {
 		Calculo c = new Calculo(); 
 		DecimalFormat twoDForm = new DecimalFormat("#########.##");
 
-		c.setVlrNovaParcela(mascaraDinheiro(vlrFinalParcela, DINHEIRO_REAL));
+		c.setVlrNovaParcela(Util.mascaraDinheiro(vlrFinalParcela, DINHEIRO_REAL));
 		c.setVlrJurosNovo(twoDForm.format(vlrNovoJuros) + "%");
 		c.setVlrJurosAntigo(twoDForm.format(vlrOldJuros) + "%");
-		c.setVlrPagoIndevido(mascaraDinheiro(vlrIndevidoTotal, DINHEIRO_REAL));
+		c.setVlrPagoIndevido(Util.mascaraDinheiro(vlrIndevidoTotal, DINHEIRO_REAL));
 		/* ***************************************** */
 
 		renderJSON(c);
@@ -164,10 +164,5 @@ public class Simulador extends BaseController {
 		/* Aplico regra de três */
 		return ((vlrTotalNovo*100)/vlrFinanciado) - 100;
 	}
-
-	/* Mascara o dinheiro passado por parâmetro */
-	private static String mascaraDinheiro(double valor, DecimalFormat moeda){  
-		return moeda.format(valor);  
-	}  	
 
 }

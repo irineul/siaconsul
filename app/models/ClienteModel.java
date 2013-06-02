@@ -26,6 +26,8 @@ public class ClienteModel extends Model{
 	@Column(name="PROFISSAO")
     private String profissao;
 
+	private String rendaMensalApresentacao;
+	
 	@Transient
 	public UsuarioModel usuario = null;
 	
@@ -66,7 +68,7 @@ public class ClienteModel extends Model{
 		this.idUsuario = idUsuario;
 	}
 	
-	public double getRendaMensal() {
+	public Double getRendaMensal() {
 		return rendaMensal;
 	}
 
@@ -80,6 +82,14 @@ public class ClienteModel extends Model{
 
 	public void setProfissao(String profissao) {
 		this.profissao = profissao;
+	}
+
+	public String getRendaMensalApresentacao() {
+		return rendaMensalApresentacao;
+	}
+
+	public void setRendaMensalApresentacao(String rendaMensalApresentacao) {
+		this.rendaMensalApresentacao = rendaMensalApresentacao;
 	}	
 
 }

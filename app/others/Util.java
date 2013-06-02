@@ -1,5 +1,6 @@
 package others;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.util.List;
 
@@ -116,5 +117,9 @@ public class Util {
 		return play.mvc.Scope.Session.current().get("idAdvogado");
 	}	
 
+	/* Mascara o dinheiro passado por parâmetro */
+	public static String mascaraDinheiro(double valor, DecimalFormat moeda){  
+		return moeda.format(valor);  
+	}  	
 }
 

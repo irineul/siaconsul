@@ -90,7 +90,7 @@
 		<label class="control-label" for="renda">Renda Mensal</label>
 		<div class="controls">
 			<input type="text" readOnly="readOnly" class="input-medium" id="rendaMensal" name="rendaMensal"
-				value="${cliente.rendaMensal}"> <span class="error">#{error
+				value="${cliente.rendaMensalApresentacao}"> <span class="error">#{error
 				'rendaMensal' /}</span>
 		</div>
 	</div>    	
@@ -109,6 +109,10 @@
 	$(document).ready(function() {
 		
 		var tipoPessoa = $("#tipoPessoa").val();
+		
+		var money = $("#rendaMensal").val();
+		money.toFixed(2);
+		alert(money);
 		if(tipoPessoa == "F")
 		{
 			$("#tpPessoa").val("Fisico");
