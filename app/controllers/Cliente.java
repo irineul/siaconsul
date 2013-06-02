@@ -51,14 +51,21 @@ public class Cliente extends BaseController {
 	public static void editar(long id, String tipoPessoa, String nome, String endereco, String email, String telResidencial, String celular, String rg, String cpfCnpj, double rendaMensal, String profissao) {
 		render(id, tipoPessoa, nome, endereco, email, telResidencial,celular,rg,cpfCnpj, rendaMensal, profissao);
 	}	
-	
+
 	public static void detalhar(long id) {
 		ClienteModel cliente = ClienteDao.getInstance().buscarCliente(id);
-		DecimalFormat twoDForm = new DecimalFormat("#########.##");
 
-		String rendaMensal = Util.mascaraDinheiro(cliente.getRendaMensal(), DINHEIRO_REAL);
+		Double rendaMensal = cliente.getRendaMensal();
 		
-		cliente.setRendaMensalApresentacao(rendaMensal);
+		/* Se foi informado a renda mensal, formato-a para apresentação na tela */
+		if(rendaMensal != null)
+		{
+			DecimalFormat twoDForm = new DecimalFormat("#########.##");
+			String rendaMensalAp = Util.mascaraDinheiro(rendaMensal, DINHEIRO_REAL);
+			cliente.setRendaMensalApresentacao(rendaMensalAp);
+		}
+
+		
 		render(cliente);
 	}		
 
@@ -154,7 +161,7 @@ public class Cliente extends BaseController {
 		else{		
 			ClienteModel c = ClienteDao.getInstance().buscarCliente(id);
 			UsuarioModel u = UsuarioDao.getInstance().buscarUsuario(idUsuario);
-			
+
 			int unique = 0;
 			/* Valido chave unica se for diferente do que está no banco */
 			if(!u.getCpfCnpj().equals(cpfCnpj))
