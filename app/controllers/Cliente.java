@@ -151,6 +151,8 @@ public class Cliente extends BaseController {
 		validation.required(celular);
 		validation.required(rg);
 		validation.required(cpfCnpj);
+		validation.required(rendaMensal);
+		validation.required(profissao);
 
 		if(validation.hasErrors()){
 			params.flash(); // add http parameters to the flash scope
@@ -190,6 +192,7 @@ public class Cliente extends BaseController {
 			{
 				c.setRendaMensal(rendaMensal);
 				c.setProfissao(profissao);
+				c.save();
 				u.setNome(nome);
 				u.setEmail(email);
 				u.setCpfCnpj(cpfCnpj);
