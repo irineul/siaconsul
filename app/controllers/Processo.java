@@ -25,9 +25,24 @@ public class Processo extends BaseController {
 	
 
 	public static void lista(String successMsg) {
-    	ConsultorModel consultor = others.Util.getConsultorLogado();
-    	List<ProcessoModel> processos = ProcessoDao.getInstance().ListarByIdConsultor(consultor.getId());
-    	render(processos, successMsg);
+		String tipoUsuarioLogado = others.Util.getTipousuarioLogado();
+		/* Se o usuário for do tipo advgoado, lista os processos de todos consultores dele */
+		if(tipoUsuarioLogado != null && tipoUsuarioLogado.equals("A"))
+		{
+			String idAdvogado = others.Util.getIdAdvogado();
+			if(idAdvogado != null)
+			{
+				List<ProcessoModel> processos = ProcessoDao.getInstance().ListarByIdAdvogado(Long.parseLong(idAdvogado));
+				render(processos, successMsg); 
+			}
+		}
+		/* O usuário logado é consultor, lista seus processos */
+		else
+		{
+	    	ConsultorModel consultor = others.Util.getConsultorLogado();
+	    	List<ProcessoModel> processos = ProcessoDao.getInstance().ListarByIdConsultor(consultor.getId());
+	    	render(processos, successMsg);			
+		}
     }
 
 	/**
@@ -115,7 +130,7 @@ public class Processo extends BaseController {
     		ProcessoModel processo = ProcessoDao.getInstance().buscaProcessoCompleto(id);
     		
         	List<String> erros = new ArrayList<String>();
-    		ClienteModel cliente =ClienteModel.findById(processo.getId());
+    		ClienteModel cliente = ClienteModel.findById(processo.getCliente().getId());
 	    	if (processo == null) {
 	    		processo = new ProcessoModel();
 	    	}

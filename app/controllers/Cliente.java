@@ -64,7 +64,6 @@ public class Cliente extends BaseController {
 			String rendaMensalAp = Util.mascaraDinheiro(rendaMensal, DINHEIRO_REAL);
 			cliente.setRendaMensalApresentacao(rendaMensalAp);
 		}
-
 		
 		render(cliente);
 	}		
@@ -125,7 +124,7 @@ public class Cliente extends BaseController {
 			c.setProfissao(profissao);
 			c.setRendaMensal(rendaMensal);
 			c.salvaCliente(u, Consultor.getConsultorLogado());
-			Application.consultor();
+			Application.home();
 		}
 
 	}
@@ -139,7 +138,7 @@ public class Cliente extends BaseController {
 		ClienteDao.getInstance().excluir(idCliente);
 		UsuarioDao.getInstance().excluir(idUsuario);
 		Application a = new Application();
-		a.consultor();
+		a.home();
 
 	}
 
@@ -200,7 +199,7 @@ public class Cliente extends BaseController {
 				u.setEndereco(endereco);
 				u.save();
 			}
-			Application.consultor();
+			Application.home();
 		}
 	}
 
@@ -219,7 +218,7 @@ public class Cliente extends BaseController {
 
 	public static void cancelar()
 	{
-		Application.consultor();
+		Application.home();
 	}
 
 	/* Método que verifica se o post não quebrará nenhuma unique */

@@ -21,11 +21,18 @@ public class Application extends BaseController {
 		index();
 	}
 
-	public static void consultor() {
+	public static void home() {
 		ConsultorModel consultor = Consultor.getConsultorLogado();
-		List<ClienteModel> clientes = new ArrayList<ClienteModel>();
-		clientes = consultor.getClientes();
-		render(clientes);
+		if(consultor != null && consultor.getId() != 0)
+		{
+			List<ClienteModel> clientes = new ArrayList<ClienteModel>();
+			clientes = consultor.getClientes();
+			render(clientes);
+		}
+		else
+		{
+			render();
+		}
 	}
 
 
@@ -42,11 +49,6 @@ public class Application extends BaseController {
 		renderTemplate("consultor", clientes);
 	}
 
-	public static void advogado() {
-		
-		render();
-	}
-
 	public static void login(String email, String senha) {
 
 		List<UsuarioModel> result = UsuarioModel.find("email = ? And senha = ?", email, senha).fetch();
@@ -56,9 +58,10 @@ public class Application extends BaseController {
 			List<AdvogadoModel> advogado = AdvogadoModel.find("idUsuario=?", usuario.id).fetch();
 			if (advogado != null && advogado.size() > 0) {
 				play.mvc.Scope.Session.current().put("idAdvogado",advogado.get(0).id);
+				play.mvc.Scope.Session.current().put("idConsultor",0);
 				play.mvc.Scope.Session.current().put("tpUsuario","A");
 				play.mvc.Scope.Session.current().put("idUsuario",2);
-				advogado();
+				home();
 			}
 
 			else
@@ -67,7 +70,7 @@ public class Application extends BaseController {
 				if (consultor != null && consultor.size() > 0) {
 					play.mvc.Scope.Session.current().put("idConsultor",consultor.get(0).id);
 					play.mvc.Scope.Session.current().put("idUsuario",consultor.get(0).getIsuario());
-					consultor();
+					home();
 				}
 			}
 
