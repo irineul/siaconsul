@@ -119,7 +119,9 @@
 				<div class= "clear"/>	
 				
 		    </div>  
-		    <input id="salvarProcessoBtn" class="btn btn-primary" type="submit" value="Novo Processo">
+			    #{ if (others.Util.getTipousuarioLogado() != "A") && idCliente != null}
+			    	<input id="salvarProcessoBtn" class="btn btn-primary" type="submit" value="Novo Processo">
+			    #{/if}	
 			#{/}  
 		        
 	
