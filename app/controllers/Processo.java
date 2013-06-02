@@ -94,6 +94,8 @@ public class Processo extends BaseController {
 	    	if (processo == null) {
 	    		processo = new ProcessoModel();
 	    	}
+	    	processo.setIdCliente(idCliente);
+	    	processo.setCliente(cliente);
 	    	if (processo.getDataAberturaProcesso() == null) {
 	    		processo.setDataAberturaProcesso(new Date());
 	    	}
