@@ -117,6 +117,7 @@ public class ProcessoDao {
 	public ProcessoModel buscaProcessoCompleto(Long idProcesso){
 		ProcessoModel processo = ProcessoModel.findById(idProcesso);
 		carregaDocumentos(processo);
+		processo.getCliente().getUsuario();
 		List<ProcessoRespostaModel> respostas =  ProcessoRespostaModel.find("idProcesso=?", idProcesso).fetch();
 		if (respostas != null && respostas.size() > 0) {
 			processo.setResposta(respostas.get(0));
