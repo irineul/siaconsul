@@ -103,12 +103,12 @@
 		
 			<lable class="active">Profissao</lable>
 			<div id="descricao">
-				<input type="text" readOnly="readOnly" name="processo.profissao" />
+				<input type="text" readOnly="readOnly" id="profissao" value="${cliente.profissao}" />
 			</div>
 			
 			<lable class="active">Renda Mensal</lable>
 			<div id="descricao">
-				<input type="text" readOnly="readOnly" name="processo.rendaMensal" />
+				<input type="text" readOnly="readOnly" id="rendaMensalApresentacao" value="${cliente.rendaMensalApresentacao}" />
 			</div>
 	</div>
 	
@@ -254,14 +254,6 @@
 <!-- ****************************************** FIM ABA DADOS PROCESSO ************************************************************************************-->
 <div>
 
-<div class="modal-footer">
-		#{if (tipoUsuarioLogado == "A") }
-		<button type="button" class="btn" aria-hidden="true" onClick="responderProcesso(${processo.id})">Responder Processo</button>
-		#{/if}
-		<button type="button" class="btn" aria-hidden="true" onClick="cancelar();">Voltar</button>
-</div>
-
-
 <div id="histProcesso">
 
 
@@ -279,6 +271,11 @@
 </div>
 
 
-
+<div class="modal-footer">
+		#{if (tipoUsuarioLogado == "A") }
+		<button type="button" class="btn" aria-hidden="true" onClick="responderProcesso(${processo.id})">Responder Processo</button>
+		#{/if}
+		<button type="button" class="btn" aria-hidden="true" onClick="cancelar();">Voltar</button>
+</div>
     </body>
 </html>

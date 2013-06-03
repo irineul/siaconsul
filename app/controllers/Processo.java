@@ -5,11 +5,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import others.Calculo;
+import others.Util;
 
 import models.ClienteModel;
 import models.ConsultorModel;
@@ -22,7 +26,19 @@ import Daos.ProcessoDao;
 import Enums.ProcessoTipos;
 
 public class Processo extends BaseController {
-	
+
+	/** 
+	 * Locale Brasileiro 
+	 */  
+	private static final Locale BRAZIL = new Locale("pt","BR");  
+	/** 
+	 * Símbolos especificos do Real Brasileiro 
+	 */  
+	private static final DecimalFormatSymbols REAL = new DecimalFormatSymbols(BRAZIL);  
+	/** 
+	 * Mascara de dinheiro para Real Brasileiro 
+	 */  
+	public static final DecimalFormat DINHEIRO_REAL = new DecimalFormat("¤ ###,###,##0.00",REAL);	
 
 	public static void lista(String successMsg) {
 		String tipoUsuarioLogado = others.Util.getTipousuarioLogado();
@@ -102,6 +118,16 @@ public class Processo extends BaseController {
 	    	if (processo.getVlrJurosNovo()== null) {
 	    		setCalculosToProcesso(processo);
 	    	}
+	    	
+			Double rendaMensal = cliente.getRendaMensal();
+			
+			/* Se foi informado a renda mensal, formato-a para apresentação na tela */
+			if(rendaMensal != null)
+			{
+				String rendaMensalAp = Util.mascaraDinheiro(rendaMensal, DINHEIRO_REAL);
+				cliente.setRendaMensalApresentacao(rendaMensalAp);
+			}
+			
 	    	render(cliente, erros, processo, idProcesso);
     	}
     }
@@ -143,6 +169,16 @@ public class Processo extends BaseController {
 	    	if (processo.getVlrJurosNovo()== null) {
 	    		setCalculosToProcesso(processo);
 	    	}
+	    	
+			Double rendaMensal = cliente.getRendaMensal();
+			
+			/* Se foi informado a renda mensal, formato-a para apresentação na tela */
+			if(rendaMensal != null)
+			{
+				String rendaMensalAp = Util.mascaraDinheiro(rendaMensal, DINHEIRO_REAL);
+				cliente.setRendaMensalApresentacao(rendaMensalAp);
+			}
+			
 	    	render(cliente, erros, processo, processo.id, tipoUsuarioLogado);
     }    
 
