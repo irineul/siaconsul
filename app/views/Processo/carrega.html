@@ -23,11 +23,17 @@
      </div>
 </div>
 
-#{form @Processo.carrega(), enctype:'multipart/form-data'}
 
+
+#{form id: 'formProcesso', enctype:'multipart/form-data', action:@Processo.carrega() }
+
+<fieldset>
 <input type="hidden" id="idCliente" name="idCliente" value="${cliente.id}"/>
 <input type="hidden" id="operacao" name="operacao" value="INCLUIR"/>
 <input type="hidden" id="processo.id" name="processo.id" value="${idProcesso}"/>
+
+<input type="hidden" id="isOnBuscaApreencao" name="isOnBuscaApreencao" value="${processo.isOnBuscaApreencao}"/>
+<input type="hidden" id="isCasaPropria" name="isCasaPropria" value="${processo.isCasaPropria}"/>
 
 
 <ul class="nav nav-tabs">
@@ -65,14 +71,22 @@
 			#{else}
 				<div class= "clear"></div>
 			#{/else}
-			<lable class="active">Data</lable>
-			<div id="descricao">
-				<input type="text" id=dataAberturaProcesso  name="dataAberturaProcesso" value="${processo.dataAberturaProcesso.format()}"></input>
+			
+			
+			<div class="control-group">
+				<label class="control-label" for="dataAberturaProcesso">Data</label>
+				<div class="controls">
+				<input type="text" id="dataAberturaProcesso"  name="dataAberturaProcesso" value="${processo.dataAberturaProcesso.format()}"></input> 
+					<span class="error">#{error 'banco'/}</span>
+				</div>
 			</div>
 			
-			<lable class="active">Banco</lable>
-			<div id="descricao">
-				<input type="text" id=banco  name="banco" value="${processo.banco}"></input>
+			<div class="control-group">
+				<label class="control-label" for="banco">Banco</label>
+				<div class="controls">
+					<input type="text" id="banco"  name="banco" value="${processo.banco}"/> 
+					<span class="error">#{error 'banco'/}</span>
+				</div>
 			</div>
 			
 		</div>
@@ -89,10 +103,15 @@
 			<input type="text" id="txtCalcVlrNovaParcela" name="txtCalcVlrNovaParcela" value="${processo.vlrNovaParcela}" readonly="readonly">
 			<div class= "clear"></div>
 			
-			<lable class="active">Descricao do Processo</lable>
-			<div id="descricao">
-				<textarea type="text" id="textAreaInput"  id="textAreaInput" name="descricao" >${processo.descricao}</textarea>
+			<div class="control-group">
+				<label class="control-label" for="banco">Descricao do Processo</label>
+				<div class="controls">
+					<textarea type="text" id="textAreaInput"  id="textAreaInput" name="descricao" >${processo.descricao}</textarea> 
+					<span class="error">#{error 'banco'/}</span>
+				</div>
 			</div>
+			
+			
 		</div>
 	</div>
 	<!-- ****************************************** FIM DIV CALCULOS ************************************************************************************-->
@@ -103,11 +122,18 @@
 	
 	<div>
 			<div class="control-group"> 
-				<label class="control-label" for="tipo_pessoa">Busca e apreensao</label>
+				<label class="control-label" for="isOnBuscaApreencao">Busca e apreensao</label>
 				<div class="controls">
-				 	<div class="btn-group" name="tipo_pessoa" id="tipo_pessoa" data-toggle="buttons-radio" >
-				  		<button type="button" name="tpPessoa" value="F" onClick="apresentaDivTipoFincto(this.value);" class="btn active" data-toggle="button">Sim</button>
-				 		<button type="button" name="tpPessoa" value="J" onClick="apresentaDivTipoFincto(this.value);" class="btn" data-toggle="button">Nao</button>
+				 	<div class="btn-group" name="buscaApreencao" id="buscaApreencao" data-toggle="buttons-radio" >
+				 		#{if processo.isOnBuscaApreencao == true}
+					  		<button type="button"  onclick="setValueTo('S','isOnBuscaApreencao')" value="S" class="btn active" data-toggle="button">Sim</button>
+					 		<button type="button"  onclick="setValueTo('N','isOnBuscaApreencao')" value="N" class="btn" data-toggle="button">Nao</button>
+					 		
+				 		#{/if}
+				 		#{else}
+					 		<button type="button" onclick="setValueTo('N','isOnBuscaApreencao')" value="S" class="btn" data-toggle="button">Sim</button>
+					 		<button type="button" onclick="setValueTo('N','isOnBuscaApreencao')" value="N" class="btn active" data-toggle="button">Nao</button>
+				 		#{/else}
 				    </div>
 				</div>
 			</div>
@@ -115,9 +141,16 @@
 			<div class="control-group"> 
 				<label class="control-label" for="tipo_pessoa">Casa Propria</label>
 				<div class="controls">
-				 	<div class="btn-group" name="tipo_pessoa" id="tipo_pessoa" data-toggle="buttons-radio" >
-				  		<button type="button" name="tpPessoa" value="F" onClick="apresentaDivTipoFincto(this.value);" class="btn active" data-toggle="button">Sim</button>
-				  		<button type="button" name="tpPessoa" value="J" onClick="apresentaDivTipoFincto(this.value);" class="btn" data-toggle="button">Nao</button>
+				 	<div class="btn-group" name="casaPropria" id="casaPropria" data-toggle="buttons-radio" >
+				 		#{if processo.isCasaPropria == true}
+					  		<button type="button" onclick="setValueTo('S','isCasaPropria')" value="S"  class="btn active" data-toggle="button">Sim</button>
+					  		<button type="button" onclick="setValueTo('N','isCasaPropria')" value="N" class="btn" data-toggle="button">Nao</button>
+					  	#{/if}
+					  	#{else}
+					  		<button type="button" name="isCasaPropria" value="S"  class="btn" data-toggle="button">Sim</button>
+					  		<button type="button" name="isCasaPropria" value="N" class="btn active" data-toggle="button">Nao</button>
+					  	#{/else}
+					  	
 					</div>
 			    </div>
 			</div>
@@ -146,25 +179,33 @@
 			<div id="fileUploadContainerFiles">
 			
 			#{if (processo.procuracao == null) }
-				<lable class="active">Procuracao</lable>
-				<div class="fileupload fileupload-new" data-provides="fileupload">
-			  		<div class="input-append">
-				    	<div class="uneditable-input span3">
-				    	<i class="icon-file fileupload-exists"></i> 
-				    	<span class="fileupload-preview"></span>
-				    	</div>
-				    	<span class="btn btn-file">
-				    	<span class="fileupload-new">Selecione o Arquivo</span>
-				    	<span class="fileupload-exists">Alterar</span>
-				    	<input id="procuracaoDoc" name="procuracaoDoc" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
-			        </div>
+				<div id="processp.idProcuracao.novo">
+					<div class="control-group">
+						<label class="control-label" for="procuracaoDoc">Procuracao</label>
+						<div class="controls">
+						<div class="fileupload fileupload-new" data-provides="fileupload">
+						  		<div class="input-append">
+							    	<div class="uneditable-input span3">
+							    	<i class="icon-file fileupload-exists"></i> 
+							    	<span class="fileupload-preview"></span>
+							    	</div>
+							    	<span class="btn btn-file">
+							    	<span class="fileupload-new">Selecione o Arquivo</span>
+							    	<span class="fileupload-exists">Alterar</span>
+							    	<input id="procuracaoDoc" name="procuracaoDoc" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+						        </div>
+							</div>
+						</div>
+					</div>
 				</div>
 			#{/if}
 			#{else}
+			<div id="processp.idProcuracao.edit">
 				<input  type="hidden" id="processo.idProcuracao" name="processo.idProcuracao" value="${processo.idProcuracao}"></input>
 				<input disabled="disabled" type="text" id="processo.arquivoNome" name="processo.arquivoNome" value="${processo.procuracao.arquivoNome}"></input>
 			     <a class="icon-download" href="downloadFile?id=${processo.idProcuracao}"></a>
-			     <a class="icon-remove" onclick="deleteFile(${processo.idProcuracao})" href="#"></a> </br>
+			     <a class="icon-remove" onclick="removeDoc('procuracaoDoc','processp.idProcuracao.edit','processp.idProcuracao.novo')" href="#"></a> </br>
+			 </div>
 				
 			#{/else}
 			
@@ -271,6 +312,8 @@
 	<!-- ****************************************** FIM DOCUMENTOS OBRIGATORIOS ************************************************************************************-->
 	
 	<input id="salvarProcessoBtn" class="btn btn-primary" type="submit" value="Salvar Processo">
+	
+	</fieldset>
 	#{/}
 	
 </div>

@@ -79,6 +79,8 @@ public class ProcessoDao {
 		processoFromDb.setIdDocCarro(processo.getIdDocCarro());
 		processoFromDb.setIdComprovanteResidencia(processo.getIdComprovanteResidencia());
 		processoFromDb.setIdRgCpf(processo.getIdRgCpf());
+		processoFromDb.setIsOnBuscaApreencao(processo.getIsOnBuscaApreencao());
+		processoFromDb.setIsCasaPropria(processo.getIsCasaPropria());
 	}
 
 	/**

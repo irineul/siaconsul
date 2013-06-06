@@ -3,13 +3,9 @@ package controllers;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import others.Calculo;
 
 import models.ClienteModel;
 import models.ConsultorModel;
@@ -134,9 +130,6 @@ public class Processo extends BaseController {
     		
         	List<String> erros = new ArrayList<String>();
     		ClienteModel cliente = ClienteModel.findById(processo.getCliente().getId());
-	    	if (processo == null) {
-	    		processo = new ProcessoModel();
-	    	}
 	    	if (processo.getDataAberturaProcesso() == null) {
 	    		processo.setDataAberturaProcesso(new Date());
 	    	}
@@ -165,6 +158,12 @@ public class Processo extends BaseController {
     	processo.setDescricao(params.get("descricao", String.class));
     	processo.setBanco(params.get("banco", String.class));
     	processo.setDataAberturaProcesso(params.get("dataAberturaProcesso", Date.class));
+    	
+    	String isOnBuscaApreencao = params.get("isOnBuscaApreencao",String.class);
+    	processo.setIsOnBuscaApreencao(isOnBuscaApreencao != null && isOnBuscaApreencao.equals("S") ? true :false);
+    	
+    	String isCasaPropria = params.get("isCasaPropria",String.class);
+		processo.setIsCasaPropria(isCasaPropria !=null && isCasaPropria.equals("S") ? true :false);
     	
     	carregaDocumentos(processo);
     	

@@ -87,11 +87,28 @@ public class ProcessoModel extends Model{
 	
 	@Column(name="NUMERO_PROCESSO")
 	public String numeroProcesso;
+
+	@Column(name="IN_BUSCA_APREENCAO")
+	public Boolean isOnBuscaApreencao;
+	
+	@Column(name="IN_CASA_PROPRIA")
+	public Boolean isCasaPropria;
 	
 	@Transient
 	private ProcessoRespostaModel resposta;
-
 	
+	public Boolean getIsOnBuscaApreencao() {
+		return isOnBuscaApreencao;
+	}
+	public void setIsOnBuscaApreencao(Boolean isOnBuscaApreencao) {
+		this.isOnBuscaApreencao = isOnBuscaApreencao;
+	}
+	public Boolean getIsCasaPropria() {
+		return isCasaPropria;
+	}
+	public void setIsCasaPropria(Boolean isCasaPropria) {
+		this.isCasaPropria = isCasaPropria;
+	}
 	public ProcessoRespostaModel getResposta() {
 		return resposta;
 	}
