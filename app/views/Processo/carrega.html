@@ -65,7 +65,7 @@
 				<div class= "clear"></div>
 				<lable class="active">Numero Processo</lable>
 				<div id="descricao">
-					<input type="text"  name="processo.numeroProcesso" value="${processo.numeroProcesso}"></input>
+					<input type="text"  name="numeroProcesso" value="${processo.numeroProcesso}"></input>
 				</div>
 			#{/if}	
 			#{else}
@@ -196,7 +196,6 @@
 							    	</span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 						        </div>
 							</div>
-							<input id="teste" name="teste" type="hidden" />
 						</div>
 					</div><!-- Fim  control-grupo -->
 				</div>
@@ -329,7 +328,7 @@
 	</div>
 	<!-- ****************************************** FIM DOCUMENTOS OBRIGATORIOS ************************************************************************************-->
 	
-	<input id="salvarProcessoBtn" class="btn btn-primary" type="submit" value="Salvar Processo">
+	<input id="salvarProcessoBtn" onclick="validaDocs()" class="btn btn-primary" type="submit" value="Salvar Processo">
 	
 	</fieldset>
 	#{/}

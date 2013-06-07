@@ -1,11 +1,5 @@
 
 
-function deleteFile(id) {
-	if(confirm("Você realmente deseja excluir o arquivo?")){
-		
-	}
-}
-
 
 function removeDoc(idDoc,idDivToHide,idDivToShow, label){
 	
@@ -42,8 +36,17 @@ $(document).ready(function() {
 	    dataAberturaProcesso: {
 	        required: true
 	    },
-	    teste: {
+	    descricao: {
+	    	minlength: 10,
 	        required: true
+	        
+	    },
+	    numeroProcesso:{
+	    	minlength: 1,
+	        required: true
+	    },
+	    procuracaoDoc:{
+	    	required: true
 	    },
 			highlight: function(element) {
 				$(element).closest('.control-group').removeClass('success').addClass('error');
