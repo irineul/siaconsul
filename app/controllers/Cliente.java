@@ -60,7 +60,6 @@ public class Cliente extends BaseController {
 		/* Se foi informado a renda mensal, formato-a para apresentação na tela */
 		if(rendaMensal != null)
 		{
-			DecimalFormat twoDForm = new DecimalFormat("#########.##");
 			String rendaMensalAp = Util.mascaraDinheiro(rendaMensal, DINHEIRO_REAL);
 			cliente.setRendaMensalApresentacao(rendaMensalAp);
 		}
