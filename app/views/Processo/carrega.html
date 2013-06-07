@@ -192,19 +192,22 @@
 							    	<span class="btn btn-file">
 							    	<span class="fileupload-new">Selecione o Arquivo</span>
 							    	<span class="fileupload-exists">Alterar</span>
-							    	<input id="procuracaoDoc" name="procuracaoDoc" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
+							    	<input id="procuracaoDoc" name="procuracaoDoc" type="file" />
+							    	</span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 						        </div>
 							</div>
+							<input id="teste" name="teste" type="hidden" />
 						</div>
-					</div>
+					</div><!-- Fim  control-grupo -->
 				</div>
 			#{/if}
 			#{else}
-			<div id="processp.idProcuracao.edit">
+			<div id="processoIdProcuracaoNovo"></div>
+			<div id="processoIdProcuracaoEdit">
 				<input  type="hidden" id="processo.idProcuracao" name="processo.idProcuracao" value="${processo.idProcuracao}"></input>
 				<input disabled="disabled" type="text" id="processo.arquivoNome" name="processo.arquivoNome" value="${processo.procuracao.arquivoNome}"></input>
 			     <a class="icon-download" href="downloadFile?id=${processo.idProcuracao}"></a>
-			     <a class="icon-remove" onclick="removeDoc('procuracaoDoc','processp.idProcuracao.edit','processp.idProcuracao.novo')" href="#"></a> </br>
+			     <a class="icon-remove" onclick="removeDoc('procuracaoDoc','processoIdProcuracaoEdit','processoIdProcuracaoNovo','Procuracao')" href="#"></a> </br>
 			 </div>
 				
 			#{/else}
@@ -226,10 +229,15 @@
 				</div>
 			#{/if}
 			#{else}
-			     <input  type="hidden" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.idDeclaracao}"></input>
-				 <input disabled="disabled" type="text" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.declaracaoDeHipos.arquivoNome}"></input>
-			     <a class="icon-download" href="downloadFile?id=${processo.idDeclaracao}"></a>
-			     <a class="icon-remove" href="downloadFile?id=${processo.idDeclaracao}"></a> </br>
+			
+				<div id="processoIdDeclaracaoNovo"></div>
+				<div id="processoIdDeclaracaoEdit">
+				     <input  type="hidden" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.idDeclaracao}"></input>
+					 <input disabled="disabled" type="text" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.declaracaoDeHipos.arquivoNome}"></input>
+				     <a class="icon-download" href="downloadFile?id=${processo.idDeclaracao}"></a>
+				     <a class="icon-remove" onclick="removeDoc('declaracaoDoc','processoIdDeclaracaoEdit','processoIdDeclaracaoNovo','Declaracao de hipos')" href="#"></a> </br>
+				     
+				 </div>
 			#{/else}
 			
 			
@@ -249,10 +257,14 @@
 					</div>
 			#{/if}
 			#{else}
-				<input type="hidden" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.idRgCpf}"></input>
-				<input disabled="disabled" type="text" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.docCarro.arquivoNome}"></input>
-			     <a class="icon-download" href="downloadFile?id=${processo.idDocCarro}"></a>
-			     <a class="icon-remove" href="downloadFile?id=${processo.idDocCarro}"></a> </br>
+			
+				<div id="processoIdDocCarroNovo"></div>
+				<div id="processoIdDocCarroEdit">
+					<input type="hidden" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.idRgCpf}"></input>
+					<input disabled="disabled" type="text" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.docCarro.arquivoNome}"></input>
+				     <a class="icon-download" href="downloadFile?id=${processo.idDocCarro}"></a>
+				     <a class="icon-remove" onclick="removeDoc('docCarro','processoIdDocCarroEdit','processoIdDocCarroNovo','Documento do carro')" href="#"></a> </br>
+				</div>
 				
 			#{/else}
 			
@@ -273,10 +285,13 @@
 				</div>
 			#{/if}
 			#{else}
-			    <input type="hidden" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.idComprovanteResidencia}"></input>
-				<input disabled="disabled" type="text" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.comprovanteResidencia.arquivoNome}"></input>
-			     <a class="icon-download" href="downloadFile?id=${processo.idComprovanteResidencia}"></a>
-			     <a class="icon-remove" href="downloadFile?id=${processo.idComprovanteResidencia}"></a> </br>
+				<div id="processoidComprovanteResidenciaNovo"></div>
+				<div id="processoidComprovanteResidenciaEdit">
+				    <input type="hidden" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.idComprovanteResidencia}"></input>
+					<input disabled="disabled" type="text" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.comprovanteResidencia.arquivoNome}"></input>
+				     <a class="icon-download" href="downloadFile?id=${processo.idComprovanteResidencia}"></a>
+				     <a class="icon-remove" onclick="removeDoc('idComprovanteResidencia','processoidComprovanteResidenciaEdit','processoidComprovanteResidenciaNovo', 'Comprovante de Residencia')" href="#"></a> </br>
+				 </div>
 				
 			#{/else}
 				
@@ -297,10 +312,13 @@
 				</div>
 			#{/if}
 			#{else}
-				<input  type="hidden" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.idRgCpf}"></input>
-				<input disabled="disabled" type="text" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.rgOuCpf.arquivoNome}"></input>
-			     <a class="icon-download" href="downloadFile?id=${processo.idRgCpf}"></a>
-			     <a class="icon-remove" href="downloadFile?id=${processo.idRgCpf}"></a> </br>
+				<div id="processoidRgCpfNovo"></div>
+				<div id="processoidRgCpfEdit">
+					<input  type="hidden" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.idRgCpf}"></input>
+					<input disabled="disabled" type="text" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.rgOuCpf.arquivoNome}"></input>
+				     <a class="icon-download" href="downloadFile?id=${processo.idRgCpf}"></a>
+				     <a class="icon-remove" onclick="removeDoc('idRgCpf','processoidRgCpfEdit','processoidRgCpfNovo','Identidade/CPF')" href="#"></a> </br>
+				</div>
 				
 			#{/else}
 				

@@ -7,12 +7,11 @@ function deleteFile(id) {
 }
 
 
-function removeDoc(idDoc,idDivToHide,idDivToShow){
+function removeDoc(idDoc,idDivToHide,idDivToShow, label){
 	
-	alert("etcha");
 	$("#"+idDivToHide).hide();
 	var html =
-	" <lable class='active'>Procuracao</lable> "+
+	" <lable class='active'>"+label+"</lable> "+
 	" <div class='fileupload fileupload-new' data-provides='fileupload'>"+
 	"	<div class='input-append'>"+
     "	<div class='uneditable-input span3'>"+
@@ -22,7 +21,7 @@ function removeDoc(idDoc,idDivToHide,idDivToShow){
     "	<span class='btn btn-file'>"+
     "	<span class='fileupload-new'>Selecione o Arquivo</span>"+
     "	<span class='fileupload-exists'>Alterar</span>"+
-    "	<input id='"+id+"' name='"+id+"' type='file' /></span><a href='#' class='btn fileupload-exists' data-dismiss='fileupload'>Remover</a>"+
+    "	<input id='"+idDoc+"' name='"+idDoc+"' type='file' /></span><a href='#' class='btn fileupload-exists' data-dismiss='fileupload'>Remover</a>"+
     " </div> "+
     " </div>";
 	
@@ -43,7 +42,7 @@ $(document).ready(function() {
 	    dataAberturaProcesso: {
 	        required: true
 	    },
-	    procuracaoDoc: {
+	    teste: {
 	        required: true
 	    },
 			highlight: function(element) {

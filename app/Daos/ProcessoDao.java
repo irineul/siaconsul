@@ -74,11 +74,39 @@ public class ProcessoDao {
 		processoFromDb.setBanco(processo.getBanco());
 		processoFromDb.setDataAberturaProcesso(processo.getDataAberturaProcesso());
 		processoFromDb.setTipoProcesso(processo.getTipoProcesso());
+		
+		if (processo.getIdDeclaracao() == null || processo.getIdDeclaracao()==0) {
+			processo.getDeclaracaoDeHipos().save();
+			processo.setIdDeclaracao(processo.getDeclaracaoDeHipos().getId());
+		}
 		processoFromDb.setIdDeclaracao(processo.getIdDeclaracao());
+		
+		
+		if (processo.getIdProcuracao() == null || processo.getIdProcuracao()==0) {
+			processo.getProcuracao().save();
+			processo.setIdProcuracao(processo.getProcuracao().getId());
+		}
 		processoFromDb.setIdProcuracao(processo.getIdProcuracao());
+		
+		
+		if (processo.getIdDocCarro() == null || processo.getIdDocCarro()==0) {
+			processo.getDocCarro().save();
+			processo.setIdDocCarro(processo.getDocCarro().getId());
+		}
 		processoFromDb.setIdDocCarro(processo.getIdDocCarro());
+		
+		if (processo.getIdComprovanteResidencia() == null || processo.getIdComprovanteResidencia()==0) {
+			processo.getComprovanteResidencia().save();
+			processo.setIdComprovanteResidencia(processo.getComprovanteResidencia().getId());
+		}
 		processoFromDb.setIdComprovanteResidencia(processo.getIdComprovanteResidencia());
+		
+		if (processo.getIdRgCpf() == null || processo.getIdRgCpf()==0) {
+			processo.getRgOuCpf().save();
+			processo.setIdRgCpf(processo.getRgOuCpf().getId());
+		}
 		processoFromDb.setIdRgCpf(processo.getIdRgCpf());
+	
 		processoFromDb.setIsOnBuscaApreencao(processo.getIsOnBuscaApreencao());
 		processoFromDb.setIsCasaPropria(processo.getIsCasaPropria());
 	}

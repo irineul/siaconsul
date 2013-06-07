@@ -232,6 +232,7 @@ public class Processo extends BaseController {
     		procuracao = DocumentoModel.findById(processo.getIdProcuracao());
     	}
     	processo.setProcuracao(procuracao);
+    	processo.setIdProcuracao(procuracao.getId());
     	
     	DocumentoModel declaracao = getDocumentoFromRequest("idDocumentoDeclaracao", "declaracaoDoc");
     	if (declaracao == null) {
@@ -239,6 +240,7 @@ public class Processo extends BaseController {
     		declaracao = DocumentoModel.findById(processo.getIdDeclaracao());
     	}
     	processo.setDeclaracaoDeHipos(declaracao);
+    	processo.setIdDeclaracao(declaracao.getId());
     	
     	DocumentoModel docCarro = getDocumentoFromRequest("idDocumentoCarro", "docCarro");
     	if (docCarro == null) {
@@ -246,6 +248,7 @@ public class Processo extends BaseController {
     		docCarro = DocumentoModel.findById(processo.getIdDocCarro());
     	}
     	processo.setDocCarro(docCarro);
+    	processo.setIdDocCarro(docCarro.getId());
     	
     	DocumentoModel rgOuCpf = getDocumentoFromRequest("idRgCpf", "idRgCpf");
     	if (rgOuCpf == null) {
@@ -253,6 +256,7 @@ public class Processo extends BaseController {
     		rgOuCpf = DocumentoModel.findById(processo.getIdRgCpf());
     	}
     	processo.setIdentidadeOuCpf(rgOuCpf);
+    	processo.setIdRgCpf(rgOuCpf.getId());
     	
     	DocumentoModel comprovanteResidencia = getDocumentoFromRequest("idComprovanteResidencia", "idComprovanteResidencia");
     	if (comprovanteResidencia == null) {
@@ -260,6 +264,7 @@ public class Processo extends BaseController {
     		comprovanteResidencia = DocumentoModel.findById(processo.getIdComprovanteResidencia());
     	}
     	processo.setComprovanteResidencia(comprovanteResidencia);
+    	processo.setIdComprovanteResidencia(comprovanteResidencia.getId());
 	}
 
 
