@@ -17,7 +17,7 @@ import Enums.ProcessoTipos;
 public class ProcessoModel extends Model{
 	
 	@Column(name="VALOR_COBRADO")
-    private long ValorCobrado;
+    private double ValorCobrado;
 	
 	@Column(name="ID_CLIENTE")
 	private Long idCliente;
@@ -156,11 +156,11 @@ public class ProcessoModel extends Model{
 		return (ArrayList<ValorRevisionalModel>) list;
 	}
 
-	public long getValorCobrado() {
+	public double getValorCobrado() {
 		return ValorCobrado;
 	}
 
-	public void setValorCobrado(long valorCobrado) {
+	public void setValorCobrado(double valorCobrado) {
 		ValorCobrado = valorCobrado;
 	}
 

@@ -6,6 +6,7 @@ public class Calculo{
 	public String vlrJurosNovo;
 	public String vlrJurosAntigo;
 	public String vlrPagoIndevido;
+	public String vlrCobrado;
 	
 	public String getVlrNovaParcela() {
 		return vlrNovaParcela;
@@ -31,5 +32,11 @@ public class Calculo{
 	public void setVlrPagoIndevido(String vlrPagoIndevido) {
 		this.vlrPagoIndevido = vlrPagoIndevido;
 	}
-
+	public String getVlrCobrado() {
+		return vlrCobrado;
+	}
+	public void setVlrCobrado(String vlrCobrado) {
+		this.vlrCobrado = vlrCobrado;
+	}
+	
 }
