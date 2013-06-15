@@ -49,6 +49,17 @@
 <div id="dadosProcesso">
 	<div id="calculos">
 		<div class="leftBox">
+		
+			<span class="label label-important">Valor Financiado</span>
+			<br />
+			<input type="text" id="txtVlrFinanciado" name="calcVlrFinanciado" value="${processo.vlrFinanciado}" readonly="readonly">
+			<div class= "clear"></div>
+								
+			<span class="label label-important">Qtd. de parcelas</span>
+			<br />
+			<input type="text" id="txtQtdParcelas" name="calcQtdParcelas" value="${processo.qtdParcelas}" readonly="readonly">
+			<div class= "clear"></div>
+								
 			<span class="label label-important">Taxa de Juros Atual</span>
 			<br />
 			<input type="text" id="txtCalcVlrJurosAtual" name="calcVlrJurosAtual" value="${processo.vlrJurosAntigo}" readonly="readonly">
@@ -93,6 +104,16 @@
 		
 		<div class="rightBox">
 			<div class= "clear"></div>
+			<span class="label label-important">Valor atual da parcela</span>
+			<br />
+			<input type="text" id="txtVlrAtualparcela" name="calcVlrAtualParcela" value="${processo.vlrAtualParcela}" readonly="readonly">
+			<div class= "clear"></div>	
+							
+			<span class="label label-important">Qtd. de parcelas parcelas</span>
+			<br />
+			<input type="text" id="txtQtdParcelasPagas" name="calcQtdParcelasPagas" value="${processo.qtdParcelasPagas}" readonly="readonly">
+			<div class= "clear"></div>
+						
 			<span class="label label-important">Valor Pago Indevido</span>
 			<br />
 			<input type="text" id="txtCalcVlrPagoIndevido" name="txtCalcVlrPagoIndevido" value="${processo.vlrPagoIndevido}" readonly="readonly">
