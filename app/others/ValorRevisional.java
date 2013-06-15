@@ -1,43 +1,46 @@
 package others;
 public class ValorRevisional {
-	
+
 	/**
 	 * 
 	 * Carrega os dados do cliente para a tela
 	 * 
-	 * @param tipoFinanciamento : 1 = Moto, 2 = Carro, 3 = Caminhão, 4 = Crédito imobiliário, 5 = Cheque Especial, 6 = Outros
+	 * @param tipoFinanciamento : MO = Moto, CA = Carro, CM = Caminhão, VO = Veiculo Outros, I = Crédito imobiliário, C = Cheque Especial, O = Outros
 	 * @param vlrFinanciamento
 	 * @param vlrDiferenca : Diferença dos valores (Pré e pós revisional)
 	 * 
 	 */	
-	public static double vlrRevisional(int tipoFinanciamento, double vlrFinanciamento, double vlrDiferenca)
+	public static double vlrRevisional(String tipoFinanciamento, double vlrFinanciamento, double vlrDiferenca)
 	{
-		if(tipoFinanciamento == 1)
-		{
-			return getValorFinanciamentoMoto(vlrFinanciamento);
+		if(!tipoFinanciamento.isEmpty()){
+			if(tipoFinanciamento.equals("MO"))
+			{
+				return getValorFinanciamentoMoto(vlrFinanciamento);
+			}
+			else if(tipoFinanciamento.equals("CA"))
+			{
+				return getValorFinanciamentoCarro(vlrFinanciamento);
+			}
+			else if(tipoFinanciamento.equals("CM"))
+			{
+				return getValorFinanciamentoCaminhao(vlrFinanciamento);
+			}
+			else if(tipoFinanciamento.equals("I"))
+			{
+				return getValorCreditoImobiliario(vlrFinanciamento, vlrDiferenca);
+			}
+			else if(tipoFinanciamento.equals("C"))
+			{
+				return getValorChequeEspecial(vlrFinanciamento);
+			}		
+			else
+			{
+				return getValorOutros(vlrFinanciamento, vlrDiferenca);
+			}
 		}
-		else if(tipoFinanciamento == 1)
-		{
-			return getValorFinanciamentoCarro(vlrFinanciamento);
-		}
-		else if(tipoFinanciamento == 3)
-		{
-			return getValorFinanciamentoCaminhao(vlrFinanciamento);
-		}
-		else if(tipoFinanciamento == 4)
-		{
-			return getValorCreditoImobiliario(vlrFinanciamento, vlrDiferenca);
-		}
-		else if(tipoFinanciamento == 5)
-		{
-			return getValorChequeEspecial(vlrFinanciamento);
-		}		
-		else
-		{
-			return getValorOutros(vlrFinanciamento, vlrDiferenca);
-		}
+		return 0;
 	}
-	
+
 	private static double getValorFinanciamentoMoto(double vlrFinanciamento)
 	{
 		/* Se valor financiado da  moto for acima de R$15.000,00 segue a mesma tabela que carro */
@@ -50,7 +53,7 @@ public class ValorRevisional {
 			return getValorFinanciamentoCarro(vlrFinanciamento);
 		}
 	}
-	
+
 	private static double getValorFinanciamentoCarro(double vlrFinanciamento)
 	{
 		if(vlrFinanciamento <= 20000)
@@ -66,7 +69,7 @@ public class ValorRevisional {
 			return 2000;
 		}
 	}
-	
+
 	private static double getValorFinanciamentoCaminhao(double vlrFinanciamento)
 	{
 		if(vlrFinanciamento < 180000)
@@ -78,7 +81,7 @@ public class ValorRevisional {
 			return 3000;
 		}
 	}
-	
+
 	private static double getValorCreditoImobiliario(double vlrFinanciamento, double vlrDiferenca)
 	{
 		if(vlrFinanciamento <= 50000)
@@ -114,9 +117,9 @@ public class ValorRevisional {
 				return 4000;
 			}
 		}
-			
+
 	}
-	
+
 	private static double getValorChequeEspecial(double vlrFinanciamento)
 	{
 		if(vlrFinanciamento <= 5000)
@@ -144,7 +147,7 @@ public class ValorRevisional {
 			return 2600;
 		}
 	}
-	
+
 	private static double getValorOutros(double vlrFinanciamento, double vlrDiferenca)
 	{
 		if(vlrFinanciamento <= 50000)

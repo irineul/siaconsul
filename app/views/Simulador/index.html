@@ -18,14 +18,26 @@
 			 	<label class="control-label" for="tipoFinanciamento">Tipo de Financiamento</label>
 			 	<div id="tipoFinanciamentoFisica" class="controls">
 				 	<div class="btn-group" id="tipo_financiamento_fisica"  data-toggle="buttons-radio" >
-				  		<button type="button" value="V" class="btn active" data-toggle="button">Veículo</button>
-				  		<button type="button" value="C" class="btn" data-toggle="button">Cheque Especial</button>
-				  		<button type="button" value="P" class="btn" data-toggle="button">Crédito Pessoal</button>
-				  		<button type="button" value="I" class="btn" data-toggle="button">Crédito Imobiliário</button>
-				  		<button type="button" value="O" class="btn" data-toggle="button">Outros</button>
+				  		<button type="button" value="V" class="btn active" onClick="showDivTipoVeiculo('V')" data-toggle="button">Veículo</button>
+				  		<button type="button" value="C" class="btn" onClick="showDivTipoVeiculo('C')" data-toggle="button">Cheque Especial</button>
+				  		<button type="button" value="P" class="btn" onClick="showDivTipoVeiculo('P')" data-toggle="button">Crédito Pessoal</button>
+				  		<button type="button" value="I" class="btn" onClick="showDivTipoVeiculo('I')" data-toggle="button">Crédito Imobiliário</button>
+				  		<button type="button" value="O" class="btn" onClick="showDivTipoVeiculo('O')" data-toggle="button">Outros</button>
 					</div>	
 				</div>
 			</div>
+			
+		 	<div class="control-group" id="tpFinanciamentoVeiculo"> 
+			 	<label class="control-label" for="tipoFinanciamento">Tipo de Veiculo</label>
+			 	<div id="tiposVeiculo" class="controls">
+				 	<div class="btn-group" id="tipo_veiculo"  data-toggle="buttons-radio" >
+				  		<button type="button" value="MO" class="btn active" data-toggle="button">Moto</button>
+				  		<button type="button" value="CR" class="btn" data-toggle="button">Carro</button>
+				  		<button type="button" value="CM" class="btn" data-toggle="button">Caminhao</button>
+				  		<button type="button" value="VO" class="btn" data-toggle="button">Outros</button>
+					</div>	
+				</div>
+			</div>			
 			
 			<div class="control-group" id="tpJ">
 			<label class="control-label" for="tipoFinanciamento">Tipo de Financiamento</label>
@@ -64,9 +76,9 @@
 			</div>			
 
 			<div class="control-group"> 
-				<label class="control-label" for="qtdParcelas">Quantidade de parcelas pagas</label>
+				<label class="control-label" for="qtdParcelasPagas">Quantidade de parcelas pagas</label>
 				<div class="controls">
-				    <input type="text" class="input-medium" id="qtdParcelasPagas" name="qtdParcelasPagas" data-mask="999999">
+				    <input type="text" class="input-medium" id="qtdParcelasPagas" name="qtdParcelasPagas">
 			    </div>
 			</div>	
 			
@@ -96,6 +108,12 @@
 			<div id="divCalculos">
 			
 			#{form @Processo.carrega(), enctype:'multipart/form-data'}
+			
+				<span class="label label-success">Valor a ser cobrado do cliente</span>
+				<br />
+				<input type="text" id="txtCalcVlrCobrado" name="calcVlrCobrado" readOnly="readOnly">
+				<div class= "clear"/>
+							
 				<span class="label label-important">Taxa de Juros Atual</span>
 				<br />
 				<input type="hidden" id="idCliente" name="idCliente" value="${idCliente}">
@@ -140,6 +158,9 @@ $(document).ready(function(){
 	var dataFinanciamento = new Date();
 	$("#mesFinanciamento").hide();
 	
+	$("#qtdParcelas").mask("?9999", { placeholder: "" });
+	$("#qtdParcelasPagas").mask("?9999", { placeholder: "" }); 
+	
 	//Default = PF
 	$("#tipoFinanciamentoFisica").show();
 	$("#tpF").show();
@@ -179,12 +200,25 @@ $(document).ready(function(){
 	
 });
 
+
+function showDivTipoVeiculo(tpFinanciamento){
+	if(tpFinanciamento == 'V'){ 
+		   $('#tpFinanciamentoVeiculo').show(); 
+		} else { 
+		   $('#tpFinanciamentoVeiculo').hide(); 
+		}
+}
 function calcular(){
 	// Busco o tipo de pessoa selecionado
 	var tpPessoa = $('#tipo_pessoa > button.active').val();
 	var tpFinanciamento;
+	var tpVeiculo;
 	if(tpPessoa == "F"){
 		tpFinanciamento = $('#tipo_financiamento_fisica > button.active').val();
+		//Se tipo de financiamento for veiculo, verifico qual � o tipo de veiculo selecionado
+		if(tpFinanciamento == 'V'){
+			tpVeiculo = $('#tipo_veiculo > button.active').val();	
+		}
 	}
 	else{
 		tpFinanciamento = $('#tipo_financiamento_juridica > button.active').val();
@@ -194,12 +228,12 @@ function calcular(){
 		dataFinanciamento = new Date("October 13, 1910 11:13:00");
 	}
 	
-	calcularAjax(tpPessoa, tpFinanciamento);
+	calcularAjax(tpPessoa, tpFinanciamento, tpVeiculo);
 }
-function calcularAjax(tpPessoa, tpFinanciamento){
-	var listAction = #{jsRoute @Simulador.calcular(':vlrFinanciado', ':vlrParcelaAtual', ':qtdParcelas', ':qtdParcelasPagas', ':dataFinanciamento', ':tpPessoa', ':tpFinanciamento') /} 
+function calcularAjax(tpPessoa, tpFinanciamento, tpVeiculo){
+	var listAction = #{jsRoute @Simulador.calcular(':vlrFinanciado', ':vlrParcelaAtual', ':qtdParcelas', ':qtdParcelasPagas', ':dataFinanciamento', ':tpPessoa', ':tpFinanciamento', ':tpVeiculo') /} 
   	$.ajax({
-      url: listAction.url({vlrFinanciado: $("#vlrFinanciado").val().replace(".","").replace(",","."), vlrParcelaAtual: $("#vlrParcelaAtual").val().replace(".","").replace(",","."), qtdParcelas: $("#qtdParcelas").val(), qtdParcelasPagas: $("#qtdParcelasPagas").val(), dataFinanciamento: dataFinanciamento, tpPessoa: tpPessoa, tpFinanciamento: tpFinanciamento}),
+      url: listAction.url({vlrFinanciado: $("#vlrFinanciado").val().replace(".","").replace(",","."), vlrParcelaAtual: $("#vlrParcelaAtual").val().replace(".","").replace(",","."), qtdParcelas: $("#qtdParcelas").val(), qtdParcelasPagas: $("#qtdParcelasPagas").val(), dataFinanciamento: dataFinanciamento, tpPessoa: tpPessoa, tpFinanciamento: tpFinanciamento, tpVeiculo: tpVeiculo}),
       type: listAction.method,
       dataType: 'json',
       success : function(data) {
@@ -207,6 +241,7 @@ function calcularAjax(tpPessoa, tpFinanciamento){
                 $("#txtCalcVlrJurosNovo").val(data.vlrJurosNovo);
                 $("#txtCalcVlrPagoIndevido").val(data.vlrPagoIndevido);
                 $("#txtCalcVlrJurosAtual").val(data.vlrJurosAntigo);
+                $("#txtCalcVlrCobrado").val(data.vlrCobrado);
            
            		$("#divCalculos").show();     
           }

@@ -9,6 +9,7 @@ import java.util.*;
 
 import others.Calculo;
 import others.Util;
+import others.ValorRevisional;
 
 
 import models.*;
@@ -33,7 +34,7 @@ public class Simulador extends BaseController {
 		render(idCliente);
 	}
 
-	public static void calcular(@Required String vlrFinanciado, @Required String vlrParcelaAtual, @Required String qtdParcelas, @Required String qtdParcelasPagas, String dataFinanciamento, @Required String tpPessoa, @Required String tpFinanciamento) throws java.text.ParseException{
+	public static void calcular(@Required String vlrFinanciado, @Required String vlrParcelaAtual, @Required String qtdParcelas, @Required String qtdParcelasPagas, String dataFinanciamento, @Required String tpPessoa, @Required String tpFinanciamento, @Required String tpVeiculo) throws java.text.ParseException{
 
 		double vlrJuros=0;
 		double vlrTaxaBanco=0;
@@ -115,7 +116,8 @@ public class Simulador extends BaseController {
 		/* Valor final da parcela */
 		double vlrFinalParcela = abateValorParcelas(vlrIndevidoTotal, vlrNovaParcela, Integer.parseInt(qtdParcelas) - Integer.parseInt(qtdParcelasPagas));
 
-
+		/* Valor a ser cobrado do cliente */
+		double vlrCobrar = ValorRevisional.vlrRevisional(tpVeiculo, Double.parseDouble(vlrFinanciado), Double.parseDouble(vlrParcelaAtual) - vlrNovaParcela);
 		/* Seto os valores para apresentação na tela */
 		/* ***************************************** */
 		Calculo c = new Calculo(); 
@@ -125,6 +127,7 @@ public class Simulador extends BaseController {
 		c.setVlrJurosNovo(twoDForm.format(vlrNovoJuros) + "%");
 		c.setVlrJurosAntigo(twoDForm.format(vlrOldJuros) + "%");
 		c.setVlrPagoIndevido(Util.mascaraDinheiro(vlrIndevidoTotal, DINHEIRO_REAL));
+		c.setVlrCobrado(Util.mascaraDinheiro(vlrCobrar, DINHEIRO_REAL));
 		/* ***************************************** */
 
 		renderJSON(c);
