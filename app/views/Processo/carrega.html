@@ -18,8 +18,11 @@
  <div id="topHero" class="hero-unit myhero">
  	<div class="dadosClientes">
 		<h3>${cliente.usuario.nome}</h3>
-  		<label>${cliente.usuario.email}</label>
-  		<label>${cliente.usuario.telResidencial}</label>
+  		<label><p><b>Profissao: </b>${cliente.profissao}</p></label>
+  		<label><p><b>Renda Mensal: </b>${cliente.rendaMensalApresentacao}</p></label>
+  		<label><p><b>End.: </b>${cliente.usuario.endereco}</p></label>
+  		<label><p><b>CPF/CNPJ: </b>${cliente.usuario.cpfCnpj}</p></label>
+  		<label><p><b>RG: </b>${cliente.usuario.rg}</p></label>
      </div>
 </div>
 
@@ -174,16 +177,6 @@
 					  	
 					</div>
 			    </div>
-			</div>
-		
-			<lable class="active">Profissao</lable>
-			<div id="descricao">
-				<input type="text"   name="processo.profissao" value="${processo.cliente.profissao}" />
-			</div>
-			
-			<lable class="active">Renda Mensal</lable>
-			<div id="descricao">
-				<input type="text"   name="processo.rendaMensal" value="${processo.cliente.rendaMensalApresentacao}"/>
 			</div>
 	</div>
 	
