@@ -78,6 +78,18 @@ public class ProcessoModel extends Model{
 	
 	@Column(name="VALOR_NOVO_JUROS")
 	public String vlrJurosNovo;
+
+	@Column(name="VALOR_FINANCIADO")
+	public String vlrFinanciado;
+	
+	@Column(name="VALOR_ATUAL_PARCELA")
+	public String vlrAtualParcela;
+
+	@Column(name="QTD_PARCELAS")
+	public String qtdParcelas;
+	
+	@Column(name="QTD_PARCELAS_PAGAS")
+	public String qtdParcelasPagas;
 	
 	@Column(name="VALOR_JUROS_ANTIGO")
 	public String vlrJurosAntigo;
@@ -317,5 +329,29 @@ public class ProcessoModel extends Model{
 	}
 	public void setNumeroProcesso(String numeroProcesso) {
 		this.numeroProcesso = numeroProcesso;
+	}
+	public String getVlrFinanciado() {
+		return vlrFinanciado;
+	}
+	public void setVlrFinanciado(String vlrFinanciado) {
+		this.vlrFinanciado = vlrFinanciado;
+	}
+	public String getVlrAtualParcela() {
+		return vlrAtualParcela;
+	}
+	public void setVlrAtualParcela(String vlrAtualParcela) {
+		this.vlrAtualParcela = vlrAtualParcela;
+	}
+	public String getQtdParcelas() {
+		return qtdParcelas;
+	}
+	public void setQtdParcelas(String qtdParcelas) {
+		this.qtdParcelas = qtdParcelas;
+	}
+	public String getQtdParcelasPagas() {
+		return qtdParcelasPagas;
+	}
+	public void setQtdParcelasPagas(String qtdParcelasPagas) {
+		this.qtdParcelasPagas = qtdParcelasPagas;
 	}
 }

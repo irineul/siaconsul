@@ -217,6 +217,19 @@ public class Processo extends BaseController {
     	
     	String txtCalcVlrNovaParcela = params.get("txtCalcVlrNovaParcela", String.class);
     	processo.setVlrNovaParcela(txtCalcVlrNovaParcela);
+    	
+    	/* Irineu - Adicionando campos sobre detalhes do financiamento */
+    	String txtVlrFinanciado = params.get("vlrFinanciadoProcesso", String.class);
+    	processo.setVlrFinanciado(txtVlrFinanciado);
+    	
+    	String txtQtdParcelas = params.get("qtdParcelasProcesso", String.class);
+    	processo.setQtdParcelas(txtQtdParcelas);
+    	
+    	String txtVlrAtualParcela = params.get("vlrParcelaAtualProcesso", String.class);
+    	processo.setVlrAtualParcela(txtVlrAtualParcela);
+    	
+    	String txtQtdParcelasPagas = params.get("qtdParcelasPagasProcesso", String.class);
+    	processo.setQtdParcelasPagas(txtQtdParcelasPagas);    	
 	}
 
 	/**

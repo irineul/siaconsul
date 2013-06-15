@@ -108,7 +108,13 @@
 			<div id="divCalculos">
 			
 			#{form @Processo.carrega(), enctype:'multipart/form-data'}
-			
+		
+				<input type="hidden" id="vlrFinanciadoProcesso" name="vlrFinanciadoProcesso">
+				<input type="hidden" id="vlrParcelaAtualProcesso" name="vlrParcelaAtualProcesso">
+				<input type="hidden" id="qtdParcelasProcesso" name="qtdParcelasProcesso">
+				<input type="hidden" id="qtdParcelasPagasProcesso" name="qtdParcelasPagasProcesso">
+				
+				
 				<span class="label label-success">Valor a ser cobrado do cliente</span>
 				<br />
 				<input type="text" id="txtCalcVlrCobrado" name="calcVlrCobrado" readOnly="readOnly">
@@ -154,6 +160,26 @@ $(function(){
 });
 
 $(document).ready(function(){
+	
+	//MŽtodos para atualizar os campos que ser‹o carregados no form do processo
+	$("#vlrFinanciado").blur(function(){
+		$("#vlrFinanciadoProcesso").val($("#vlrFinanciado").val());
+	});
+
+	$("#vlrParcelaAtual").blur(function(){
+		$("#vlrParcelaAtualProcesso").val($("#vlrParcelaAtual").val());
+	});	
+
+	$("#qtdParcelas").blur(function(){
+		$("#qtdParcelasProcesso").val($("#qtdParcelas").val());
+	});	
+	
+	$("#qtdParcelasPagas").blur(function(){
+		$("#qtdParcelasPagasProcesso").val($("#qtdParcelasPagas").val());
+	});	
+	
+	
+	
 	
 	var dataFinanciamento = new Date();
 	$("#mesFinanciamento").hide();
