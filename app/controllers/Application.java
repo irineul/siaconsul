@@ -82,25 +82,71 @@ public class Application extends BaseController {
 
 	public static void criaUsuarioTeste() {
 		UsuarioModel u = new UsuarioModel();
-		u.setEmail("uauhahua@gmail.com");
-		u.setNome("auhuahuaa");
-		u.setSenha("teste");
-		u.setCpfCnpj("01942750005");
-		u.setEndereco("Rua blalablabla, viamão, rs");
-		u.setTelResidencial("33331212");
-		u.setCelular("12345678");
+		u.setEmail("rossanaruscher@uol.com.br");
+		u.setNome("Rossana Magali Ruscher");
+		u.setSenha("junior");
+		u.setCpfCnpj("86473752000195");
+		u.setEndereco("");
+		u.setTelResidencial("");
+		u.setCelular("");
 		AdvogadoModel adv = new AdvogadoModel();
 		adv.salvaAdvogado(u);
 		u.save();
 
+		
 		u = new UsuarioModel();
-		u.setNome("Irineu");
-		u.setEmail("irineu@gmail.com");
-		u.setSenha("teste");
-		u.setCpfCnpj("01942750006");
+		u.setNome("Consultor 1");
+		u.setEmail("consultor1@gmail.com");
+		u.setSenha("consultor1");
+		u.setCpfCnpj("37514750000191");
 		u.setTelResidencial("33463412");
 		u.setCelular("85491491");
 		ConsultorModel c = new ConsultorModel();
+		c.salvaConsultor(u, adv);
+		u.save();
+		
+		u = new UsuarioModel();
+		u.setNome("Consultor 2");
+		u.setEmail("consultor2@gmail.com");
+		u.setSenha("consultor2");
+		u.setCpfCnpj("55153028000150");
+		u.setTelResidencial("33463412");
+		u.setCelular("85491491");
+		c = new ConsultorModel();
+		c.salvaConsultor(u, adv);
+		u.save();
+		
+		u = new UsuarioModel();
+		u.setNome("Consultor 3");
+		u.setEmail("consultor3@gmail.com");
+		u.setSenha("consultor3");
+		u.setCpfCnpj("82524264000109");
+		u.setTelResidencial("33463412");
+		u.setCelular("85491491");
+		c = new ConsultorModel();
+		c.salvaConsultor(u, adv);
+		u.save();
+		
+		u = new UsuarioModel();
+		u.setNome("Consultor 4");
+		u.setEmail("consultor4@gmail.com");
+		u.setSenha("consultor4");
+		u.setCpfCnpj("71853234000120");
+		u.setTelResidencial("33463412");
+		u.setCelular("85491491");
+		c = new ConsultorModel();
+		c.salvaConsultor(u, adv);
+		u.save();
+		
+		
+		u = new UsuarioModel();
+		u.setNome("Consultor 5");
+		u.setEmail("consultor5@gmail.com");
+		u.setSenha("consultor5");
+		u.setCpfCnpj("69775333000199");
+		u.setTelResidencial("33463412");
+		u.setCelular("85491491");
+		c = new ConsultorModel();
 		c.salvaConsultor(u, adv);
 		u.save();
 

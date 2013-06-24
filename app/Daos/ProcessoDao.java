@@ -68,7 +68,7 @@ public class ProcessoDao {
 	 */
 	private void clone(ProcessoModel processo, ProcessoModel processoFromDb) {
 		processoFromDb.setDescricao(processo.getDescricao());
-		processoFromDb.setValorCobrado(processo.getValorCobrado());
+		// processoFromDb.setValorCobrado(processo.getValorCobrado());
 		processoFromDb.setIdCliente(processo.getIdCliente());
 		processoFromDb.setIdConsultor(processo.getIdConsultor());
 		processoFromDb.setBanco(processo.getBanco());

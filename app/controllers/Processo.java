@@ -294,11 +294,11 @@ public class Processo extends BaseController {
     	File arq = params.get(fieldName, File.class);
     	if ( (idProcuracao == null || idProcuracao == 0) && arq != null ){
 	    	dm = new DocumentoModel();
-	    	dm.setArquivoNome(arq.getName());
-	    	dm.setData(new Date());
+	    	dm.comment=arq.getName();
 	    	S3Blob file = new S3Blob();
 	        file.set(new FileInputStream(arq), MimeTypes.getContentType(arq.getName()));
-	    	dm.setFile(file);
+	    	dm.file = file;
+	    	
     	} else if (idProcuracao != null) {
     		dm = DocumentoModel.findById(idProcuracao);
     	}
@@ -309,8 +309,8 @@ public class Processo extends BaseController {
 	  {
 	    DocumentoModel doc = DocumentoModel.findById(id);
 	    notFoundIfNull(doc);
-	    response.setContentTypeIfNotSet(doc.getFile().type());
-	    renderBinary(doc.getFile().get());
+	    response.setContentTypeIfNotSet(doc.file.type());
+	    renderBinary(doc.file.get());
 	  } 
 
     
