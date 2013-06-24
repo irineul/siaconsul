@@ -218,7 +218,7 @@
 			<div id="processoIdProcuracaoNovo"></div>
 			<div id="processoIdProcuracaoEdit">
 				<input  type="hidden" id="processo.idProcuracao" name="processo.idProcuracao" value="${processo.idProcuracao}"></input>
-				<input disabled="disabled" type="text" id="processo.arquivoNome" name="processo.arquivoNome" value="${processo.procuracao.arquivoNome}"></input>
+				<input disabled="disabled" type="text" id="processo.comment" name="processo.comment" value="${processo.procuracao.comment}"></input>
 			     <a class="icon-download" href="downloadFile?id=${processo.idProcuracao}"></a>
 			     <a class="icon-remove" onclick="removeDoc('procuracaoDoc','processoIdProcuracaoEdit','processoIdProcuracaoNovo','Procuracao')" href="#"></a> </br>
 			 </div>
@@ -246,7 +246,7 @@
 				<div id="processoIdDeclaracaoNovo"></div>
 				<div id="processoIdDeclaracaoEdit">
 				     <input  type="hidden" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.idDeclaracao}"></input>
-					 <input disabled="disabled" type="text" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.declaracaoDeHipos.arquivoNome}"></input>
+					 <input disabled="disabled" type="text" id="processo.idDeclaracao" name="processo.idDeclaracao" value="${processo.declaracaoDeHipos.comment}"></input>
 				     <a class="icon-download" href="downloadFile?id=${processo.idDeclaracao}"></a>
 				     <a class="icon-remove" onclick="removeDoc('declaracaoDoc','processoIdDeclaracaoEdit','processoIdDeclaracaoNovo','Declaracao de hipos')" href="#"></a> </br>
 				     
@@ -274,7 +274,7 @@
 				<div id="processoIdDocCarroNovo"></div>
 				<div id="processoIdDocCarroEdit">
 					<input type="hidden" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.idRgCpf}"></input>
-					<input disabled="disabled" type="text" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.docCarro.arquivoNome}"></input>
+					<input disabled="disabled" type="text" id="processo.idDocCarro" name="processo.idDocCarro" value="${processo.docCarro.comment}"></input>
 				     <a class="icon-download" href="downloadFile?id=${processo.idDocCarro}"></a>
 				     <a class="icon-remove" onclick="removeDoc('docCarro','processoIdDocCarroEdit','processoIdDocCarroNovo','Documento do carro')" href="#"></a> </br>
 				</div>
@@ -301,7 +301,7 @@
 				<div id="processoidComprovanteResidenciaNovo"></div>
 				<div id="processoidComprovanteResidenciaEdit">
 				    <input type="hidden" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.idComprovanteResidencia}"></input>
-					<input disabled="disabled" type="text" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.comprovanteResidencia.arquivoNome}"></input>
+					<input disabled="disabled" type="text" id="processo.idComprovanteResidencia" name="processo.idComprovanteResidencia" value="${processo.comprovanteResidencia.comment}"></input>
 				     <a class="icon-download" href="downloadFile?id=${processo.idComprovanteResidencia}"></a>
 				     <a class="icon-remove" onclick="removeDoc('idComprovanteResidencia','processoidComprovanteResidenciaEdit','processoidComprovanteResidenciaNovo', 'Comprovante de Residencia')" href="#"></a> </br>
 				 </div>
@@ -328,7 +328,7 @@
 				<div id="processoidRgCpfNovo"></div>
 				<div id="processoidRgCpfEdit">
 					<input  type="hidden" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.idRgCpf}"></input>
-					<input disabled="disabled" type="text" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.rgOuCpf.arquivoNome}"></input>
+					<input disabled="disabled" type="text" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.rgOuCpf.comment}"></input>
 				     <a class="icon-download" href="downloadFile?id=${processo.idRgCpf}"></a>
 				     <a class="icon-remove" onclick="removeDoc('idRgCpf','processoidRgCpfEdit','processoidRgCpfNovo','Identidade/CPF')" href="#"></a> </br>
 				</div>
@@ -362,7 +362,7 @@
 			<div class="clear"></div>
 			<textarea type="text" id="textAreaInput"  id="textAreaInput" name="descricao" >${processo.resposta.comentario}</textarea>
 			<div class="clear"></div>
-			<input disabled="disabled" type="text" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.resposta.anexo.arquivoNome}"></input>
+			<input disabled="disabled" type="text" id="processo.idRgCpf" name="processo.idRgCpf" value="${processo.resposta.anexo.comment}"></input>
 		     <a class="icon-download" href="downloadFile?id=${processo.resposta.idDocumentoAnexo}"></a>
 			
 		</div>
