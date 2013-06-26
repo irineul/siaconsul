@@ -117,7 +117,16 @@ public class Simulador extends BaseController {
 		double vlrFinalParcela = abateValorParcelas(vlrIndevidoTotal, vlrNovaParcela, Integer.parseInt(qtdParcelas) - Integer.parseInt(qtdParcelasPagas));
 
 		/* Valor a ser cobrado do cliente */
-		double vlrCobrar = ValorRevisional.vlrRevisional(tpVeiculo, Double.parseDouble(vlrFinanciado), Double.parseDouble(vlrParcelaAtual) - vlrNovaParcela);
+		double vlrCobrar = 0;		
+		if(tpVeiculo.isEmpty())
+		{
+			vlrCobrar = ValorRevisional.vlrRevisional(tpFinanciamento, Double.parseDouble(vlrFinanciado), Double.parseDouble(vlrParcelaAtual) - vlrNovaParcela);			
+		}
+		else
+		{
+			vlrCobrar = ValorRevisional.vlrRevisional(tpVeiculo, Double.parseDouble(vlrFinanciado), Double.parseDouble(vlrParcelaAtual) - vlrNovaParcela);			
+		}
+		
 		/* Seto os valores para apresentação na tela */
 		/* ***************************************** */
 		Calculo c = new Calculo(); 
