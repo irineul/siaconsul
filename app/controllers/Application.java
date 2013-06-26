@@ -52,15 +52,14 @@ public class Application extends BaseController {
 	public static void login(String email, String senha) {
 
 		List<UsuarioModel> result = UsuarioModel.find("email = ? And senha = ?", email, senha).fetch();
-
 		if (result != null && result.size() > 0) {
 			UsuarioModel usuario = result.get(0);
 			List<AdvogadoModel> advogado = AdvogadoModel.find("idUsuario=?", usuario.id).fetch();
 			if (advogado != null && advogado.size() > 0) {
 				play.mvc.Scope.Session.current().put("idAdvogado",advogado.get(0).id);
 				play.mvc.Scope.Session.current().put("idConsultor",0);
+				play.mvc.Scope.Session.current().put("idUsuario",advogado.get(0).getIdUsuario());
 				play.mvc.Scope.Session.current().put("tpUsuario","A");
-				play.mvc.Scope.Session.current().put("idUsuario",2);
 				Processo.lista(null);
 			}
 

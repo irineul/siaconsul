@@ -26,5 +26,9 @@ public class AdvogadoModel extends Model{
 		List<UsuarioModel> list = GenericModel.find("idUsuario = ?",this.id).fetch();
 		return (ArrayList<UsuarioModel>) list;
 	}
+	
+	public long getIdUsuario(){
+		return idUsuario;
+	}
 
 }
