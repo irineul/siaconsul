@@ -1,0 +1,66 @@
+#{extends 'internalMain.html' /}
+#{set title:'Clientes/Incluir' /}
+
+
+
+#{get 'moreStyles' /}
+        <script src="@{'/public/javascripts/cliente.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/jquery.maskedinput.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        
+#{get 'moreScripts' /}
+
+
+#{if (msgSuc != null) }
+<div class="alert alert-success topMsg">
+  ${msgSuc}
+</div>
+#{/if}
+#{if (msgErro != null) }
+<div class="alert alert-error topMsg">
+  ${msgErro}
+</div>
+#{/if}
+   #{form id: 'formConsultor', class: 'form-horizontal', action: @Consultor.editar()}
+  <fieldset>
+  
+
+	<div class= "clear"> </div>
+ 	<input type="hidden" name="id" value="${consultor.id}">
+ 	<input type="hidden" name="operacao" value="editar">
+ 	
+
+    
+    <div class="control-group"> 
+		<label class="control-label" for="email">Senha Atual</label>
+		<div class="controls">
+		    <input type="password" class="input-xlarge" id="senhaAtual" name="senhaAtual">
+		    <span class="error">#{error 'email' /}</span>
+	    </div>
+    </div>
+    
+    
+    
+    <div class="control-group"> 
+		<label class="control-label" for="email">Nova Senha</label>
+		<div class="controls">
+		    <input type="password" class="input-xlarge" id="novaSenha" name="novaSenha">
+		    <span class="error">#{error 'email' /}</span>
+	    </div>
+    </div>
+	
+	 
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn" aria-hidden="true" onClick="cancelar();">Cancelar</button>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+  </div>
+#{/form}
+
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		ajustaForm("${tipoPessoa}");
+	});
+</script>
+
+
