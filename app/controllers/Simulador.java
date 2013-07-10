@@ -76,7 +76,7 @@ public class Simulador extends BaseController {
 
 					if(vlrTaxaBanco != 0)
 					{
-						vlrJuros = vlrTaxaBanco / 100;
+						vlrJuros = (vlrTaxaBanco / 12) / 100;
 					}
 					else
 					{
