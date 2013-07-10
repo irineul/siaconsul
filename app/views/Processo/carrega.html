@@ -213,6 +213,7 @@
 						</div>
 					</div><!-- Fim  control-grupo -->
 				</div>
+				<div class="errorMessage" id="procuracaoDocValidation"></div>
 			#{/if}
 			#{else}
 			<div id="processoIdProcuracaoNovo"></div>
@@ -240,6 +241,7 @@
 				    	<input id="declaracaoDoc" name="declaracaoDoc" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 			        </div>
 				</div>
+				<div class="errorMessage" id="declaracaoDocValidation"></div>
 			#{/if}
 			#{else}
 			
@@ -268,6 +270,7 @@
 					    	<input id="docCarro" name="docCarro" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 				        </div>
 					</div>
+					<div class="errorMessage" id="docCarroValidation"></div>
 			#{/if}
 			#{else}
 			
@@ -296,6 +299,7 @@
 				    	<input id="idComprovanteResidencia" name="idComprovanteResidencia" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 			        </div>
 				</div>
+				<div class="errorMessage" id="idComprovanteResidenciaValidation"></div>
 			#{/if}
 			#{else}
 				<div id="processoidComprovanteResidenciaNovo"></div>
@@ -323,6 +327,7 @@
 				    	<input id="idRgCpf" name="idRgCpf" type="file" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remover</a>
 			        </div>
 				</div>
+				<div class="errorMessage"  id="idRgCpfValidation"></div>
 			#{/if}
 			#{else}
 				<div id="processoidRgCpfNovo"></div>
@@ -342,7 +347,7 @@
 	</div>
 	<!-- ****************************************** FIM DOCUMENTOS OBRIGATORIOS ************************************************************************************-->
 	
-	<input id="salvarProcessoBtn" onclick="validaDocs()" class="btn btn-primary" type="submit" value="Salvar Processo">
+	<input id="insertSubmitButton"  class="btn btn-primary" type="button" value="Salvar Processo">
 	
 	</fieldset>
 	#{/}

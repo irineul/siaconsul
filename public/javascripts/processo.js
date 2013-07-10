@@ -1,3 +1,8 @@
+/*Import*/
+var imported = document.createElement('script');
+imported.src = '/public/javascripts/util.js';
+document.head.appendChild(imported);
+
 
 
 
@@ -57,7 +62,36 @@ $(document).ready(function() {
 				.closest('.control-group').removeClass('error').addClass('success');
 			}
 	  }});
+	
+	
+	
+	$(".errorMessage").hide();
+	
+	$("#insertSubmitButton").click(function() {
+		  validateForm("formProcesso");
+	});
 });
+
+
+/*
+ * 
+ * Validations
+ */
+function validateForm(formId){
+	
+	var field1 = validateRequired("procuracaoDoc",           "Campo obrigatório");
+	var field2 = validateRequired("declaracaoDoc",           "Campo obrigatório");
+	var field3 = validateRequired("docCarro"     ,           "Campo obrigatório");
+	var field4 = validateRequired("idComprovanteResidencia", "Campo obrigatório");
+	var field5 = validateRequired("idRgCpfValidation"	   , "Campo obrigatório");
+	
+	if (field1 ==1 && field2 ==1 && field3 ==1) {
+		document.getElementById(formId).submit();
+	}
+	
+}
+
+
 
 
 function setValueTo(value,id){

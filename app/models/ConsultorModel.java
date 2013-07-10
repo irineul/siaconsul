@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import play.db.jpa.GenericModel;
 import play.db.jpa.Model;
@@ -19,6 +20,9 @@ public class ConsultorModel extends Model{
 	
 	@Column(name="ID_USUARIO")
     private Long idUsuario;
+	
+	@Transient
+	private UsuarioModel usuario;
 	
 	public AdvogadoModel getAdvogado() {
 		return AdvogadoModel.findById(this.idAdvogado);
@@ -40,9 +44,9 @@ public class ConsultorModel extends Model{
 		return (ArrayList<ClienteModel>) list;
 	}
 	
-	public ArrayList<UsuarioModel> getUsuario () {
-		List<UsuarioModel> list = ClienteModel.find("idUsuario = ?",this.id).fetch();
-		return (ArrayList<UsuarioModel>) list;
+	public UsuarioModel getUsuario () {
+		usuario = UsuarioModel.findById(this.idUsuario);
+		return usuario;
 	}
 	
 	public long getIsuario(){
