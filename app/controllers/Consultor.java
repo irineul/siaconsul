@@ -15,21 +15,27 @@ public class Consultor extends BaseController {
 	}
 	
 	public static void editar() {
+		String msgErro = null;
+		String msgSuc  = null;
 		
-		String operacao = params.get("OPERACAO", String.class);
-		if (operacao != null && "EDITAR".equals(operacao)){
+		String operacao = params.get("operacao", String.class);
+		if (operacao != null && "EDITAR".equals(operacao.toUpperCase())){
 			Long id = params.get("id", Long.class);
 			ConsultorModel consultor = ConsultorModel.findById(id);
 			String senhaAtual = params.get("senhaAtual", String.class);
 			if (senhaAtual.equals(consultor.getUsuario().getSenha())) {
 				String novaSenha = params.get("novaSenha", String.class);
 				consultor.getUsuario().setSenha(novaSenha);
+				consultor.getUsuario().save();
 				consultor.save();
+				msgSuc="Senha alterada com sucesso";
+			}else{
+				msgErro="Senha atual está errada";
 			}
 		}
 		ConsultorModel consultor = getConsultorLogado();
     	consultor.getUsuario();
-    	render(consultor);
+    	render(consultor, msgErro, msgSuc);
 		
     	
 	}
